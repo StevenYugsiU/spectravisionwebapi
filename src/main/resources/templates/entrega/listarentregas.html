@@ -24,6 +24,7 @@
 						<th>Fecha Entrega</th>
 						<th>Observaciones</th>
 						<th>Estado</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -32,10 +33,16 @@
 						<td th:text="${entrega.idCliente}"></td>
 						<td th:text="${#dates.format(entrega.fechaEntrega, 'dd/MM/yyyy')}"></td>
 						<td th:text="${entrega.observaciones}"></td>
-						<td><span class="badge badge-info" th:text="${entrega.estado}"></span></td>
+						<td><span class="badge-soft badge-soft-info" th:text="${entrega.estado}"></span></td>
+						<td class="actions-cell">
+							<div class="action-icons">
+								<a href="#" class="btn btn-primary btn-icon" title="Editar"><i class="mdi mdi-pencil"></i></a>
+								<a href="#" class="btn btn-danger btn-icon" title="Eliminar"><i class="mdi mdi-delete"></i></a>
+							</div>
+						</td>
 					</tr>
 					<tr th:if="${#lists.isEmpty(listaentregas)}">
-						<td colspan="5" class="text-center">No hay entregas registradas.</td>
+						<td colspan="6" class="text-center">No hay entregas registradas.</td>
 					</tr>
 				</tbody>
 			</table>

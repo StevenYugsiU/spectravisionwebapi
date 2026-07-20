@@ -13,6 +13,7 @@
 <link rel="stylesheet"
 	th:href="@{/assets/vendors/css/vendor.bundle.base.css}">
 <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+<link rel="stylesheet" th:href="@{/assets/css/custom.css}">
 
 <link rel="shortcut icon" th:href="@{/assets/images/favicon.png}" />
 </head>
@@ -183,9 +184,9 @@
 				</a>
 					<div class="collapse" id="menu-configuracion">
 						<ul class="nav flex-column sub-menu">
-							<li class="nav-item"><a class="nav-link">Opcion 1</a></li>
-							<li class="nav-item"><a class="nav-link">Opcion 2</a></li>
-							<li class="nav-item"><a class="nav-link">Opcion 3</a></li>
+							<li class="nav-item"><a class="nav-link" href="#">Opcion 1</a></li>
+							<li class="nav-item"><a class="nav-link" href="#">Opcion 2</a></li>
+							<li class="nav-item"><a class="nav-link" href="#">Opcion 3</a></li>
 							<!--<li class="nav-item"> <a class="nav-link" href="../../pages/ui-features/buttons.html">Buttons</a></li> -->
 						</ul>
 					</div></li>
@@ -214,11 +215,13 @@
 
 
 					<ul class="navbar-nav navbar-nav-right">
-						<li class="nav-item dropdown d-none d-lg-block"><a
+						<!-- <li class="nav-item dropdown d-none d-lg-block"><a
 							class="nav-link btn btn-success create-new-button"
 							id="createbuttonDropdown" data-toggle="dropdown"
 							aria-expanded="false" href="#">+ Crear Nuevo</a>
-						</li>
+						</li> -->
+						
+						<a th:href="@{/cliente/nuevo}" class="btn btn-primary">+ Nuevo Cliente</a>
 
 						<li class="nav-item dropdown border-left"><a
 							class="nav-link count-indicator dropdown-toggle"

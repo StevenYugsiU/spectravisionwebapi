@@ -1,0 +1,72 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="/layout/layout">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Nueva Historia Clínica</title>
+</head>
+
+<body>
+
+	<div layout:fragment="cargarpaginas">
+
+		<div class="row">
+			<div class="col-md-6 offset-md-3 grid-margin stretch-card">
+				<div class="card">
+					<div class="card-body">
+
+						<h4 class="card-title">Nueva Historia Clínica</h4>
+						<p class="card-description">Registro de una nueva historia clínica</p>
+
+						<form th:action="@{/historiaclinica/guardar}" th:object="${historiaclinica}"
+							method="post" class="forms-sample">
+
+							<div class="form-group">
+								<label for="idCliente">Id Cliente</label>
+								<input type="number" th:field="*{idCliente}" class="form-control"
+									id="idCliente" placeholder="Ingrese el id del cliente">
+							</div>
+
+							<div class="form-group">
+								<label for="fechaApertura">Fecha de Apertura</label>
+								<input type="date" th:field="*{fechaApertura}"
+									class="form-control" id="fechaApertura">
+							</div>
+
+							<div class="form-group">
+								<label for="antecedentes">Antecedentes</label>
+								<input type="text" th:field="*{antecedentes}" class="form-control"
+									id="antecedentes" placeholder="Ingrese los antecedentes">
+							</div>
+
+							<div class="form-group">
+								<label for="observacionesGenerales">Observaciones Generales</label>
+								<input type="text" th:field="*{observacionesGenerales}" class="form-control"
+									id="observacionesGenerales" placeholder="Ingrese las observaciones generales">
+							</div>
+
+							<div class="form-check form-check-flat form-check-primary">
+								<label class="form-check-label"> <input type="checkbox"
+									th:field="*{estado}" class="form-check-input"> Activo
+								</label>
+							</div>
+
+							<button type="submit" class="btn btn-primary mr-2">Crear</button>
+							<a th:href="@{/historiaclinica}" class="btn btn-dark">Cancelar</a>
+
+						</form>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</body>
+
+</html>

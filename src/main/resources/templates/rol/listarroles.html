@@ -22,6 +22,7 @@
 						<th>Id</th>
 						<th>Nombre</th>
 						<th>Descripción</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -29,9 +30,15 @@
 						<td th:text="${rol.idRol}"></td>
 						<td th:text="${rol.nombre}"></td>
 						<td th:text="${rol.descripcion}"></td>
+						<td class="actions-cell">
+							<div class="action-icons">
+								<a href="#" class="btn btn-primary btn-icon" title="Editar"><i class="mdi mdi-pencil"></i></a>
+								<a href="#" class="btn btn-danger btn-icon" title="Eliminar"><i class="mdi mdi-delete"></i></a>
+							</div>
+						</td>
 					</tr>
 					<tr th:if="${#lists.isEmpty(listaroles)}">
-						<td colspan="3" class="text-center">No hay roles registrados.</td>
+						<td colspan="4" class="text-center">No hay roles registrados.</td>
 					</tr>
 				</tbody>
 			</table>

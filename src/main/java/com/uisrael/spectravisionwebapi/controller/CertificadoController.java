@@ -6,8 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.uisrael.spectravisionwebapi.model.request.CertificadoRequestDto;
 import com.uisrael.spectravisionwebapi.model.response.CertificadoResponseDto;
 import com.uisrael.spectravisionwebapi.service.ICertificadoService;
 
@@ -23,6 +26,18 @@ public class CertificadoController {
 		List<CertificadoResponseDto> listaCertificados = servicioCertificado.listarCertificados();
 		model.addAttribute("listacertificados", listaCertificados);
 		return "/certificado/listarcertificados";
+	}
+
+	@GetMapping("/nuevo")
+	public String nuevoCertificado(Model model) {
+		model.addAttribute("certificado", new CertificadoRequestDto());
+		return "/certificado/formulariocertificado";
+	}
+
+	@PostMapping("/guardar")
+	public String guardarCertificado(@ModelAttribute CertificadoRequestDto certificado) {
+		servicioCertificado.guardarCertificado(certificado);
+		return "redirect:/certificado";
 	}
 
 }

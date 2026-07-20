@@ -25,6 +25,7 @@
 						<th>Hora</th>
 						<th>Tipo Cita</th>
 						<th>Estado</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -34,10 +35,16 @@
 						<td th:text="${#dates.format(cita.fecha, 'dd/MM/yyyy')}"></td>
 						<td th:text="${cita.hora}"></td>
 						<td th:text="${cita.tipoCita}"></td>
-						<td><span class="badge badge-info" th:text="${cita.estado}"></span></td>
+						<td><span class="badge-soft badge-soft-info" th:text="${cita.estado}"></span></td>
+						<td class="actions-cell">
+							<div class="action-icons">
+								<a href="#" class="btn btn-primary btn-icon" title="Editar"><i class="mdi mdi-pencil"></i></a>
+								<a href="#" class="btn btn-danger btn-icon" title="Eliminar"><i class="mdi mdi-delete"></i></a>
+							</div>
+						</td>
 					</tr>
 					<tr th:if="${#lists.isEmpty(listacitas)}">
-						<td colspan="6" class="text-center">No hay citas registradas.</td>
+						<td colspan="7" class="text-center">No hay citas registradas.</td>
 					</tr>
 				</tbody>
 			</table>

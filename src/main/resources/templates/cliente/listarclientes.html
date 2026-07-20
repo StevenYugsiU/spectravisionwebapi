@@ -15,7 +15,10 @@
 	<div layout:fragment="cargarpaginas">
 
 		<!----------------------------- Tabla ----------------------------->
-		<h4 class="card-title">Clientes</h4>
+		<div class="d-flex justify-content-between align-items-center mb-3">
+			<h4 class="card-title mb-0">Clientes</h4>
+			
+		</div>
 		<div class="table-responsive">
 			<table class="table table-hover">
 				<thead>
@@ -28,6 +31,7 @@
 						<th>Celular</th>
 						<th>Correo</th>
 						<th>Estado</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -39,12 +43,29 @@
 						<td th:text="${cliente.ocupacion}"></td>
 						<td th:text="${cliente.celular}"></td>
 						<td th:text="${cliente.correo}"></td>
-						<td><span class="badge"
-							th:classappend="${cliente.estado} ? 'badge-success' : 'badge-danger'"
+						<td><span class="badge-soft"
+							th:classappend="${cliente.estado} ? 'badge-soft-success' : 'badge-soft-danger'"
 							th:text="${cliente.estado} ? 'Activo' : 'Inactivo'"></span></td>
+						<td class="actions-cell">
+							<div class="action-icons">
+								<a href="#" class="btn btn-primary btn-icon" title="Editar datos"><i class="mdi mdi-pencil"></i></a>
+								<a href="#" class="btn btn-danger btn-icon" title="Eliminar"><i class="mdi mdi-delete"></i></a>
+								<div class="dropdown">
+									<button class="btn btn-icon dropdown-toggle" type="button"
+										data-toggle="dropdown" aria-expanded="false" title="Más acciones">
+										<i class="mdi mdi-dots-vertical"></i>
+									</button>
+									<div class="dropdown-menu dropdown-menu-right">
+										<a class="dropdown-item" href="#">Ver cliente</a>
+										<a class="dropdown-item" href="#">Abrir historia clínica</a>
+										<a class="dropdown-item" href="#">Registrar examen</a>
+									</div>
+								</div>
+							</div>
+						</td>
 					</tr>
 					<tr th:if="${#lists.isEmpty(listaclientes)}">
-						<td colspan="8" class="text-center">No hay clientes registrados.</td>
+						<td colspan="9" class="text-center">No hay clientes registrados.</td>
 					</tr>
 				</tbody>
 			</table>

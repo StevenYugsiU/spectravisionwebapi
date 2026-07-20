@@ -22,6 +22,7 @@
 						<th>Id</th>
 						<th>Id Usuario</th>
 						<th>Id Rol</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -29,9 +30,15 @@
 						<td th:text="${usuarioRol.idUsuarioRol}"></td>
 						<td th:text="${usuarioRol.idUsuario}"></td>
 						<td th:text="${usuarioRol.idRol}"></td>
+						<td class="actions-cell">
+							<div class="action-icons">
+								<a href="#" class="btn btn-primary btn-icon" title="Editar"><i class="mdi mdi-pencil"></i></a>
+								<a href="#" class="btn btn-danger btn-icon" title="Eliminar"><i class="mdi mdi-delete"></i></a>
+							</div>
+						</td>
 					</tr>
 					<tr th:if="${#lists.isEmpty(listausuarioroles)}">
-						<td colspan="3" class="text-center">No hay asignaciones de roles registradas.</td>
+						<td colspan="4" class="text-center">No hay asignaciones de roles registradas.</td>
 					</tr>
 				</tbody>
 			</table>

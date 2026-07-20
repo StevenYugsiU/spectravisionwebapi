@@ -1,0 +1,54 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="/layout/layout">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Nuevo Certificado</title>
+</head>
+
+<body>
+
+	<div layout:fragment="cargarpaginas">
+
+		<div class="row">
+			<div class="col-md-6 offset-md-3 grid-margin stretch-card">
+				<div class="card">
+					<div class="card-body">
+
+						<h4 class="card-title">Nuevo Certificado</h4>
+						<p class="card-description">Registro de un nuevo certificado</p>
+
+						<form th:action="@{/certificado/guardar}" th:object="${certificado}"
+							method="post" class="forms-sample">
+
+							<div class="form-group">
+								<label for="fechaGeneracion">Fecha de Generación</label>
+								<input type="date" th:field="*{fechaGeneracion}"
+									class="form-control" id="fechaGeneracion">
+							</div>
+
+							<div class="form-group">
+								<label for="observaciones">Observaciones</label>
+								<input type="text" th:field="*{observaciones}" class="form-control"
+									id="observaciones" placeholder="Ingrese las observaciones">
+							</div>
+
+							<button type="submit" class="btn btn-primary mr-2">Crear</button>
+							<a th:href="@{/certificado}" class="btn btn-dark">Cancelar</a>
+
+						</form>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</body>
+
+</html>

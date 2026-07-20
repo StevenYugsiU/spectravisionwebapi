@@ -8,21 +8,21 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.uisrael.spectravisionwebapi.model.response.ClienteResponseDto;
-import com.uisrael.spectravisionwebapi.service.IClienteService;
+import com.uisrael.spectravisionwebapi.model.response.EntregaResponseDto;
+import com.uisrael.spectravisionwebapi.service.IEntregaService;
 
 @Controller
-@RequestMapping("/cliente")
-public class ClienteController {
+@RequestMapping("/entrega")
+public class EntregaController {
 
 	@Autowired
-	private IClienteService servicioCliente;
+	private IEntregaService servicioEntrega;
 
 	@GetMapping
 	public String leerPagina(Model model) {
-		List<ClienteResponseDto> listaClientes = servicioCliente.listarClientes();
-		model.addAttribute("listaclientes", listaClientes);
-		return "/cliente/listarclientes";
+		List<EntregaResponseDto> listaEntregas = servicioEntrega.listarEntregas();
+		model.addAttribute("listaentregas", listaEntregas);
+		return "/entrega/listarentregas";
 	}
 
 }

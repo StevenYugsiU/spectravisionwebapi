@@ -1,0 +1,48 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="/layout/layout">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Entregas</title>
+</head>
+
+<body>
+
+	<div layout:fragment="cargarpaginas">
+
+		<h4 class="card-title">Entregas</h4>
+		<div class="table-responsive">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Id Cliente</th>
+						<th>Fecha Entrega</th>
+						<th>Observaciones</th>
+						<th>Estado</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="entrega : ${listaentregas}">
+						<td th:text="${entrega.idEntrega}"></td>
+						<td th:text="${entrega.idCliente}"></td>
+						<td th:text="${#dates.format(entrega.fechaEntrega, 'dd/MM/yyyy')}"></td>
+						<td th:text="${entrega.observaciones}"></td>
+						<td><span class="badge badge-info" th:text="${entrega.estado}"></span></td>
+					</tr>
+					<tr th:if="${#lists.isEmpty(listaentregas)}">
+						<td colspan="5" class="text-center">No hay entregas registradas.</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+	</div>
+
+</body>
+
+</html>

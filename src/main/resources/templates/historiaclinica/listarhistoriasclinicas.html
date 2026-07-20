@@ -1,0 +1,52 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="/layout/layout">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Historias Clínicas</title>
+</head>
+
+<body>
+
+	<div layout:fragment="cargarpaginas">
+
+		<h4 class="card-title">Historias Clínicas</h4>
+		<div class="table-responsive">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Id Cliente</th>
+						<th>Fecha Apertura</th>
+						<th>Antecedentes</th>
+						<th>Observaciones Generales</th>
+						<th>Estado</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="historia : ${listahistoriasclinicas}">
+						<td th:text="${historia.idHistoriaClinica}"></td>
+						<td th:text="${historia.idCliente}"></td>
+						<td th:text="${#dates.format(historia.fechaApertura, 'dd/MM/yyyy')}"></td>
+						<td th:text="${historia.antecedentes}"></td>
+						<td th:text="${historia.observacionesGenerales}"></td>
+						<td><span class="badge"
+							th:classappend="${historia.estado} ? 'badge-success' : 'badge-danger'"
+							th:text="${historia.estado} ? 'Activo' : 'Inactivo'"></span></td>
+					</tr>
+					<tr th:if="${#lists.isEmpty(listahistoriasclinicas)}">
+						<td colspan="6" class="text-center">No hay historias clínicas registradas.</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+	</div>
+
+</body>
+
+</html>

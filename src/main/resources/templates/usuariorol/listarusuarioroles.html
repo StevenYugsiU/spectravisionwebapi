@@ -1,0 +1,44 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="/layout/layout">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Asignación de Roles</title>
+</head>
+
+<body>
+
+	<div layout:fragment="cargarpaginas">
+
+		<h4 class="card-title">Asignación de Roles</h4>
+		<div class="table-responsive">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Id Usuario</th>
+						<th>Id Rol</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="usuarioRol : ${listausuarioroles}">
+						<td th:text="${usuarioRol.idUsuarioRol}"></td>
+						<td th:text="${usuarioRol.idUsuario}"></td>
+						<td th:text="${usuarioRol.idRol}"></td>
+					</tr>
+					<tr th:if="${#lists.isEmpty(listausuarioroles)}">
+						<td colspan="3" class="text-center">No hay asignaciones de roles registradas.</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+	</div>
+
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="/layout/layout">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Seguimientos</title>
+</head>
+
+<body>
+
+	<div layout:fragment="cargarpaginas">
+
+		<h4 class="card-title">Seguimientos</h4>
+		<div class="table-responsive">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Id Entrega</th>
+						<th>Fecha Seguimiento</th>
+						<th>Observaciones</th>
+						<th>Estado</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="seguimiento : ${listaseguimientos}">
+						<td th:text="${seguimiento.idSeguimiento}"></td>
+						<td th:text="${seguimiento.idEntrega}"></td>
+						<td th:text="${#dates.format(seguimiento.fechaSeguimiento, 'dd/MM/yyyy')}"></td>
+						<td th:text="${seguimiento.observaciones}"></td>
+						<td><span class="badge badge-info" th:text="${seguimiento.estado}"></span></td>
+					</tr>
+					<tr th:if="${#lists.isEmpty(listaseguimientos)}">
+						<td colspan="5" class="text-center">No hay seguimientos registrados.</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+	</div>
+
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="/layout/layout">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Citas</title>
+</head>
+
+<body>
+
+	<div layout:fragment="cargarpaginas">
+
+		<h4 class="card-title">Citas</h4>
+		<div class="table-responsive">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Id Cliente</th>
+						<th>Fecha</th>
+						<th>Hora</th>
+						<th>Tipo Cita</th>
+						<th>Estado</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="cita : ${listacitas}">
+						<td th:text="${cita.idCita}"></td>
+						<td th:text="${cita.idCliente}"></td>
+						<td th:text="${#dates.format(cita.fecha, 'dd/MM/yyyy')}"></td>
+						<td th:text="${cita.hora}"></td>
+						<td th:text="${cita.tipoCita}"></td>
+						<td><span class="badge badge-info" th:text="${cita.estado}"></span></td>
+					</tr>
+					<tr th:if="${#lists.isEmpty(listacitas)}">
+						<td colspan="6" class="text-center">No hay citas registradas.</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+	</div>
+
+</body>
+
+</html>

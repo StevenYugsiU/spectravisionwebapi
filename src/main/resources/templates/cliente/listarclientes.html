@@ -1,0 +1,60 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="/layout/layout">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Clientes</title>
+</head>
+
+<body>
+
+	<div layout:fragment="cargarpaginas">
+
+		<!----------------------------- Tabla ----------------------------->
+		<h4 class="card-title">Clientes</h4>
+		<div class="table-responsive">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Cédula</th>
+						<th>Nombres</th>
+						<th>Apellidos</th>
+						<th>Edad</th>
+						<th>Ocupación</th>
+						<th>Celular</th>
+						<th>Correo</th>
+						<th>Estado</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="cliente : ${listaclientes}">
+						<td th:text="${cliente.cedula}"></td>
+						<td th:text="${cliente.nombres}"></td>
+						<td th:text="${cliente.apellidos}"></td>
+						<td th:text="${cliente.edad}"></td>
+						<td th:text="${cliente.ocupacion}"></td>
+						<td th:text="${cliente.celular}"></td>
+						<td th:text="${cliente.correo}"></td>
+						<td><span class="badge"
+							th:classappend="${cliente.estado} ? 'badge-success' : 'badge-danger'"
+							th:text="${cliente.estado} ? 'Activo' : 'Inactivo'"></span></td>
+					</tr>
+					<tr th:if="${#lists.isEmpty(listaclientes)}">
+						<td colspan="8" class="text-center">No hay clientes registrados.</td>
+					</tr>
+				</tbody>
+			</table>
+			<!----------------------------- final Tabla ----------------------------->
+
+		</div>
+
+
+	</div>
+
+</body>
+
+</html>

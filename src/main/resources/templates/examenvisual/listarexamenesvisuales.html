@@ -1,0 +1,50 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="/layout/layout">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Exámenes Visuales</title>
+</head>
+
+<body>
+
+	<div layout:fragment="cargarpaginas">
+
+		<h4 class="card-title">Exámenes Visuales</h4>
+		<div class="table-responsive">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Id Historia</th>
+						<th>Fecha Examen</th>
+						<th>Motivo Consulta</th>
+						<th>Diagnóstico</th>
+						<th>Próxima Consulta</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="examen : ${listaexamenesvisuales}">
+						<td th:text="${examen.idExamen}"></td>
+						<td th:text="${examen.idHistoria}"></td>
+						<td th:text="${#dates.format(examen.fechaExamen, 'dd/MM/yyyy')}"></td>
+						<td th:text="${examen.motivoConsulta}"></td>
+						<td th:text="${examen.diagnostico}"></td>
+						<td th:text="${examen.proximaConsulta}"></td>
+					</tr>
+					<tr th:if="${#lists.isEmpty(listaexamenesvisuales)}">
+						<td colspan="6" class="text-center">No hay exámenes visuales registrados.</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+	</div>
+
+</body>
+
+</html>

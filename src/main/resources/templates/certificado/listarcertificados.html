@@ -1,0 +1,46 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="/layout/layout">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Certificados</title>
+</head>
+
+<body>
+
+	<div layout:fragment="cargarpaginas">
+
+		<h4 class="card-title">Certificados</h4>
+		<div class="table-responsive">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Id Examen</th>
+						<th>Fecha Generación</th>
+						<th>Observaciones</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="certificado : ${listacertificados}">
+						<td th:text="${certificado.idCertificado}"></td>
+						<td th:text="${certificado.idExamen}"></td>
+						<td th:text="${#dates.format(certificado.fechaGeneracion, 'dd/MM/yyyy')}"></td>
+						<td th:text="${certificado.observaciones}"></td>
+					</tr>
+					<tr th:if="${#lists.isEmpty(listacertificados)}">
+						<td colspan="4" class="text-center">No hay certificados registrados.</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+	</div>
+
+</body>
+
+</html>

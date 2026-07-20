@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import com.uisrael.spectravisionwebapi.model.request.HistoriaClinicaRequestDto;
 import com.uisrael.spectravisionwebapi.model.response.HistoriaClinicaResponseDto;
 import com.uisrael.spectravisionwebapi.service.IHistoriaClinicaService;
 
@@ -21,6 +22,12 @@ public class HistoriaClinicaServiceImpl implements IHistoriaClinicaService {
 	public List<HistoriaClinicaResponseDto> listarHistoriasClinicas() {
 		return webclient.get().uri("/hClinica").retrieve()
 				.bodyToFlux(HistoriaClinicaResponseDto.class).collectList().block();
+	}
+
+	@Override
+	public void guardarHistoriaClinica(HistoriaClinicaRequestDto nuevaHistoriaClinica) {
+		webclient.post().uri("/hClinica").bodyValue(nuevaHistoriaClinica).retrieve()
+				.toBodilessEntity().block();
 	}
 
 }

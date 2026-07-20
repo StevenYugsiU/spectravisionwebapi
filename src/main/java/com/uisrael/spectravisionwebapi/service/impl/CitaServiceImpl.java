@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import com.uisrael.spectravisionwebapi.model.request.CitaRequestDto;
 import com.uisrael.spectravisionwebapi.model.response.CitaResponseDto;
 import com.uisrael.spectravisionwebapi.service.ICitaService;
 
@@ -21,6 +22,12 @@ public class CitaServiceImpl implements ICitaService {
 	public List<CitaResponseDto> listarCitas() {
 		return webclient.get().uri("/cita").retrieve()
 				.bodyToFlux(CitaResponseDto.class).collectList().block();
+	}
+
+	@Override
+	public void guardarCita(CitaRequestDto nuevaCita) {
+		webclient.post().uri("/cita").bodyValue(nuevaCita).retrieve()
+				.toBodilessEntity().block();
 	}
 
 }

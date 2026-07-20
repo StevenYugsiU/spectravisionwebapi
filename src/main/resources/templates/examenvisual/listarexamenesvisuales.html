@@ -25,6 +25,7 @@
 						<th>Motivo Consulta</th>
 						<th>Diagnóstico</th>
 						<th>Próxima Consulta</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -35,9 +36,15 @@
 						<td th:text="${examen.motivoConsulta}"></td>
 						<td th:text="${examen.diagnostico}"></td>
 						<td th:text="${examen.proximaConsulta}"></td>
+						<td class="actions-cell">
+							<div class="action-icons">
+								<a href="#" class="btn btn-primary btn-icon" title="Editar"><i class="mdi mdi-pencil"></i></a>
+								<a href="#" class="btn btn-danger btn-icon" title="Eliminar"><i class="mdi mdi-delete"></i></a>
+							</div>
+						</td>
 					</tr>
 					<tr th:if="${#lists.isEmpty(listaexamenesvisuales)}">
-						<td colspan="6" class="text-center">No hay exámenes visuales registrados.</td>
+						<td colspan="7" class="text-center">No hay exámenes visuales registrados.</td>
 					</tr>
 				</tbody>
 			</table>

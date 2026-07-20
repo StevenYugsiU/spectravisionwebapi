@@ -1,0 +1,66 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="/layout/layout">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Nuevo Seguimiento</title>
+</head>
+
+<body>
+
+	<div layout:fragment="cargarpaginas">
+
+		<div class="row">
+			<div class="col-md-6 offset-md-3 grid-margin stretch-card">
+				<div class="card">
+					<div class="card-body">
+
+						<h4 class="card-title">Nuevo Seguimiento</h4>
+						<p class="card-description">Registro de un nuevo seguimiento</p>
+
+						<form th:action="@{/seguimiento/guardar}" th:object="${seguimiento}"
+							method="post" class="forms-sample">
+
+							<div class="form-group">
+								<label for="idEntrega">Id Entrega</label>
+								<input type="number" th:field="*{idEntrega}" class="form-control"
+									id="idEntrega" placeholder="Ingrese el id de la entrega">
+							</div>
+
+							<div class="form-group">
+								<label for="fechaSeguimiento">Fecha de Seguimiento</label>
+								<input type="date" th:field="*{fechaSeguimiento}"
+									class="form-control" id="fechaSeguimiento">
+							</div>
+
+							<div class="form-group">
+								<label for="observaciones">Observaciones</label>
+								<input type="text" th:field="*{observaciones}" class="form-control"
+									id="observaciones" placeholder="Ingrese las observaciones">
+							</div>
+
+							<div class="form-group">
+								<label for="estado">Estado</label>
+								<input type="text" th:field="*{estado}" class="form-control"
+									id="estado" placeholder="Ej. PENDIENTE, REALIZADO">
+							</div>
+
+							<button type="submit" class="btn btn-primary mr-2">Crear</button>
+							<a th:href="@{/seguimiento}" class="btn btn-dark">Cancelar</a>
+
+						</form>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</body>
+
+</html>

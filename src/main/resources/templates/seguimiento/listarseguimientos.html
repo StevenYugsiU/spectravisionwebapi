@@ -24,6 +24,7 @@
 						<th>Fecha Seguimiento</th>
 						<th>Observaciones</th>
 						<th>Estado</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -32,10 +33,16 @@
 						<td th:text="${seguimiento.idEntrega}"></td>
 						<td th:text="${#dates.format(seguimiento.fechaSeguimiento, 'dd/MM/yyyy')}"></td>
 						<td th:text="${seguimiento.observaciones}"></td>
-						<td><span class="badge badge-info" th:text="${seguimiento.estado}"></span></td>
+						<td><span class="badge-soft badge-soft-info" th:text="${seguimiento.estado}"></span></td>
+						<td class="actions-cell">
+							<div class="action-icons">
+								<a href="#" class="btn btn-primary btn-icon" title="Editar"><i class="mdi mdi-pencil"></i></a>
+								<a href="#" class="btn btn-danger btn-icon" title="Eliminar"><i class="mdi mdi-delete"></i></a>
+							</div>
+						</td>
 					</tr>
 					<tr th:if="${#lists.isEmpty(listaseguimientos)}">
-						<td colspan="5" class="text-center">No hay seguimientos registrados.</td>
+						<td colspan="6" class="text-center">No hay seguimientos registrados.</td>
 					</tr>
 				</tbody>
 			</table>

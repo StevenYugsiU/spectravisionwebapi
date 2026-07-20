@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import com.uisrael.spectravisionwebapi.model.request.RolRequestDto;
 import com.uisrael.spectravisionwebapi.model.response.RolResponseDto;
 import com.uisrael.spectravisionwebapi.service.IRolService;
 
@@ -21,6 +22,12 @@ public class RolServiceImpl implements IRolService {
 	public List<RolResponseDto> listarRoles() {
 		return webclient.get().uri("/rol").retrieve()
 				.bodyToFlux(RolResponseDto.class).collectList().block();
+	}
+
+	@Override
+	public void guardarRol(RolRequestDto nuevoRol) {
+		webclient.post().uri("/rol").bodyValue(nuevoRol).retrieve()
+				.toBodilessEntity().block();
 	}
 
 }

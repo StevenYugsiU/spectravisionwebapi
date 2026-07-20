@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import com.uisrael.spectravisionwebapi.model.request.ExamenVisualRequestDto;
 import com.uisrael.spectravisionwebapi.model.response.ExamenVisualResponseDto;
 import com.uisrael.spectravisionwebapi.service.IExamenVisualService;
 
@@ -21,6 +22,12 @@ public class ExamenVisualServiceImpl implements IExamenVisualService {
 	public List<ExamenVisualResponseDto> listarExamenesVisuales() {
 		return webclient.get().uri("/examenVisual").retrieve()
 				.bodyToFlux(ExamenVisualResponseDto.class).collectList().block();
+	}
+
+	@Override
+	public void guardarExamenVisual(ExamenVisualRequestDto nuevoExamenVisual) {
+		webclient.post().uri("/examenVisual").bodyValue(nuevoExamenVisual).retrieve()
+				.toBodilessEntity().block();
 	}
 
 }

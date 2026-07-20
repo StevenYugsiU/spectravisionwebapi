@@ -1,0 +1,54 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="/layout/layout">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Nueva Asignación de Rol</title>
+</head>
+
+<body>
+
+	<div layout:fragment="cargarpaginas">
+
+		<div class="row">
+			<div class="col-md-6 offset-md-3 grid-margin stretch-card">
+				<div class="card">
+					<div class="card-body">
+
+						<h4 class="card-title">Nueva Asignación de Rol</h4>
+						<p class="card-description">Asignar un rol a un usuario</p>
+
+						<form th:action="@{/usuariorol/guardar}" th:object="${usuariorol}"
+							method="post" class="forms-sample">
+
+							<div class="form-group">
+								<label for="idUsuario">Id Usuario</label>
+								<input type="number" th:field="*{idUsuario}" class="form-control"
+									id="idUsuario" placeholder="Ingrese el id del usuario">
+							</div>
+
+							<div class="form-group">
+								<label for="idRol">Id Rol</label>
+								<input type="number" th:field="*{idRol}" class="form-control"
+									id="idRol" placeholder="Ingrese el id del rol">
+							</div>
+
+							<button type="submit" class="btn btn-primary mr-2">Crear</button>
+							<a th:href="@{/usuariorol}" class="btn btn-dark">Cancelar</a>
+
+						</form>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</body>
+
+</html>

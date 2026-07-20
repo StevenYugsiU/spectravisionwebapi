@@ -24,6 +24,7 @@
 						<th>Apellidos</th>
 						<th>Usuario</th>
 						<th>Estado</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -32,12 +33,18 @@
 						<td th:text="${usuario.nombres}"></td>
 						<td th:text="${usuario.apellidos}"></td>
 						<td th:text="${usuario.usuario}"></td>
-						<td><span class="badge"
-							th:classappend="${usuario.estado} ? 'badge-success' : 'badge-danger'"
+						<td><span class="badge-soft"
+							th:classappend="${usuario.estado} ? 'badge-soft-success' : 'badge-soft-danger'"
 							th:text="${usuario.estado} ? 'Activo' : 'Inactivo'"></span></td>
+						<td class="actions-cell">
+							<div class="action-icons">
+								<a href="#" class="btn btn-primary btn-icon" title="Editar"><i class="mdi mdi-pencil"></i></a>
+								<a href="#" class="btn btn-danger btn-icon" title="Eliminar"><i class="mdi mdi-delete"></i></a>
+							</div>
+						</td>
 					</tr>
 					<tr th:if="${#lists.isEmpty(listausuarios)}">
-						<td colspan="5" class="text-center">No hay usuarios registrados.</td>
+						<td colspan="6" class="text-center">No hay usuarios registrados.</td>
 					</tr>
 				</tbody>
 			</table>

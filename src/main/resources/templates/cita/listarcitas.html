@@ -1,0 +1,60 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="/layout/layout">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Citas</title>
+</head>
+
+<body>
+
+	<div layout:fragment="cargarpaginas">
+
+		<div class="d-flex justify-content-between align-items-center mb-3">
+			<h4 class="card-title mb-0">Citas</h4>
+			<a th:href="@{/cita/nuevo}" class="btn btn-primary">+ Nueva Cita</a>
+		</div>
+		<div class="table-responsive">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Id Cliente</th>
+						<th>Fecha</th>
+						<th>Hora</th>
+						<th>Tipo Cita</th>
+						<th>Estado</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="cita : ${listacitas}">
+						<td th:text="${cita.idCita}"></td>
+						<td th:text="${cita.idCliente}"></td>
+						<td th:text="${#dates.format(cita.fecha, 'dd/MM/yyyy')}"></td>
+						<td th:text="${cita.hora}"></td>
+						<td th:text="${cita.tipoCita}"></td>
+						<td><span class="badge-soft badge-soft-info" th:text="${cita.estado}"></span></td>
+						<td class="actions-cell">
+							<div class="action-icons">
+								<a href="#" class="btn btn-primary btn-icon" title="Editar"><i class="mdi mdi-pencil"></i></a>
+								<a href="#" class="btn btn-danger btn-icon" title="Eliminar"><i class="mdi mdi-delete"></i></a>
+							</div>
+						</td>
+					</tr>
+					<tr th:if="${#lists.isEmpty(listacitas)}">
+						<td colspan="7" class="text-center">No hay citas registradas.</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+	</div>
+
+</body>
+
+</html>

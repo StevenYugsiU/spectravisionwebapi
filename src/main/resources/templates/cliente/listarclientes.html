@@ -1,0 +1,81 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="/layout/layout">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Clientes</title>
+</head>
+
+<body>
+
+	<div layout:fragment="cargarpaginas">
+
+		<!----------------------------- Tabla ----------------------------->
+		<div class="d-flex justify-content-between align-items-center mb-3">
+			<h4 class="card-title mb-0">Clientes</h4>
+			<a th:href="@{/cliente/nuevo}" class="btn btn-primary">+ Nuevo Cliente</a>
+		</div>
+		<div class="table-responsive">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Cédula</th>
+						<th>Nombres</th>
+						<th>Apellidos</th>
+						<th>Edad</th>
+						<th>Ocupación</th>
+						<th>Celular</th>
+						<th>Correo</th>
+						<th>Estado</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="cliente : ${listaclientes}">
+						<td th:text="${cliente.cedula}"></td>
+						<td th:text="${cliente.nombres}"></td>
+						<td th:text="${cliente.apellidos}"></td>
+						<td th:text="${cliente.edad}"></td>
+						<td th:text="${cliente.ocupacion}"></td>
+						<td th:text="${cliente.celular}"></td>
+						<td th:text="${cliente.correo}"></td>
+						<td><span class="badge-soft"
+							th:classappend="${cliente.estado} ? 'badge-soft-success' : 'badge-soft-danger'"
+							th:text="${cliente.estado} ? 'Activo' : 'Inactivo'"></span></td>
+						<td class="actions-cell">
+							<div class="action-icons">
+								<a href="#" class="btn btn-primary btn-icon" title="Editar datos"><i class="mdi mdi-pencil"></i></a>
+								<a href="#" class="btn btn-danger btn-icon" title="Eliminar"><i class="mdi mdi-delete"></i></a>
+								<div class="dropdown">
+									<button class="btn btn-icon dropdown-toggle" type="button"
+										data-toggle="dropdown" aria-expanded="false" title="Más acciones">
+										<i class="mdi mdi-dots-vertical"></i>
+									</button>
+									<div class="dropdown-menu dropdown-menu-right">
+										<a class="dropdown-item" href="#">Ver cliente</a>
+										<a class="dropdown-item" href="#">Abrir historia clínica</a>
+										<a class="dropdown-item" href="#">Registrar examen</a>
+									</div>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr th:if="${#lists.isEmpty(listaclientes)}">
+						<td colspan="9" class="text-center">No hay clientes registrados.</td>
+					</tr>
+				</tbody>
+			</table>
+			<!----------------------------- final Tabla ----------------------------->
+
+		</div>
+
+
+	</div>
+
+</body>
+
+</html>

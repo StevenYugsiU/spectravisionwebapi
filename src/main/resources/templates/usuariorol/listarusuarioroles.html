@@ -1,0 +1,54 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="/layout/layout">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Asignación de Roles</title>
+</head>
+
+<body>
+
+	<div layout:fragment="cargarpaginas">
+
+		<div class="d-flex justify-content-between align-items-center mb-3">
+			<h4 class="card-title mb-0">Asignación de Roles</h4>
+			<a th:href="@{/usuariorol/nuevo}" class="btn btn-primary">+ Nueva Asignación</a>
+		</div>
+		<div class="table-responsive">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Id Usuario</th>
+						<th>Id Rol</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="usuarioRol : ${listausuarioroles}">
+						<td th:text="${usuarioRol.idUsuarioRol}"></td>
+						<td th:text="${usuarioRol.idUsuario}"></td>
+						<td th:text="${usuarioRol.idRol}"></td>
+						<td class="actions-cell">
+							<div class="action-icons">
+								<a href="#" class="btn btn-primary btn-icon" title="Editar"><i class="mdi mdi-pencil"></i></a>
+								<a href="#" class="btn btn-danger btn-icon" title="Eliminar"><i class="mdi mdi-delete"></i></a>
+							</div>
+						</td>
+					</tr>
+					<tr th:if="${#lists.isEmpty(listausuarioroles)}">
+						<td colspan="4" class="text-center">No hay asignaciones de roles registradas.</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+	</div>
+
+</body>
+
+</html>

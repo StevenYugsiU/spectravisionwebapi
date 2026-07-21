@@ -14,7 +14,10 @@
 
 	<div layout:fragment="cargarpaginas">
 
-		<h4 class="card-title">Citas</h4>
+		<div class="d-flex justify-content-between align-items-center mb-3">
+			<h4 class="card-title mb-0">Citas</h4>
+			<a th:href="@{/cita/nuevo}" class="btn btn-primary">+ Nueva Cita</a>
+		</div>
 		<div class="table-responsive">
 			<table class="table table-hover">
 				<thead>

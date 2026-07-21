@@ -14,7 +14,10 @@
 
 	<div layout:fragment="cargarpaginas">
 
-		<h4 class="card-title">Historias Clínicas</h4>
+		<div class="d-flex justify-content-between align-items-center mb-3">
+			<h4 class="card-title mb-0">Historias Clínicas</h4>
+			<a th:href="@{/historiaclinica/nuevo}" class="btn btn-primary">+ Nueva Historia Clínica</a>
+		</div>
 		<div class="table-responsive">
 			<table class="table table-hover">
 				<thead>

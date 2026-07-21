@@ -1,0 +1,102 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="/layout/layout">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Nuevo Cliente</title>
+</head>
+
+<body>
+
+	<div layout:fragment="cargarpaginas">
+
+		<div class="row">
+			<div class="col-md-6 offset-md-3 grid-margin stretch-card">
+				<div class="card">
+					<div class="card-body">
+
+						<h4 class="card-title">Nuevo Cliente</h4>
+						<p class="card-description">Registro de un nuevo cliente</p>
+
+						<form th:action="@{/cliente/guardar}" th:object="${cliente}"
+							method="post" class="forms-sample">
+
+							<div class="form-group">
+								<label for="cedula">Cédula</label>
+								<input type="text" th:field="*{cedula}" class="form-control"
+									id="cedula" placeholder="Ingrese la cédula">
+							</div>
+
+							<div class="form-group">
+								<label for="nombres">Nombres</label>
+								<input type="text" th:field="*{nombres}" class="form-control"
+									id="nombres" placeholder="Ingrese los nombres">
+							</div>
+
+							<div class="form-group">
+								<label for="apellidos">Apellidos</label>
+								<input type="text" th:field="*{apellidos}" class="form-control"
+									id="apellidos" placeholder="Ingrese los apellidos">
+							</div>
+
+							<div class="form-group">
+								<label for="fechaNacimiento">Fecha de Nacimiento</label>
+								<input type="date" th:field="*{fechaNacimiento}"
+									class="form-control" id="fechaNacimiento">
+							</div>
+
+							<div class="form-group">
+								<label for="edad">Edad</label>
+								<input type="number" th:field="*{edad}" class="form-control"
+									id="edad" placeholder="Ingrese la edad">
+							</div>
+
+							<div class="form-group">
+								<label for="ocupacion">Ocupación</label>
+								<input type="text" th:field="*{ocupacion}" class="form-control"
+									id="ocupacion" placeholder="Ingrese la ocupación">
+							</div>
+
+							<div class="form-group">
+								<label for="celular">Celular</label>
+								<input type="text" th:field="*{celular}" class="form-control"
+									id="celular" placeholder="Ingrese el celular">
+							</div>
+
+							<div class="form-group">
+								<label for="correo">Correo</label>
+								<input type="email" th:field="*{correo}" class="form-control"
+									id="correo" placeholder="Ingrese el correo">
+							</div>
+
+							<div class="form-group">
+								<label for="fechaRegistro">Fecha de Registro</label>
+								<input type="date" th:field="*{fechaRegistro}"
+									class="form-control" id="fechaRegistro">
+							</div>
+
+							<div class="form-check form-check-flat form-check-primary">
+								<label class="form-check-label"> <input type="checkbox"
+									th:field="*{estado}" class="form-check-input"> Activo
+								</label>
+							</div>
+
+							<button type="submit" class="btn btn-primary mr-2">Crear</button>
+							<a th:href="@{/cliente}" class="btn btn-dark">Cancelar</a>
+
+						</form>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</body>
+
+</html>

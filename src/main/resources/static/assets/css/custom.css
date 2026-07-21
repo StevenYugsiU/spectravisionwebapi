@@ -1,0 +1,135 @@
+/* Custom status pill badges */
+.badge-soft {
+	display: inline-block;
+	padding: 0.4em 1em;
+	border-radius: 50px;
+	font-weight: 600;
+	font-size: 0.75rem;
+	line-height: 1.4;
+}
+
+.badge-soft-success {
+	background-color: rgba(46, 213, 115, 0.15);
+	color: #2ed573;
+}
+
+.badge-soft-info {
+	background-color: rgba(84, 160, 255, 0.15);
+	color: #54a0ff;
+}
+
+.badge-soft-warning {
+	background-color: rgba(255, 165, 2, 0.15);
+	color: #ffa502;
+}
+
+.badge-soft-danger {
+	background-color: rgba(255, 71, 87, 0.15);
+	color: #ff4757;
+}
+
+.badge-soft-secondary {
+	background-color: rgba(148, 158, 178, 0.15);
+	color: #949eb2;
+}
+
+/* Row action icons */
+.action-icons {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 0.4rem;
+}
+
+.btn-icon {
+	width: 32px;
+	height: 32px;
+	padding: 0;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 8px;
+	font-size: 1rem;
+	line-height: 1;
+}
+
+.btn-icon.dropdown-toggle::after {
+	display: none;
+}
+
+.table td.actions-cell {
+	text-align: right;
+}
+
+/* Fix low-contrast hover states from the base theme: dark text was landing on
+   dark/black backgrounds, making row and dropdown content unreadable on hover. */
+.table-hover tbody tr:hover {
+	background-color: rgba(255, 255, 255, 0.06) !important;
+	color: inherit !important;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+	background-color: rgba(255, 255, 255, 0.08) !important;
+	color: #ffffff !important;
+}
+
+/* Thymeleaf's th:field on a checkbox injects a hidden "_fieldName" input right
+   after the checkbox, which breaks this theme's "input + .input-helper"
+   adjacent-sibling selector (the hidden input sits in between). These rules
+   mirror style.css's checkbox styling using "~" (general sibling) instead of
+   "+" so the checkbox still renders and stays clickable. */
+.form-check .form-check-label input[type="checkbox"] ~ .input-helper:before,
+.form-check .form-check-label input[type="checkbox"] ~ .input-helper:after {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.form-check .form-check-label input[type="checkbox"] ~ .input-helper:before {
+	content: "";
+	width: 16px;
+	height: 16px;
+	border-radius: 2px;
+	border: solid #0090e7;
+	border-width: 2px;
+	transition: all;
+	transition-duration: 250ms;
+	position: absolute;
+	top: 2px;
+	left: 0;
+}
+
+.form-check .form-check-label input[type="checkbox"] ~ .input-helper:after {
+	transition: all;
+	transition-duration: 250ms;
+	font-family: "Material Design Icons";
+	opacity: 0;
+	transform: scale(0);
+	content: "\F12C";
+	font-size: 0.875rem;
+	font-weight: bold;
+	color: #ffffff;
+	top: 1px;
+}
+
+.form-check .form-check-label input[type="checkbox"]:checked ~ .input-helper:before {
+	background: #0090e7;
+	border-width: 0;
+}
+
+.form-check .form-check-label input[type="checkbox"]:checked ~ .input-helper:after {
+	width: 18px;
+	opacity: 1;
+	line-height: 18px;
+	transform: scale(1);
+	color: black;
+}
+
+.form-check-primary.form-check label input[type="checkbox"] ~ .input-helper:before {
+	border-color: #0090e7;
+}
+
+.form-check-primary.form-check label input[type="checkbox"]:checked ~ .input-helper:before {
+	background: #0090e7;
+}

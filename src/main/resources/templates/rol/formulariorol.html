@@ -1,0 +1,54 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="/layout/layout">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Nuevo Rol</title>
+</head>
+
+<body>
+
+	<div layout:fragment="cargarpaginas">
+
+		<div class="row">
+			<div class="col-md-6 offset-md-3 grid-margin stretch-card">
+				<div class="card">
+					<div class="card-body">
+
+						<h4 class="card-title">Nuevo Rol</h4>
+						<p class="card-description">Registro de un nuevo rol</p>
+
+						<form th:action="@{/rol/guardar}" th:object="${rol}"
+							method="post" class="forms-sample">
+
+							<div class="form-group">
+								<label for="nombre">Nombre</label>
+								<input type="text" th:field="*{nombre}" class="form-control"
+									id="nombre" placeholder="Ingrese el nombre del rol">
+							</div>
+
+							<div class="form-group">
+								<label for="descripcion">Descripción</label>
+								<input type="text" th:field="*{descripcion}" class="form-control"
+									id="descripcion" placeholder="Ingrese la descripción">
+							</div>
+
+							<button type="submit" class="btn btn-primary mr-2">Crear</button>
+							<a th:href="@{/rol}" class="btn btn-dark">Cancelar</a>
+
+						</form>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</body>
+
+</html>

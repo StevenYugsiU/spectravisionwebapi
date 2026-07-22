@@ -18,14 +18,12 @@ public class ClienteServiceImpl implements IClienteService {
 		this.webclient = webclient;
 	}
 
-	// Comunicación con el back
 	@Override
 	public List<ClienteResponseDto> listarClientes() {
 		return webclient.get().uri("/cliente").retrieve()
 				.bodyToFlux(ClienteResponseDto.class).collectList().block();
 	}
 
-	// guardar datos - post
 	@Override
 	public void guardarCliente(ClienteRequestDto nuevoCliente) {
 		webclient.post().uri("/cliente").bodyValue(nuevoCliente).retrieve()

@@ -9,5 +9,11 @@ public interface IClienteService {
 
 	List<ClienteResponseDto> listarClientes();
 
+	ClienteResponseDto buscarClientePorId(int idCliente);
+
 	void guardarCliente(ClienteRequestDto nuevoCliente);
+
+	void actualizarCliente(int idCliente, ClienteRequestDto cliente);
+
+	void eliminarCliente(int idCliente);
 }

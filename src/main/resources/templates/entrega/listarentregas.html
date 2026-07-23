@@ -39,8 +39,12 @@
 						<td><span class="badge-soft badge-soft-info" th:text="${entrega.estado}"></span></td>
 						<td class="actions-cell">
 							<div class="action-icons">
-								<a href="#" class="btn btn-primary btn-icon" title="Editar"><i class="mdi mdi-pencil"></i></a>
-								<a href="#" class="btn btn-danger btn-icon" title="Eliminar"><i class="mdi mdi-delete"></i></a>
+								<a th:href="@{/entrega/editar/{id}(id=${entrega.idEntrega})}"
+									class="btn btn-primary btn-icon" title="Editar"><i class="mdi mdi-pencil"></i></a>
+								<form th:action="@{/entrega/eliminar/{id}(id=${entrega.idEntrega})}" method="post"
+									onsubmit="return confirm('¿Eliminar esta entrega?');">
+									<button type="submit" class="btn btn-danger btn-icon" title="Eliminar"><i class="mdi mdi-delete"></i></button>
+								</form>
 							</div>
 						</td>
 					</tr>

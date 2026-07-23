@@ -10,4 +10,6 @@ public interface IRolService {
 	List<RolResponseDto> listarRoles();
 
 	void guardarRol(RolRequestDto nuevoRol);
+
+	void eliminarRol(int idRol);
 }

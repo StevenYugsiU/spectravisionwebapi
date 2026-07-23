@@ -30,4 +30,10 @@ public class UsuarioServiceImpl implements IUsuarioService {
 				.toBodilessEntity().block();
 	}
 
+	@Override
+	public void eliminarUsuario(int idUsuario) {
+		webclient.delete().uri("/usuario/{idUsuario}", idUsuario).retrieve()
+				.toBodilessEntity().block();
+	}
+
 }

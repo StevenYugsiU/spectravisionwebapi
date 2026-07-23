@@ -7,7 +7,7 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Nuevo Certificado</title>
+<title th:text="${certificado.idCertificado == 0} ? 'Nuevo Certificado' : 'Editar Certificado'">Nuevo Certificado</title>
 </head>
 
 <body>
@@ -19,11 +19,20 @@
 				<div class="card">
 					<div class="card-body">
 
-						<h4 class="card-title">Nuevo Certificado</h4>
-						<p class="card-description">Registro de un nuevo certificado</p>
+						<h4 class="card-title"
+							th:text="${certificado.idCertificado == 0} ? 'Nuevo Certificado' : 'Editar Certificado'">Nuevo Certificado</h4>
+						<p class="card-description"
+							th:text="${certificado.idCertificado == 0} ? 'Registro de un nuevo certificado' : 'Actualizar certificado'">Registro de un nuevo certificado</p>
 
-						<form th:action="@{/certificado/guardar}" th:object="${certificado}"
-							method="post" class="forms-sample">
+						<form
+							th:action="${certificado.idCertificado == 0} ? @{/certificado/guardar} : @{/certificado/actualizar/{id}(id=${certificado.idCertificado})}"
+							th:object="${certificado}" method="post" class="forms-sample">
+
+							<div class="form-group">
+								<label for="idExamen">Id Examen Visual</label>
+								<input type="number" th:field="*{idExamen}" class="form-control"
+									id="idExamen" placeholder="Ingrese el id del examen visual">
+							</div>
 
 							<div class="form-group">
 								<label for="fechaGeneracion">Fecha de Generación</label>
@@ -37,7 +46,10 @@
 									id="observaciones" placeholder="Ingrese las observaciones">
 							</div>
 
-							<button type="submit" class="btn btn-primary mr-2">Crear</button>
+							<input type="hidden" th:field="*{idCertificado}">
+
+							<button type="submit" class="btn btn-primary mr-2"
+								th:text="${certificado.idCertificado == 0} ? 'Crear' : 'Actualizar'">Crear</button>
 							<a th:href="@{/certificado}" class="btn btn-dark">Cancelar</a>
 
 						</form>

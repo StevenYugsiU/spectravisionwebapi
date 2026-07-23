@@ -30,4 +30,10 @@ public class UsuarioRolServiceImpl implements IUsuarioRolService {
 				.toBodilessEntity().block();
 	}
 
+	@Override
+	public void eliminarUsuarioRol(int idUsuarioRol) {
+		webclient.delete().uri("/usuarioRol/{idUsuarioRol}", idUsuarioRol).retrieve()
+				.toBodilessEntity().block();
+	}
+
 }

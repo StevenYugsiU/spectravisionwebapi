@@ -7,7 +7,7 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Nuevo Seguimiento</title>
+<title th:text="${seguimiento.idSeguimiento == 0} ? 'Nuevo Seguimiento' : 'Editar Seguimiento'">Nuevo Seguimiento</title>
 </head>
 
 <body>
@@ -19,11 +19,14 @@
 				<div class="card">
 					<div class="card-body">
 
-						<h4 class="card-title">Nuevo Seguimiento</h4>
-						<p class="card-description">Registro de un nuevo seguimiento</p>
+						<h4 class="card-title"
+							th:text="${seguimiento.idSeguimiento == 0} ? 'Nuevo Seguimiento' : 'Editar Seguimiento'">Nuevo Seguimiento</h4>
+						<p class="card-description"
+							th:text="${seguimiento.idSeguimiento == 0} ? 'Registro de un nuevo seguimiento' : 'Actualizar seguimiento'">Registro de un nuevo seguimiento</p>
 
-						<form th:action="@{/seguimiento/guardar}" th:object="${seguimiento}"
-							method="post" class="forms-sample">
+						<form
+							th:action="${seguimiento.idSeguimiento == 0} ? @{/seguimiento/guardar} : @{/seguimiento/actualizar/{id}(id=${seguimiento.idSeguimiento})}"
+							th:object="${seguimiento}" method="post" class="forms-sample">
 
 							<div class="form-group">
 								<label for="idEntrega">Id Entrega</label>
@@ -49,7 +52,10 @@
 									id="estado" placeholder="Ej. PENDIENTE, REALIZADO">
 							</div>
 
-							<button type="submit" class="btn btn-primary mr-2">Crear</button>
+							<input type="hidden" th:field="*{idSeguimiento}">
+
+							<button type="submit" class="btn btn-primary mr-2"
+								th:text="${seguimiento.idSeguimiento == 0} ? 'Crear' : 'Actualizar'">Crear</button>
 							<a th:href="@{/seguimiento}" class="btn btn-dark">Cancelar</a>
 
 						</form>

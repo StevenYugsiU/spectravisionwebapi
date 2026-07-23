@@ -7,7 +7,7 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Nueva Cita</title>
+<title th:text="${cita.idCita == 0} ? 'Nueva Cita' : 'Editar Cita'">Nueva Cita</title>
 </head>
 
 <body>
@@ -19,11 +19,19 @@
 				<div class="card">
 					<div class="card-body">
 
-						<h4 class="card-title">Nueva Cita</h4>
-						<p class="card-description">Registro de una nueva cita</p>
+						<h4 class="card-title" th:text="${cita.idCita == 0} ? 'Nueva Cita' : 'Editar Cita'">Nueva Cita</h4>
+						<p class="card-description"
+							th:text="${cita.idCita == 0} ? 'Registro de una nueva cita' : 'Actualizar cita'">Registro de una nueva cita</p>
 
-						<form th:action="@{/cita/guardar}" th:object="${cita}"
-							method="post" class="forms-sample">
+						<form
+							th:action="${cita.idCita == 0} ? @{/cita/guardar} : @{/cita/actualizar/{id}(id=${cita.idCita})}"
+							th:object="${cita}" method="post" class="forms-sample">
+
+							<div class="form-group">
+								<label for="idCliente">Id Cliente</label>
+								<input type="number" th:field="*{idCliente}" class="form-control"
+									id="idCliente" placeholder="Ingrese el id del cliente">
+							</div>
 
 							<div class="form-group">
 								<label for="fecha">Fecha</label>
@@ -49,7 +57,10 @@
 									id="estado" placeholder="Ej. PENDIENTE, CONFIRMADA, CANCELADA">
 							</div>
 
-							<button type="submit" class="btn btn-primary mr-2">Crear</button>
+							<input type="hidden" th:field="*{idCita}">
+
+							<button type="submit" class="btn btn-primary mr-2"
+								th:text="${cita.idCita == 0} ? 'Crear' : 'Actualizar'">Crear</button>
 							<a th:href="@{/cita}" class="btn btn-dark">Cancelar</a>
 
 						</form>

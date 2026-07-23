@@ -39,8 +39,12 @@
 						<td><span class="badge-soft badge-soft-info" th:text="${seguimiento.estado}"></span></td>
 						<td class="actions-cell">
 							<div class="action-icons">
-								<a href="#" class="btn btn-primary btn-icon" title="Editar"><i class="mdi mdi-pencil"></i></a>
-								<a href="#" class="btn btn-danger btn-icon" title="Eliminar"><i class="mdi mdi-delete"></i></a>
+								<a th:href="@{/seguimiento/editar/{id}(id=${seguimiento.idSeguimiento})}"
+									class="btn btn-primary btn-icon" title="Editar"><i class="mdi mdi-pencil"></i></a>
+								<form th:action="@{/seguimiento/eliminar/{id}(id=${seguimiento.idSeguimiento})}" method="post"
+									onsubmit="return confirm('¿Eliminar este seguimiento?');">
+									<button type="submit" class="btn btn-danger btn-icon" title="Eliminar"><i class="mdi mdi-delete"></i></button>
+								</form>
 							</div>
 						</td>
 					</tr>

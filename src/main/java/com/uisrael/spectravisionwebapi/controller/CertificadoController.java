@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -37,6 +38,33 @@ public class CertificadoController {
 	@PostMapping("/guardar")
 	public String guardarCertificado(@ModelAttribute CertificadoRequestDto certificado) {
 		servicioCertificado.guardarCertificado(certificado);
+		return "redirect:/certificado";
+	}
+
+	@GetMapping("/editar/{idCertificado}")
+	public String editarCertificado(@PathVariable int idCertificado, Model model) {
+		CertificadoResponseDto encontrado = servicioCertificado.buscarCertificadoPorId(idCertificado);
+
+		CertificadoRequestDto certificado = new CertificadoRequestDto();
+		certificado.setIdCertificado(encontrado.getIdCertificado());
+		certificado.setIdExamen(encontrado.getIdExamen());
+		certificado.setFechaGeneracion(encontrado.getFechaGeneracion());
+		certificado.setObservaciones(encontrado.getObservaciones());
+
+		model.addAttribute("certificado", certificado);
+		return "/certificado/formulariocertificado";
+	}
+
+	@PostMapping("/actualizar/{idCertificado}")
+	public String actualizarCertificado(@PathVariable int idCertificado,
+			@ModelAttribute CertificadoRequestDto certificado) {
+		servicioCertificado.actualizarCertificado(idCertificado, certificado);
+		return "redirect:/certificado";
+	}
+
+	@PostMapping("/eliminar/{idCertificado}")
+	public String eliminarCertificado(@PathVariable int idCertificado) {
+		servicioCertificado.eliminarCertificado(idCertificado);
 		return "redirect:/certificado";
 	}
 

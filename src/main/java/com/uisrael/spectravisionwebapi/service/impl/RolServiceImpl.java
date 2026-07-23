@@ -30,4 +30,10 @@ public class RolServiceImpl implements IRolService {
 				.toBodilessEntity().block();
 	}
 
+	@Override
+	public void eliminarRol(int idRol) {
+		webclient.delete().uri("/rol/{idRol}", idRol).retrieve()
+				.toBodilessEntity().block();
+	}
+
 }

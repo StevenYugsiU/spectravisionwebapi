@@ -37,8 +37,12 @@
 						<td th:text="${certificado.observaciones}"></td>
 						<td class="actions-cell">
 							<div class="action-icons">
-								<a href="#" class="btn btn-primary btn-icon" title="Editar"><i class="mdi mdi-pencil"></i></a>
-								<a href="#" class="btn btn-danger btn-icon" title="Eliminar"><i class="mdi mdi-delete"></i></a>
+								<a th:href="@{/certificado/editar/{id}(id=${certificado.idCertificado})}"
+									class="btn btn-primary btn-icon" title="Editar"><i class="mdi mdi-pencil"></i></a>
+								<form th:action="@{/certificado/eliminar/{id}(id=${certificado.idCertificado})}" method="post"
+									onsubmit="return confirm('¿Eliminar este certificado?');">
+									<button type="submit" class="btn btn-danger btn-icon" title="Eliminar"><i class="mdi mdi-delete"></i></button>
+								</form>
 							</div>
 						</td>
 					</tr>

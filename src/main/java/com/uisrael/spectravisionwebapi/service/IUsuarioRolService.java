@@ -10,4 +10,6 @@ public interface IUsuarioRolService {
 	List<UsuarioRolResponseDto> listarUsuarioRoles();
 
 	void guardarUsuarioRol(UsuarioRolRequestDto nuevoUsuarioRol);
+
+	void eliminarUsuarioRol(int idUsuarioRol);
 }

@@ -25,8 +25,26 @@ public class CitaServiceImpl implements ICitaService {
 	}
 
 	@Override
+	public CitaResponseDto buscarCitaPorId(int idCita) {
+		return webclient.get().uri("/cita/{idCita}", idCita).retrieve()
+				.bodyToMono(CitaResponseDto.class).block();
+	}
+
+	@Override
 	public void guardarCita(CitaRequestDto nuevaCita) {
 		webclient.post().uri("/cita").bodyValue(nuevaCita).retrieve()
+				.toBodilessEntity().block();
+	}
+
+	@Override
+	public void actualizarCita(int idCita, CitaRequestDto cita) {
+		webclient.put().uri("/cita/{idCita}", idCita).bodyValue(cita).retrieve()
+				.toBodilessEntity().block();
+	}
+
+	@Override
+	public void eliminarCita(int idCita) {
+		webclient.delete().uri("/cita/{idCita}", idCita).retrieve()
 				.toBodilessEntity().block();
 	}
 

@@ -9,5 +9,13 @@ public interface IHistoriaClinicaService {
 
 	List<HistoriaClinicaResponseDto> listarHistoriasClinicas();
 
+	HistoriaClinicaResponseDto buscarHistoriaClinicaPorId(int idHistoriaClinica);
+
+	HistoriaClinicaResponseDto buscarHistoriaClinicaPorIdCliente(int idCliente);
+
 	void guardarHistoriaClinica(HistoriaClinicaRequestDto nuevaHistoriaClinica);
+
+	void actualizarHistoriaClinica(int idHistoriaClinica, HistoriaClinicaRequestDto historiaClinica);
+
+	void eliminarHistoriaClinica(int idHistoriaClinica);
 }

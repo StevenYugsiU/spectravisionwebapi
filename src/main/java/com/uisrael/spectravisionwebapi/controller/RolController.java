@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -37,6 +38,12 @@ public class RolController {
 	@PostMapping("/guardar")
 	public String guardarRol(@ModelAttribute RolRequestDto rol) {
 		servicioRol.guardarRol(rol);
+		return "redirect:/rol";
+	}
+
+	@PostMapping("/eliminar/{idRol}")
+	public String eliminarRol(@PathVariable int idRol) {
+		servicioRol.eliminarRol(idRol);
 		return "redirect:/rol";
 	}
 

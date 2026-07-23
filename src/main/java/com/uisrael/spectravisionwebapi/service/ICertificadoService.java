@@ -9,5 +9,11 @@ public interface ICertificadoService {
 
 	List<CertificadoResponseDto> listarCertificados();
 
+	CertificadoResponseDto buscarCertificadoPorId(int idCertificado);
+
 	void guardarCertificado(CertificadoRequestDto nuevoCertificado);
+
+	void actualizarCertificado(int idCertificado, CertificadoRequestDto certificado);
+
+	void eliminarCertificado(int idCertificado);
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -37,6 +38,12 @@ public class UsuarioController {
 	@PostMapping("/guardar")
 	public String guardarUsuario(@ModelAttribute UsuarioRequestDto usuario) {
 		servicioUsuario.guardarUsuario(usuario);
+		return "redirect:/usuario";
+	}
+
+	@PostMapping("/eliminar/{idUsuario}")
+	public String eliminarUsuario(@PathVariable int idUsuario) {
+		servicioUsuario.eliminarUsuario(idUsuario);
 		return "redirect:/usuario";
 	}
 

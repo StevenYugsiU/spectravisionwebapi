@@ -25,8 +25,26 @@ public class ExamenVisualServiceImpl implements IExamenVisualService {
 	}
 
 	@Override
+	public ExamenVisualResponseDto buscarExamenVisualPorId(int idExamen) {
+		return webclient.get().uri("/examenVisual/{idExamen}", idExamen).retrieve()
+				.bodyToMono(ExamenVisualResponseDto.class).block();
+	}
+
+	@Override
 	public void guardarExamenVisual(ExamenVisualRequestDto nuevoExamenVisual) {
 		webclient.post().uri("/examenVisual").bodyValue(nuevoExamenVisual).retrieve()
+				.toBodilessEntity().block();
+	}
+
+	@Override
+	public void actualizarExamenVisual(int idExamen, ExamenVisualRequestDto examenVisual) {
+		webclient.put().uri("/examenVisual/{idExamen}", idExamen).bodyValue(examenVisual).retrieve()
+				.toBodilessEntity().block();
+	}
+
+	@Override
+	public void eliminarExamenVisual(int idExamen) {
+		webclient.delete().uri("/examenVisual/{idExamen}", idExamen).retrieve()
 				.toBodilessEntity().block();
 	}
 

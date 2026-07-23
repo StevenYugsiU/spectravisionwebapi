@@ -7,7 +7,7 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Nuevo Examen Visual</title>
+<title th:text="${examenvisual.idExamen == 0} ? 'Nuevo Examen Visual' : 'Editar Examen Visual'">Nuevo Examen Visual</title>
 </head>
 
 <body>
@@ -19,11 +19,14 @@
 				<div class="card">
 					<div class="card-body">
 
-						<h4 class="card-title">Nuevo Examen Visual</h4>
-						<p class="card-description">Registro de un nuevo examen visual</p>
+						<h4 class="card-title"
+							th:text="${examenvisual.idExamen == 0} ? 'Nuevo Examen Visual' : 'Editar Examen Visual'">Nuevo Examen Visual</h4>
+						<p class="card-description"
+							th:text="${examenvisual.idExamen == 0} ? 'Registro de un nuevo examen visual' : 'Actualizar examen visual'">Registro de un nuevo examen visual</p>
 
-						<form th:action="@{/examenvisual/guardar}" th:object="${examenvisual}"
-							method="post" class="forms-sample">
+						<form
+							th:action="${examenvisual.idExamen == 0} ? @{/examenvisual/guardar} : @{/examenvisual/actualizar/{id}(id=${examenvisual.idExamen})}"
+							th:object="${examenvisual}" method="post" class="forms-sample">
 
 							<div class="form-group">
 								<label for="idHistoria">Id Historia Clínica</label>
@@ -139,7 +142,10 @@
 									id="diagnostico" placeholder="Ingrese el diagnóstico">
 							</div>
 
-							<button type="submit" class="btn btn-primary mr-2">Crear</button>
+							<input type="hidden" th:field="*{idExamen}">
+
+							<button type="submit" class="btn btn-primary mr-2"
+								th:text="${examenvisual.idExamen == 0} ? 'Crear' : 'Actualizar'">Crear</button>
 							<a th:href="@{/examenvisual}" class="btn btn-dark">Cancelar</a>
 
 						</form>

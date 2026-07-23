@@ -9,5 +9,11 @@ public interface IEntregaService {
 
 	List<EntregaResponseDto> listarEntregas();
 
+	EntregaResponseDto buscarEntregaPorId(int idEntrega);
+
 	void guardarEntrega(EntregaRequestDto nuevaEntrega);
+
+	void actualizarEntrega(int idEntrega, EntregaRequestDto entrega);
+
+	void eliminarEntrega(int idEntrega);
 }

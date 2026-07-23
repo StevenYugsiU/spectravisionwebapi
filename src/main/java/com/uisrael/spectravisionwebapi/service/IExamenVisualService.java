@@ -9,5 +9,11 @@ public interface IExamenVisualService {
 
 	List<ExamenVisualResponseDto> listarExamenesVisuales();
 
+	ExamenVisualResponseDto buscarExamenVisualPorId(int idExamen);
+
 	void guardarExamenVisual(ExamenVisualRequestDto nuevoExamenVisual);
+
+	void actualizarExamenVisual(int idExamen, ExamenVisualRequestDto examenVisual);
+
+	void eliminarExamenVisual(int idExamen);
 }

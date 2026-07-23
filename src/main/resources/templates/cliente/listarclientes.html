@@ -47,17 +47,21 @@
 							th:text="${cliente.estado} ? 'Activo' : 'Inactivo'"></span></td>
 						<td class="actions-cell">
 							<div class="action-icons">
-								<a href="#" class="btn btn-primary btn-icon" title="Editar datos"><i class="mdi mdi-pencil"></i></a>
-								<a href="#" class="btn btn-danger btn-icon" title="Eliminar"><i class="mdi mdi-delete"></i></a>
+								<a th:href="@{/cliente/editar/{id}(id=${cliente.idCliente})}"
+									class="btn btn-primary btn-icon" title="Editar datos"><i class="mdi mdi-pencil"></i></a>
+								<form th:action="@{/cliente/eliminar/{id}(id=${cliente.idCliente})}" method="post"
+									onsubmit="return confirm('¿Eliminar este cliente?');">
+									<button type="submit" class="btn btn-danger btn-icon" title="Eliminar"><i class="mdi mdi-delete"></i></button>
+								</form>
 								<div class="dropdown">
 									<button class="btn btn-icon dropdown-toggle" type="button"
 										data-toggle="dropdown" aria-expanded="false" title="Más acciones">
 										<i class="mdi mdi-dots-vertical"></i>
 									</button>
 									<div class="dropdown-menu dropdown-menu-right">
-										<a class="dropdown-item" href="#">Ver cliente</a>
-										<a class="dropdown-item" href="#">Abrir historia clínica</a>
-										<a class="dropdown-item" href="#">Registrar examen</a>
+										<a class="dropdown-item" th:href="@{/cliente/editar/{id}(id=${cliente.idCliente})}">Ver cliente</a>
+										<a class="dropdown-item" th:href="@{/cliente/{id}/historiaclinica(id=${cliente.idCliente})}">Abrir historia clínica</a>
+										<a class="dropdown-item" th:href="@{/cliente/{id}/examen(id=${cliente.idCliente})}">Registrar examen</a>
 									</div>
 								</div>
 							</div>

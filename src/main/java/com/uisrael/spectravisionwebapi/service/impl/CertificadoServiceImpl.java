@@ -25,8 +25,26 @@ public class CertificadoServiceImpl implements ICertificadoService {
 	}
 
 	@Override
+	public CertificadoResponseDto buscarCertificadoPorId(int idCertificado) {
+		return webclient.get().uri("/certificado/{idCertificado}", idCertificado).retrieve()
+				.bodyToMono(CertificadoResponseDto.class).block();
+	}
+
+	@Override
 	public void guardarCertificado(CertificadoRequestDto nuevoCertificado) {
 		webclient.post().uri("/certificado").bodyValue(nuevoCertificado).retrieve()
+				.toBodilessEntity().block();
+	}
+
+	@Override
+	public void actualizarCertificado(int idCertificado, CertificadoRequestDto certificado) {
+		webclient.put().uri("/certificado/{idCertificado}", idCertificado).bodyValue(certificado).retrieve()
+				.toBodilessEntity().block();
+	}
+
+	@Override
+	public void eliminarCertificado(int idCertificado) {
+		webclient.delete().uri("/certificado/{idCertificado}", idCertificado).retrieve()
 				.toBodilessEntity().block();
 	}
 

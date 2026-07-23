@@ -7,7 +7,7 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Nueva Historia Clínica</title>
+<title th:text="${historiaclinica.idHistoriaClinica == 0} ? 'Nueva Historia Clínica' : 'Editar Historia Clínica'">Nueva Historia Clínica</title>
 </head>
 
 <body>
@@ -19,11 +19,14 @@
 				<div class="card">
 					<div class="card-body">
 
-						<h4 class="card-title">Nueva Historia Clínica</h4>
-						<p class="card-description">Registro de una nueva historia clínica</p>
+						<h4 class="card-title"
+							th:text="${historiaclinica.idHistoriaClinica == 0} ? 'Nueva Historia Clínica' : 'Editar Historia Clínica'">Nueva Historia Clínica</h4>
+						<p class="card-description"
+							th:text="${historiaclinica.idHistoriaClinica == 0} ? 'Registro de una nueva historia clínica' : 'Actualizar historia clínica'">Registro de una nueva historia clínica</p>
 
-						<form th:action="@{/historiaclinica/guardar}" th:object="${historiaclinica}"
-							method="post" class="forms-sample">
+						<form
+							th:action="${historiaclinica.idHistoriaClinica == 0} ? @{/historiaclinica/guardar} : @{/historiaclinica/actualizar/{id}(id=${historiaclinica.idHistoriaClinica})}"
+							th:object="${historiaclinica}" method="post" class="forms-sample">
 
 							<div class="form-group">
 								<label for="idCliente">Id Cliente</label>
@@ -55,7 +58,10 @@
 								</label>
 							</div>
 
-							<button type="submit" class="btn btn-primary mr-2">Crear</button>
+							<input type="hidden" th:field="*{idHistoriaClinica}">
+
+							<button type="submit" class="btn btn-primary mr-2"
+								th:text="${historiaclinica.idHistoriaClinica == 0} ? 'Crear' : 'Actualizar'">Crear</button>
 							<a th:href="@{/historiaclinica}" class="btn btn-dark">Cancelar</a>
 
 						</form>

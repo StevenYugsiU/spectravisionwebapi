@@ -10,4 +10,6 @@ public interface IUsuarioService {
 	List<UsuarioResponseDto> listarUsuarios();
 
 	void guardarUsuario(UsuarioRequestDto nuevoUsuario);
+
+	void eliminarUsuario(int idUsuario);
 }

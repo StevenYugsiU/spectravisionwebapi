@@ -25,8 +25,26 @@ public class ClienteServiceImpl implements IClienteService {
 	}
 
 	@Override
+	public ClienteResponseDto buscarClientePorId(int idCliente) {
+		return webclient.get().uri("/cliente/{idCliente}", idCliente).retrieve()
+				.bodyToMono(ClienteResponseDto.class).block();
+	}
+
+	@Override
 	public void guardarCliente(ClienteRequestDto nuevoCliente) {
 		webclient.post().uri("/cliente").bodyValue(nuevoCliente).retrieve()
+				.toBodilessEntity().block();
+	}
+
+	@Override
+	public void actualizarCliente(int idCliente, ClienteRequestDto cliente) {
+		webclient.put().uri("/cliente/{idCliente}", idCliente).bodyValue(cliente).retrieve()
+				.toBodilessEntity().block();
+	}
+
+	@Override
+	public void eliminarCliente(int idCliente) {
+		webclient.delete().uri("/cliente/{idCliente}", idCliente).retrieve()
 				.toBodilessEntity().block();
 	}
 

@@ -25,8 +25,26 @@ public class SeguimientoServiceImpl implements ISeguimientoService {
 	}
 
 	@Override
+	public SeguimientoResponseDto buscarSeguimientoPorId(int idSeguimiento) {
+		return webclient.get().uri("/seguimiento/{idSeguimiento}", idSeguimiento).retrieve()
+				.bodyToMono(SeguimientoResponseDto.class).block();
+	}
+
+	@Override
 	public void guardarSeguimiento(SeguimientoRequestDto nuevoSeguimiento) {
 		webclient.post().uri("/seguimiento").bodyValue(nuevoSeguimiento).retrieve()
+				.toBodilessEntity().block();
+	}
+
+	@Override
+	public void actualizarSeguimiento(int idSeguimiento, SeguimientoRequestDto seguimiento) {
+		webclient.put().uri("/seguimiento/{idSeguimiento}", idSeguimiento).bodyValue(seguimiento).retrieve()
+				.toBodilessEntity().block();
+	}
+
+	@Override
+	public void eliminarSeguimiento(int idSeguimiento) {
+		webclient.delete().uri("/seguimiento/{idSeguimiento}", idSeguimiento).retrieve()
 				.toBodilessEntity().block();
 	}
 

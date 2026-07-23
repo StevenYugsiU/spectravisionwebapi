@@ -9,5 +9,11 @@ public interface ICitaService {
 
 	List<CitaResponseDto> listarCitas();
 
+	CitaResponseDto buscarCitaPorId(int idCita);
+
 	void guardarCita(CitaRequestDto nuevaCita);
+
+	void actualizarCita(int idCita, CitaRequestDto cita);
+
+	void eliminarCita(int idCita);
 }

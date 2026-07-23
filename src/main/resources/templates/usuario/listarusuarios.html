@@ -41,8 +41,10 @@
 							th:text="${usuario.estado} ? 'Activo' : 'Inactivo'"></span></td>
 						<td class="actions-cell">
 							<div class="action-icons">
-								<a href="#" class="btn btn-primary btn-icon" title="Editar"><i class="mdi mdi-pencil"></i></a>
-								<a href="#" class="btn btn-danger btn-icon" title="Eliminar"><i class="mdi mdi-delete"></i></a>
+								<form th:action="@{/usuario/eliminar/{id}(id=${usuario.idUsuario})}" method="post"
+									onsubmit="return confirm('¿Eliminar este usuario?');">
+									<button type="submit" class="btn btn-danger btn-icon" title="Eliminar"><i class="mdi mdi-delete"></i></button>
+								</form>
 							</div>
 						</td>
 					</tr>

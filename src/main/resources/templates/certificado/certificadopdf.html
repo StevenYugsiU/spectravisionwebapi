@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Certificado Visual</title>
+<style>
+	@page {
+		size: A4;
+		margin: 2.2cm 2cm;
+	}
+
+	body {
+		font-family: Helvetica, Arial, sans-serif;
+		color: #2b2b2b;
+		font-size: 10.5pt;
+		line-height: 1.5;
+	}
+
+	.header-table {
+		width: 100%;
+		border-collapse: collapse;
+		margin-bottom: 18px;
+	}
+
+	.brand-name {
+		font-size: 20pt;
+		font-weight: bold;
+		color: #7a2f8e;
+		margin: 0;
+	}
+
+	.brand-sub {
+		font-size: 9pt;
+		color: #b23a8e;
+		letter-spacing: 2px;
+		margin: 0;
+	}
+
+	.clinic-info {
+		text-align: right;
+		font-size: 9.5pt;
+		color: #444;
+	}
+
+	.clinic-info .clinic-title {
+		font-weight: bold;
+		color: #7a2f8e;
+		font-size: 11pt;
+	}
+
+	.fecha {
+		text-align: right;
+		font-size: 9.5pt;
+		color: #444;
+		margin-bottom: 12px;
+	}
+
+	.titulo {
+		text-align: center;
+		font-size: 13pt;
+		font-weight: bold;
+		color: #7a2f8e;
+		margin-bottom: 14px;
+	}
+
+	.cuerpo {
+		text-align: justify;
+		margin-bottom: 16px;
+	}
+
+	table.medidas {
+		width: 100%;
+		border-collapse: collapse;
+		margin-bottom: 14px;
+	}
+
+	table.medidas th, table.medidas td {
+		border: 1px solid #c9a8d6;
+		padding: 5px 6px;
+		text-align: center;
+		font-size: 9.5pt;
+	}
+
+	table.medidas th {
+		background-color: #e9d8ef;
+		color: #5a2467;
+		font-weight: bold;
+	}
+
+	table.medidas td.ojo {
+		background-color: #e9d8ef;
+		font-weight: bold;
+		color: #5a2467;
+	}
+
+	.seccion-titulo {
+		font-weight: bold;
+		color: #5a2467;
+		margin-top: 10px;
+	}
+
+	.diagnostico-linea {
+		margin: 2px 0;
+	}
+
+	ul.recomendaciones {
+		margin: 4px 0 0 0;
+		padding-left: 18px;
+	}
+
+	.firma {
+		margin-top: 46px;
+	}
+
+	.firma .nombre {
+		font-weight: bold;
+		border-top: 1px solid #999;
+		display: inline-block;
+		padding-top: 4px;
+		min-width: 260px;
+	}
+
+	.firma .cargo {
+		font-size: 9.5pt;
+		color: #555;
+	}
+</style>
+</head>
+<body>
+
+	<table class="header-table">
+		<tr>
+			<td style="width: 55%;">
+				<p class="brand-name">SPECTRA</p>
+				<p class="brand-sub">VISIÓN ÓPTICA</p>
+			</td>
+			<td class="clinic-info" style="width: 45%;">
+				<p class="clinic-title">ÓPTICA SPECTRA VISION</p>
+				<p>BARRIO NUEVO<br />CALLE CANELO Y OE5T<br />TELF: 0983047785</p>
+			</td>
+		</tr>
+	</table>
+
+	<p class="fecha" th:text="${fechaGeneracion}">17 de Julio del 2026</p>
+
+	<p class="titulo">CERTIFICADO VISUAL</p>
+
+	<p class="cuerpo">
+		Por medio del presente, se certifica que
+		<b th:text="${cliente.apellidos + ' ' + cliente.nombres}">NOMBRE APELLIDO</b>
+		con CI: <b th:text="${cliente.cedula}">0000000000</b> acudió a consulta
+		para la evaluación del sistema visual, realizándose un examen visual
+		completo incluyendo agudeza visual y valoración motora. Tras la
+		valoración realizada, se determina que presenta
+		<b th:text="${examen.diagnostico}">DIAGNÓSTICO</b>.
+	</p>
+
+	<table class="medidas">
+		<thead>
+			<tr>
+				<th></th>
+				<th>SPH</th>
+				<th>CYL</th>
+				<th>EJE</th>
+				<th>AV</th>
+				<th>ADD</th>
+				<th>ALT</th>
+				<th>DNP</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td class="ojo">OD</td>
+				<td th:text="${examen.sphOd}"></td>
+				<td th:text="${examen.cylOd}"></td>
+				<td th:text="${examen.ejeOd}"></td>
+				<td th:text="${examen.avOd}"></td>
+				<td th:text="${examen.addValor}" rowspan="2"></td>
+				<td th:text="${examen.altura}" rowspan="2"></td>
+				<td th:text="${examen.dnp}" rowspan="2"></td>
+			</tr>
+			<tr>
+				<td class="ojo">OI</td>
+				<td th:text="${examen.sphOi}"></td>
+				<td th:text="${examen.cylOi}"></td>
+				<td th:text="${examen.ejeOi}"></td>
+				<td th:text="${examen.avOi}"></td>
+			</tr>
+		</tbody>
+	</table>
+
+	<p class="diagnostico-linea">
+		<span class="seccion-titulo">Diagnóstico:</span>
+		<span th:text="${examen.diagnostico}">Diagnóstico</span>
+	</p>
+
+	<p class="seccion-titulo">Recomendaciones</p>
+	<ul class="recomendaciones">
+		<li th:each="linea : ${#strings.arraySplit(examen.recomentaciones, ',')}"
+			th:text="${#strings.trim(linea)}">Recomendación</li>
+	</ul>
+
+	<div class="firma">
+		<div class="nombre">Dayana Estefanía Cueva Chávez</div>
+		<p class="cargo">
+			OPTÓMETRA<br />
+			REG. 2250-2025-3102415
+		</p>
+	</div>
+
+</body>
+</html>

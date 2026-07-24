@@ -37,6 +37,8 @@
 						<td th:text="${certificado.observaciones}"></td>
 						<td class="actions-cell">
 							<div class="action-icons">
+								<a th:href="@{/certificado/{id}/pdf(id=${certificado.idCertificado})}" target="_blank"
+									class="btn btn-icon" style="background-color:#ffab00;color:#212529;" title="Descargar PDF"><i class="mdi mdi-file-pdf-box"></i></a>
 								<a th:href="@{/certificado/editar/{id}(id=${certificado.idCertificado})}"
 									class="btn btn-primary btn-icon" title="Editar"><i class="mdi mdi-pencil"></i></a>
 								<form th:action="@{/certificado/eliminar/{id}(id=${certificado.idCertificado})}" method="post"

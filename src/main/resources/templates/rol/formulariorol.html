@@ -19,9 +19,12 @@
 				<div class="card">
 					<div class="card-body">
 
-						<h4 class="card-title" th:text="${rol.idRol == 0} ? 'Nuevo Rol' : 'Editar Rol'">Nuevo Rol</h4>
-						<p class="card-description"
-							th:text="${rol.idRol == 0} ? 'Registro de un nuevo rol' : 'Actualizar rol'">Registro de un nuevo rol</p>
+
+						<div class="d-flex align-items-center mb-2">
+							<a href="javascript:history.back()" class="btn btn-dark btn-icon mr-2" title="Regresar"><i class="mdi mdi-arrow-left"></i></a>
+							<h4 class="card-title mb-0">Nuevo Rol</h4>
+						</div>
+						<p class="card-description">Registro de un nuevo rol</p>
 
 						<form
 							th:action="${rol.idRol == 0} ? @{/rol/guardar} : @{/rol/actualizar/{id}(id=${rol.idRol})}"

@@ -1,6 +1,6 @@
 package com.uisrael.spectravisionwebapi.controller;
 
-import java.time.LocalDate;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.uisrael.spectravisionwebapi.model.request.CitaRequestDto;
 import com.uisrael.spectravisionwebapi.model.response.CitaResponseDto;
@@ -29,18 +28,17 @@ public class CitaController {
 	private IClienteService servicioCliente;
 
 	@GetMapping
-	public String leerPagina(@RequestParam(required = false) LocalDate fecha, Model model) {
-		List<CitaResponseDto> listaCitas = fecha != null ? servicioCita.buscarCitasPorFecha(fecha)
-				: servicioCita.listarCitas();
+
+	public String leerPagina(Model model) {
+		List<CitaResponseDto> listaCitas = servicioCita.listarCitas();
 		model.addAttribute("listacitas", listaCitas);
-		model.addAttribute("fechaFiltro", fecha != null ? fecha.toString() : "");
 		return "/cita/listarcitas";
 	}
 
 	@GetMapping("/nuevo")
 	public String nuevaCita(Model model) {
 		model.addAttribute("cita", new CitaRequestDto());
-		model.addAttribute("listaclientes", servicioCliente.listarClientes());
+		model.addAttribute("listaClientes", servicioCliente.listarClientes());
 		return "/cita/formulariocita";
 	}
 
@@ -63,7 +61,7 @@ public class CitaController {
 		cita.setEstado(encontrada.getEstado());
 
 		model.addAttribute("cita", cita);
-		model.addAttribute("listaclientes", servicioCliente.listarClientes());
+		model.addAttribute("listaClientes", servicioCliente.listarClientes());
 		return "/cita/formulariocita";
 	}
 

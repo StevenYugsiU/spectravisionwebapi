@@ -14,17 +14,18 @@
 
 	<div layout:fragment="cargarpaginas">
 
+		<div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
 		<div class="d-flex justify-content-between align-items-center mb-3">
 			<h4 class="card-title mb-0">Clientes</h4>
 			<a th:href="@{/cliente/nuevo}" class="btn btn-primary">+ Nuevo Cliente</a>
 		</div>
 		<div class="table-responsive">
-			<table class="table table-hover">
+			<table class="table table-bordered">
 				<thead>
 					<tr>
+						<th>Paciente</th>
 						<th>Cédula</th>
-						<th>Nombres</th>
-						<th>Apellidos</th>
 						<th>Edad</th>
 						<th>Ocupación</th>
 						<th>Celular</th>
@@ -35,9 +36,8 @@
 				</thead>
 				<tbody>
 					<tr th:each="cliente : ${listaclientes}">
-						<td th:text="${cliente.cedula}"></td>
-						<td th:text="${cliente.nombres}"></td>
-						<td th:text="${cliente.apellidos}"></td>
+						<td class="buscable" th:text="${cliente.nombres + ' ' + cliente.apellidos}"></td>
+						<td class="buscable" th:text="${cliente.cedula}"></td>
 						<td th:text="${cliente.edad}"></td>
 						<td th:text="${cliente.ocupacion}"></td>
 						<td th:text="${cliente.celular}"></td>
@@ -54,7 +54,7 @@
 									<button type="submit" class="btn btn-danger btn-icon" title="Eliminar"><i class="mdi mdi-delete"></i></button>
 								</form>
 								<div class="dropdown">
-									<button class="btn btn-icon dropdown-toggle" type="button"
+									<button class="btn btn-info dropdown-toggle btn-icon" type="button"
 										data-toggle="dropdown" aria-expanded="false" title="Más acciones">
 										<i class="mdi mdi-dots-vertical"></i>
 									</button>

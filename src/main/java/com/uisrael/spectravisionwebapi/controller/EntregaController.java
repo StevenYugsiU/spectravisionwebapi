@@ -36,7 +36,7 @@ public class EntregaController {
 	@GetMapping("/nuevo")
 	public String nuevaEntrega(Model model) {
 		model.addAttribute("entrega", new EntregaRequestDto());
-		model.addAttribute("listaclientes", servicioCliente.listarClientes());
+		model.addAttribute("listaClientes", servicioCliente.listarClientes());
 		return "/entrega/formularioentrega";
 	}
 
@@ -58,7 +58,7 @@ public class EntregaController {
 		entrega.setEstado(encontrada.getEstado());
 
 		model.addAttribute("entrega", entrega);
-		model.addAttribute("listaclientes", servicioCliente.listarClientes());
+		model.addAttribute("listaClientes", servicioCliente.listarClientes());
 		return "/entrega/formularioentrega";
 	}
 

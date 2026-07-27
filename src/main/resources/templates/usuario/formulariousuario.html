@@ -7,7 +7,9 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title th:text="${usuario.idUsuario == 0} ? 'Nuevo Usuario' : 'Editar Usuario'">Nuevo Usuario</title>
+<title
+	th:text="${usuario.idUsuario == 0} ? 'Nuevo Usuario' : 'Editar Usuario'">Nuevo
+	Usuario</title>
 </head>
 
 <body>
@@ -19,37 +21,49 @@
 				<div class="card">
 					<div class="card-body">
 
-						<h4 class="card-title" th:text="${usuario.idUsuario == 0} ? 'Nuevo Usuario' : 'Editar Usuario'">Nuevo Usuario</h4>
+						<div class="d-flex align-items-center mb-2">
+							<a href="javascript:history.back()"
+								class="btn btn-dark btn-icon mr-2" title="Regresar"> <i
+								class="mdi mdi-arrow-left"></i>
+							</a>
+
+							<h4 class="card-title mb-0"
+								th:text="${usuario.idUsuario == 0} ? 'Nuevo Usuario' : 'Editar Usuario'">
+								Nuevo Usuario</h4>
+						</div>
+
 						<p class="card-description"
-							th:text="${usuario.idUsuario == 0} ? 'Registro de un nuevo usuario' : 'Actualizar datos del usuario'">Registro de un nuevo usuario</p>
+							th:text="${usuario.idUsuario == 0} ? 'Registro de un nuevo usuario' : 'Actualizar datos del usuario'">
+							Registro de un nuevo usuario</p>
 
 						<form
 							th:action="${usuario.idUsuario == 0} ? @{/usuario/guardar} : @{/usuario/actualizar/{id}(id=${usuario.idUsuario})}"
 							th:object="${usuario}" method="post" class="forms-sample">
 
 							<div class="form-group">
-								<label for="nombres">Nombres</label>
-								<input type="text" th:field="*{nombres}" class="form-control"
-									id="nombres" placeholder="Ingrese los nombres" required>
+								<label for="nombres">Nombres</label> <input type="text"
+									th:field="*{nombres}" class="form-control" id="nombres"
+									placeholder="Ingrese los nombres" required>
 							</div>
 
 							<div class="form-group">
-								<label for="apellidos">Apellidos</label>
-								<input type="text" th:field="*{apellidos}" class="form-control"
-									id="apellidos" placeholder="Ingrese los apellidos" required>
+								<label for="apellidos">Apellidos</label> <input type="text"
+									th:field="*{apellidos}" class="form-control" id="apellidos"
+									placeholder="Ingrese los apellidos" required>
 							</div>
 
 							<div class="form-group">
-								<label for="usuario">Usuario</label>
-								<input type="text" th:field="*{usuario}" class="form-control"
-									id="usuario" placeholder="Ingrese el usuario" required>
+								<label for="usuario">Usuario</label> <input type="text"
+									th:field="*{usuario}" class="form-control" id="usuario"
+									placeholder="Ingrese el usuario" required>
 							</div>
 
 							<div class="form-group">
-								<label for="contrasena">Contraseña</label>
-								<input type="password" th:field="*{contrasena}" class="form-control"
-									id="contrasena" placeholder="Ingrese la contraseña">
-								<small th:if="${usuario.idUsuario != 0}" class="form-text text-muted">Dejar en blanco para no cambiar la contraseña actual.</small>
+								<label for="contrasena">Contraseña</label> <input
+									type="password" th:field="*{contrasena}" class="form-control"
+									id="contrasena" placeholder="Ingrese la contraseña"> <small
+									th:if="${usuario.idUsuario != 0}" class="form-text text-muted">Dejar
+									en blanco para no cambiar la contraseña actual.</small>
 							</div>
 
 							<div class="form-check form-check-flat form-check-primary">

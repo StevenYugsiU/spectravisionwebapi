@@ -53,8 +53,8 @@ public class UsuarioRolController {
 	@GetMapping("/nuevo")
 	public String nuevoUsuarioRol(Model model) {
 		model.addAttribute("usuariorol", new UsuarioRolRequestDto());
-		model.addAttribute("listausuarios", servicioUsuario.listarUsuarios());
-		model.addAttribute("listaroles", servicioRol.listarRoles());
+		model.addAttribute("listaUsuarios", servicioUsuario.listarUsuarios());
+		model.addAttribute("listaRoles", servicioRol.listarRoles());
 		return "/usuariorol/formulariousuariorol";
 	}
 
@@ -74,8 +74,8 @@ public class UsuarioRolController {
 		usuariorol.setIdRol(encontrado.getIdRol());
 
 		model.addAttribute("usuariorol", usuariorol);
-		model.addAttribute("listausuarios", servicioUsuario.listarUsuarios());
-		model.addAttribute("listaroles", servicioRol.listarRoles());
+		model.addAttribute("listaUsuarios", servicioUsuario.listarUsuarios());
+		model.addAttribute("listaRoles", servicioRol.listarRoles());
 		return "/usuariorol/formulariousuariorol";
 	}
 

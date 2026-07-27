@@ -22,8 +22,9 @@
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th>Id</th>
-						<th>Cliente</th>
+
+						<th>Paciente</th>
+						<th>Cédula</th>
 						<th>Fecha Entrega</th>
 						<th>Observaciones</th>
 						<th>Estado</th>
@@ -32,8 +33,9 @@
 				</thead>
 				<tbody>
 					<tr th:each="entrega : ${listaentregas}">
-						<td th:text="${entrega.idEntrega}"></td>
-						<td th:text="${entrega.fkCliente.nombres + ' ' + entrega.fkCliente.apellidos}"></td>
+
+						<td class="buscable" th:text="${entrega.fkCliente.nombres + ' ' + entrega.fkCliente.apellidos}"></td>
+						<td class="buscable" th:text="${entrega.fkCliente.cedula}"></td>
 						<td th:text="${#dates.format(entrega.fechaEntrega, 'dd/MM/yyyy')}"></td>
 						<td th:text="${entrega.observaciones}"></td>
 						<td><span class="badge-soft badge-soft-info" th:text="${entrega.estado}"></span></td>

@@ -7,7 +7,10 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title th:text="${usuariorol.idUsuarioRol == 0} ? 'Nueva Asignación de Rol' : 'Editar Asignación de Rol'">Nueva Asignación de Rol</title>
+<title
+	th:text="${usuariorol.idUsuarioRol == 0} ? 'Nueva Asignación de Rol' : 'Editar Asignación de Rol'">
+	Nueva Asignación de Rol
+</title>
 </head>
 
 <body>
@@ -19,36 +22,79 @@
 				<div class="card">
 					<div class="card-body">
 
-						<h4 class="card-title" th:text="${usuariorol.idUsuarioRol == 0} ? 'Nueva Asignación de Rol' : 'Editar Asignación de Rol'">Nueva Asignación de Rol</h4>
+						<div class="d-flex align-items-center mb-2">
+							<a href="javascript:history.back()"
+								class="btn btn-dark btn-icon mr-2"
+								title="Regresar">
+								<i class="mdi mdi-arrow-left"></i>
+							</a>
+
+							<h4 class="card-title mb-0"
+								th:text="${usuariorol.idUsuarioRol == 0} ? 'Nueva Asignación de Rol' : 'Editar Asignación de Rol'">
+								Nueva Asignación de Rol
+							</h4>
+						</div>
+
 						<p class="card-description"
-							th:text="${usuariorol.idUsuarioRol == 0} ? 'Asignar un rol a un usuario' : 'Actualizar la asignación de rol'">Asignar un rol a un usuario</p>
+							th:text="${usuariorol.idUsuarioRol == 0} ? 'Asignar un rol a un usuario' : 'Actualizar la asignación de rol'">
+							Asignar un rol a un usuario
+						</p>
 
 						<form
 							th:action="${usuariorol.idUsuarioRol == 0} ? @{/usuariorol/guardar} : @{/usuariorol/actualizar/{id}(id=${usuariorol.idUsuarioRol})}"
-							th:object="${usuariorol}" method="post" class="forms-sample">
+							th:object="${usuariorol}"
+							method="post"
+							class="forms-sample">
 
 							<div class="form-group">
 								<label for="idUsuario">Usuario</label>
-								<select th:field="*{idUsuario}" class="form-control" id="idUsuario" required>
+
+								<select th:field="*{idUsuario}"
+									class="form-control"
+									id="idUsuario"
+									required>
+
 									<option value="0">Seleccione un usuario</option>
-									<option th:each="u : ${listausuarios}" th:value="${u.idUsuario}"
-										th:text="${u.nombres + ' ' + u.apellidos + ' (' + u.usuario + ')'}"></option>
+
+									<option
+										th:each="usuario : ${listaUsuarios}"
+										th:value="${usuario.idUsuario}"
+										th:text="${usuario.nombres} + ' ' + ${usuario.apellidos}">
+									</option>
+
 								</select>
 							</div>
 
 							<div class="form-group">
 								<label for="idRol">Rol</label>
-								<select th:field="*{idRol}" class="form-control" id="idRol" required>
+
+								<select th:field="*{idRol}"
+									class="form-control"
+									id="idRol"
+									required>
+
 									<option value="0">Seleccione un rol</option>
-									<option th:each="r : ${listaroles}" th:value="${r.idRol}" th:text="${r.nombre}"></option>
+
+									<option
+										th:each="rol : ${listaRoles}"
+										th:value="${rol.idRol}"
+										th:text="${rol.nombre}">
+									</option>
+
 								</select>
 							</div>
 
 							<input type="hidden" th:field="*{idUsuarioRol}">
 
-							<button type="submit" class="btn btn-primary mr-2"
-								th:text="${usuariorol.idUsuarioRol == 0} ? 'Crear' : 'Actualizar'">Crear</button>
-							<a th:href="@{/usuariorol}" class="btn btn-dark">Cancelar</a>
+							<button type="submit"
+								class="btn btn-primary mr-2"
+								th:text="${usuariorol.idUsuarioRol == 0} ? 'Crear' : 'Actualizar'">
+								Crear
+							</button>
+
+							<a th:href="@{/usuariorol}" class="btn btn-dark">
+								Cancelar
+							</a>
 
 						</form>
 
@@ -60,5 +106,4 @@
 	</div>
 
 </body>
-
 </html>

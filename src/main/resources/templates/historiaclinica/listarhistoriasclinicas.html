@@ -22,22 +22,22 @@
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th>Id</th>
-						<th>Cliente</th>
-						<th>Fecha Apertura</th>
+			<th>Paciente</th>
+						<th>Cédula</th>
 						<th>Antecedentes</th>
 						<th>Observaciones Generales</th>
+						<th>Fecha Apertura</th>
 						<th>Estado</th>
 						<th></th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="historia : ${listahistoriasclinicas}">
-						<td th:text="${historia.idHistoriaClinica}"></td>
-						<td th:text="${historia.fkCliente.nombres + ' ' + historia.fkCliente.apellidos}"></td>
-						<td th:text="${#dates.format(historia.fechaApertura, 'dd/MM/yyyy')}"></td>
+						<td class="buscable" th:text="${historia.fkCliente.nombres + ' ' + historia.fkCliente.apellidos}"></td>
+						<td class="buscable" th:text="${historia.fkCliente.cedula}"></td>
 						<td th:text="${historia.antecedentes}"></td>
 						<td th:text="${historia.observacionesGenerales}"></td>
+						<td th:text="${#dates.format(historia.fechaApertura, 'dd/MM/yyyy')}"></td>
 						<td><span class="badge-soft"
 							th:classappend="${historia.estado} ? 'badge-soft-success' : 'badge-soft-danger'"
 							th:text="${historia.estado} ? 'Activo' : 'Inactivo'"></span></td>

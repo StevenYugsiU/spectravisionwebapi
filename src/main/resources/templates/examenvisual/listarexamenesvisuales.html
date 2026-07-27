@@ -22,8 +22,9 @@
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th>Id</th>
-						<th>Cliente</th>
+
+						<th>Paciente</th>
+						<th>Cédula</th>
 						<th>Fecha Examen</th>
 						<th>Motivo Consulta</th>
 						<th>Diagnóstico</th>
@@ -33,14 +34,17 @@
 				</thead>
 				<tbody>
 					<tr th:each="examen : ${listaexamenesvisuales}">
-						<td th:text="${examen.idExamen}"></td>
-						<td th:text="${examen.fkHistoriaClinica.fkCliente.nombres + ' ' + examen.fkHistoriaClinica.fkCliente.apellidos}"></td>
+
+						<td class="buscable" th:text="${examen.fkHistoriaClinica.fkCliente.nombres + ' ' + examen.fkHistoriaClinica.fkCliente.apellidos}"></td>
+						<td class="buscable" th:text="${examen.fkHistoriaClinica.fkCliente.cedula}"></td>
 						<td th:text="${#dates.format(examen.fechaExamen, 'dd/MM/yyyy')}"></td>
 						<td th:text="${examen.motivoConsulta}"></td>
 						<td th:text="${examen.diagnostico}"></td>
 						<td th:text="${examen.proximaConsulta}"></td>
 						<td class="actions-cell">
 							<div class="action-icons">
+								<a th:href="@{/examenvisual/{id}/pdf(id=${examen.idExamen})}" target="_blank"
+									class="btn btn-icon" style="background-color:#ffab00;color:#212529;" title="Descargar PDF"><i class="mdi mdi-file-pdf-box"></i></a>
 								<a th:href="@{/examenvisual/editar/{id}(id=${examen.idExamen})}"
 									class="btn btn-primary btn-icon" title="Editar"><i class="mdi mdi-pencil"></i></a>
 								<form th:action="@{/examenvisual/eliminar/{id}(id=${examen.idExamen})}" method="post"

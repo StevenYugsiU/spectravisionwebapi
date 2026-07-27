@@ -41,7 +41,8 @@ public class HistoriaClinicaController {
 			historiaclinica.setIdCliente(idCliente);
 		}
 		model.addAttribute("historiaclinica", historiaclinica);
-		model.addAttribute("listaclientes", servicioCliente.listarClientes());
+
+		model.addAttribute("listaClientes", servicioCliente.listarClientes());
 		return "/historiaclinica/formulariohistoriaclinica";
 	}
 
@@ -64,7 +65,8 @@ public class HistoriaClinicaController {
 		historiaclinica.setEstado(encontrada.getEstado());
 
 		model.addAttribute("historiaclinica", historiaclinica);
-		model.addAttribute("listaclientes", servicioCliente.listarClientes());
+
+		model.addAttribute("listaClientes", servicioCliente.listarClientes());
 		return "/historiaclinica/formulariohistoriaclinica";
 	}
 

@@ -31,7 +31,7 @@
 				<tbody>
 					<tr th:each="rol : ${listaroles}">
 						<td th:text="${rol.idRol}"></td>
-						<td th:text="${rol.nombre}"></td>
+						<td class="buscable" th:text="${rol.nombre}"></td>
 						<td th:text="${rol.descripcion}"></td>
 						<td class="actions-cell">
 							<div class="action-icons">

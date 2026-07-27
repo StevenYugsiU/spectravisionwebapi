@@ -1,0 +1,90 @@
+/* Vista previa de tema claro. Vista rápida por encima del tema oscuro
+   base (style.css) para ver la app en tonos claros. No es un tema
+   pulido pixel-perfect, solo una previsualización. */
+
+body,
+.sidebar,
+.navbar,
+.card,
+.dropdown-menu,
+.select2-container--default .select2-dropdown {
+	background-color: #ffffff !important;
+	color: #2b2e33 !important;
+}
+
+.content-wrapper {
+	background-color: #f4f6f9 !important;
+}
+
+.sidebar,
+.navbar {
+	border-color: #e5e8ee !important;
+}
+
+.card {
+	border: 1px solid #e5e8ee !important;
+}
+
+.card .card-title,
+h1, h2, h3, h4, h5, h6,
+label,
+.profile-name h5,
+.navbar-profile-name {
+	color: #2b2e33 !important;
+}
+
+.card .card-description {
+	color: #6c757d !important;
+}
+
+.table,
+.table td,
+.table th {
+	color: #495057 !important;
+	border-color: #e5e8ee !important;
+}
+
+.table thead th {
+	border-color: #e5e8ee !important;
+}
+
+.table-hover tbody tr:hover {
+	background-color: rgba(0, 0, 0, 0.035) !important;
+	color: inherit !important;
+}
+
+.dropdown-item {
+	color: #2b2e33 !important;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+	background-color: rgba(0, 0, 0, 0.05) !important;
+	color: #2b2e33 !important;
+}
+
+.form-control,
+.select2-container--default .select2-selection--single {
+	background-color: #ffffff !important;
+	border-color: #ced4da !important;
+	color: #2b2e33 !important;
+}
+
+.form-control::placeholder {
+	color: #8a94a6 !important;
+}
+
+.nav-item.nav-category .nav-link,
+a.nav-link {
+	color: #6c7293 !important;
+}
+
+.sidebar .nav-item.active > .nav-link,
+.sidebar .nav-link:hover {
+	color: #0090e7 !important;
+}
+
+.sidebar-brand-wrapper,
+.navbar-brand-wrapper {
+	background-color: #ffffff !important;
+}

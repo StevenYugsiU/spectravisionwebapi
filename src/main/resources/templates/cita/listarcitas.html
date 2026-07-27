@@ -30,8 +30,9 @@
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th>Id</th>
-						<th>Cliente</th>
+
+						<th>Paciente</th>
+						<th>Cédula</th>
 						<th>Fecha</th>
 						<th>Hora</th>
 						<th>Tipo Cita</th>
@@ -41,8 +42,8 @@
 				</thead>
 				<tbody>
 					<tr th:each="cita : ${listacitas}">
-						<td th:text="${cita.idCita}"></td>
-						<td th:text="${cita.fkCliente.nombres + ' ' + cita.fkCliente.apellidos}"></td>
+						<td class="buscable" th:text="${cita.fkCliente.nombres + ' ' + cita.fkCliente.apellidos}"></td>
+						<td class="buscable" th:text="${cita.fkCliente.cedula}"></td>
 						<td th:text="${#temporals.format(cita.fecha, 'dd/MM/yyyy')}"></td>
 						<td th:text="${cita.hora}"></td>
 						<td th:text="${cita.tipoCita}"></td>

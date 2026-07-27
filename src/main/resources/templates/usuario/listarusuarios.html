@@ -33,8 +33,8 @@
 				<tbody>
 					<tr th:each="usuario : ${listausuarios}">
 						<td th:text="${usuario.idUsuario}"></td>
-						<td th:text="${usuario.nombres}"></td>
-						<td th:text="${usuario.apellidos}"></td>
+						<td class="buscable" th:text="${usuario.nombres}"></td>
+						<td class="buscable" th:text="${usuario.apellidos}"></td>
 						<td th:text="${usuario.usuario}"></td>
 						<td><span class="badge-soft"
 							th:classappend="${usuario.estado} ? 'badge-soft-success' : 'badge-soft-danger'"

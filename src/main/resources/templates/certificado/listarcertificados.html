@@ -22,8 +22,9 @@
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th>Id</th>
-						<th>Cliente</th>
+
+						<th>Paciente</th>
+						<th>Cédula</th>
 						<th>Fecha Generación</th>
 						<th>Observaciones</th>
 						<th></th>
@@ -31,8 +32,9 @@
 				</thead>
 				<tbody>
 					<tr th:each="certificado : ${listacertificados}">
-						<td th:text="${certificado.idCertificado}"></td>
-						<td th:text="${certificado.fkExamenVisual.fkHistoriaClinica.fkCliente.nombres + ' ' + certificado.fkExamenVisual.fkHistoriaClinica.fkCliente.apellidos}"></td>
+
+						<td class="buscable" th:text="${certificado.fkExamenVisual.fkHistoriaClinica.fkCliente.nombres + ' ' + certificado.fkExamenVisual.fkHistoriaClinica.fkCliente.apellidos}"></td>
+						<td class="buscable" th:text="${certificado.fkExamenVisual.fkHistoriaClinica.fkCliente.cedula}"></td>
 						<td th:text="${#dates.format(certificado.fechaGeneracion, 'dd/MM/yyyy')}"></td>
 						<td th:text="${certificado.observaciones}"></td>
 						<td class="actions-cell">

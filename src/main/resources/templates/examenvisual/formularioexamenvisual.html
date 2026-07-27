@@ -7,7 +7,9 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title th:text="${examenvisual.idExamen == 0} ? 'Nuevo Examen Visual' : 'Editar Examen Visual'">Nuevo Examen Visual</title>
+<title
+	th:text="${examenvisual.idExamen == 0} ? 'Nuevo Examen Visual' : 'Editar Examen Visual'">Nuevo
+	Examen Visual</title>
 </head>
 
 <body>
@@ -15,134 +17,231 @@
 	<div layout:fragment="cargarpaginas">
 
 		<div class="row">
-			<div class="col-md-6 offset-md-3 grid-margin stretch-card">
+			<div class="col-md-10 offset-md-1 grid-margin stretch-card">
 				<div class="card">
 					<div class="card-body">
 
-						<h4 class="card-title"
-							th:text="${examenvisual.idExamen == 0} ? 'Nuevo Examen Visual' : 'Editar Examen Visual'">Nuevo Examen Visual</h4>
+						<div class="d-flex align-items-center mb-2">
+							<a href="javascript:history.back()" class="btn btn-dark btn-icon mr-2" title="Regresar"><i class="mdi mdi-arrow-left"></i></a>
+							<h4 class="card-title mb-0"
+								th:text="${examenvisual.idExamen == 0} ? 'Nuevo Examen Visual' : 'Editar Examen Visual'">Nuevo
+								Examen Visual</h4>
+						</div>
 						<p class="card-description"
-							th:text="${examenvisual.idExamen == 0} ? 'Registro de un nuevo examen visual' : 'Actualizar examen visual'">Registro de un nuevo examen visual</p>
+							th:text="${examenvisual.idExamen == 0} ? 'Registro de un nuevo examen visual' : 'Actualizar examen visual'">Registro
+							de un nuevo examen visual</p>
 
 						<form
 							th:action="${examenvisual.idExamen == 0} ? @{/examenvisual/guardar} : @{/examenvisual/actualizar/{id}(id=${examenvisual.idExamen})}"
 							th:object="${examenvisual}" method="post" class="forms-sample">
 
-							<div class="form-group">
-								<label for="idHistoria">Historia Clínica</label>
-								<select th:field="*{idHistoria}" class="form-control" id="idHistoria" required>
-									<option value="0">Seleccione una historia clínica</option>
-									<option th:each="h : ${listahistorias}" th:value="${h.idHistoriaClinica}"
-										th:text="'Historia #' + ${h.idHistoriaClinica} + ' - ' + ${h.fkCliente.nombres} + ' ' + ${h.fkCliente.apellidos}"></option>
+
+							<div class="form-group" th:if="${clienteSeleccionado != null}">
+								<label>Paciente</label>
+								<div class="form-control"
+									th:text="${clienteSeleccionado.nombres + ' ' + clienteSeleccionado.apellidos + ' - Cédula ' + clienteSeleccionado.cedula}"></div>
+								<input type="hidden" th:field="*{idHistoria}">
+							</div>
+
+							<div class="form-group" th:if="${clienteSeleccionado == null}">
+								<label for="idHistoria">Paciente</label> <select
+									class="form-control" th:field="*{idHistoria}" id="idHistoria">
+									<option value="0">Seleccione un paciente</option>
+									<option th:each="historia : ${listaHistorias}"
+										th:value="${historia.idHistoriaClinica}"
+										th:text="${historia.fkCliente.nombres + ' ' + historia.fkCliente.apellidos}"></option>
 								</select>
 							</div>
 
-							<div class="form-group">
-								<label for="fechaExamen">Fecha del Examen</label>
-								<input type="date" th:field="*{fechaExamen}"
-									class="form-control" id="fechaExamen" required>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group row">
+										<label for="fechaExamen" class="col-sm-4 col-form-label">Fecha del Examen</label>
+										<div class="col-sm-8">
+											<input type="date" th:field="*{fechaExamen}" class="form-control"
+												id="fechaExamen">
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group row">
+										<label for="ultimoControlVisual" class="col-sm-4 col-form-label">Último Control Visual</label>
+										<div class="col-sm-8">
+											<input type="date" th:field="*{ultimoControlVisual}"
+												class="form-control" id="ultimoControlVisual">
+										</div>
+									</div>
+								</div>
 							</div>
 
-							<div class="form-group">
-								<label for="ultimoControlVisual">Último Control Visual</label>
-								<input type="text" th:field="*{ultimoControlVisual}" class="form-control"
-									id="ultimoControlVisual" placeholder="Ingrese el último control visual" required>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group row">
+										<label for="proximaConsulta" class="col-sm-4 col-form-label">Próxima Consulta</label>
+										<div class="col-sm-8">
+											<input type="date" th:field="*{proximaConsulta}" class="form-control"
+												id="proximaConsulta">
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group row">
+										<label for="motivoConsulta" class="col-sm-4 col-form-label">Motivo de Consulta</label>
+										<div class="col-sm-8">
+											<input type="text" th:field="*{motivoConsulta}" class="form-control"
+												id="motivoConsulta" placeholder="Ingrese el motivo de consulta">
+										</div>
+									</div>
+								</div>
 							</div>
 
-							<div class="form-group">
-								<label for="motivoConsulta">Motivo de Consulta</label>
-								<input type="text" th:field="*{motivoConsulta}" class="form-control"
-									id="motivoConsulta" placeholder="Ingrese el motivo de consulta" required>
+							<p class="card-description">Agudeza visual</p>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group row">
+										<label for="avOd" class="col-sm-4 col-form-label">Agudeza Visual OD</label>
+										<div class="col-sm-8">
+											<input type="text" th:field="*{avOd}" class="form-control" id="avOd"
+												placeholder="Ingrese la agudeza visual OD">
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group row">
+										<label for="avOi" class="col-sm-4 col-form-label">Agudeza Visual OI</label>
+										<div class="col-sm-8">
+											<input type="text" th:field="*{avOi}" class="form-control" id="avOi"
+												placeholder="Ingrese la agudeza visual OI">
+										</div>
+									</div>
+								</div>
 							</div>
 
-							<div class="form-group">
-								<label for="avOd">Agudeza Visual OD</label>
-								<input type="text" th:field="*{avOd}" class="form-control"
-									id="avOd" placeholder="Ingrese la agudeza visual OD" required>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group row">
+										<label for="sphOd" class="col-sm-4 col-form-label">Esfera OD</label>
+										<div class="col-sm-8">
+											<input type="text" th:field="*{sphOd}" class="form-control" id="sphOd"
+												placeholder="Ingrese la esfera OD">
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group row">
+										<label for="sphOi" class="col-sm-4 col-form-label">Esfera OI</label>
+										<div class="col-sm-8">
+											<input type="text" th:field="*{sphOi}" class="form-control" id="sphOi"
+												placeholder="Ingrese la esfera OI">
+										</div>
+									</div>
+								</div>
 							</div>
 
-							<div class="form-group">
-								<label for="avOi">Agudeza Visual OI</label>
-								<input type="text" th:field="*{avOi}" class="form-control"
-									id="avOi" placeholder="Ingrese la agudeza visual OI" required>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group row">
+										<label for="cylOd" class="col-sm-4 col-form-label">Cilindro OD</label>
+										<div class="col-sm-8">
+											<input type="text" th:field="*{cylOd}" class="form-control" id="cylOd"
+												placeholder="Ingrese el cilindro OD">
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group row">
+										<label for="cylOi" class="col-sm-4 col-form-label">Cilindro OI</label>
+										<div class="col-sm-8">
+											<input type="text" th:field="*{cylOi}" class="form-control" id="cylOi"
+												placeholder="Ingrese el cilindro OI">
+										</div>
+									</div>
+								</div>
 							</div>
 
-							<div class="form-group">
-								<label for="sphOd">Esfera OD</label>
-								<input type="text" th:field="*{sphOd}" class="form-control"
-									id="sphOd" placeholder="Ingrese la esfera OD" required>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group row">
+										<label for="ejeOd" class="col-sm-4 col-form-label">Eje OD</label>
+										<div class="col-sm-8">
+											<input type="text" th:field="*{ejeOd}" class="form-control" id="ejeOd"
+												placeholder="Ingrese el eje OD">
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group row">
+										<label for="ejeOi" class="col-sm-4 col-form-label">Eje OI</label>
+										<div class="col-sm-8">
+											<input type="text" th:field="*{ejeOi}" class="form-control" id="ejeOi"
+												placeholder="Ingrese el eje OI">
+										</div>
+									</div>
+								</div>
 							</div>
 
-							<div class="form-group">
-								<label for="cylOd">Cilindro OD</label>
-								<input type="text" th:field="*{cylOd}" class="form-control"
-									id="cylOd" placeholder="Ingrese el cilindro OD" required>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group row">
+										<label for="addValor" class="col-sm-4 col-form-label">Adición</label>
+										<div class="col-sm-8">
+											<input type="text" th:field="*{addValor}" class="form-control" id="addValor"
+												placeholder="Ingrese el valor de adición">
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group row">
+										<label for="dnp" class="col-sm-4 col-form-label">DNP</label>
+										<div class="col-sm-8">
+											<input type="text" th:field="*{dnp}" class="form-control" id="dnp"
+												placeholder="Ingrese el DNP">
+										</div>
+									</div>
+								</div>
 							</div>
 
-							<div class="form-group">
-								<label for="ejeOd">Eje OD</label>
-								<input type="text" th:field="*{ejeOd}" class="form-control"
-									id="ejeOd" placeholder="Ingrese el eje OD" required>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group row">
+										<label for="altura" class="col-sm-4 col-form-label">Altura</label>
+										<div class="col-sm-8">
+											<input type="text" th:field="*{altura}" class="form-control" id="altura"
+												placeholder="Ingrese la altura">
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group row">
+										<label for="biomicroscopia" class="col-sm-4 col-form-label">Biomicroscopía</label>
+										<div class="col-sm-8">
+											<input type="text" th:field="*{biomicroscopia}" class="form-control"
+												id="biomicroscopia" placeholder="Ingrese la biomicroscopía">
+										</div>
+									</div>
+								</div>
 							</div>
 
-							<div class="form-group">
-								<label for="sphOi">Esfera OI</label>
-								<input type="text" th:field="*{sphOi}" class="form-control"
-									id="sphOi" placeholder="Ingrese la esfera OI" required>
-							</div>
-
-							<div class="form-group">
-								<label for="cylOi">Cilindro OI</label>
-								<input type="text" th:field="*{cylOi}" class="form-control"
-									id="cylOi" placeholder="Ingrese el cilindro OI" required>
-							</div>
-
-							<div class="form-group">
-								<label for="ejeOi">Eje OI</label>
-								<input type="text" th:field="*{ejeOi}" class="form-control"
-									id="ejeOi" placeholder="Ingrese el eje OI" required>
-							</div>
-
-							<div class="form-group">
-								<label for="addValor">Adición</label>
-								<input type="text" th:field="*{addValor}" class="form-control"
-									id="addValor" placeholder="Ingrese el valor de adición" required>
-							</div>
-
-							<div class="form-group">
-								<label for="dnp">DNP</label>
-								<input type="text" th:field="*{dnp}" class="form-control"
-									id="dnp" placeholder="Ingrese el DNP" required>
-							</div>
-
-							<div class="form-group">
-								<label for="altura">Altura</label>
-								<input type="text" th:field="*{altura}" class="form-control"
-									id="altura" placeholder="Ingrese la altura" required>
-							</div>
-
-							<div class="form-group">
-								<label for="biomicroscopia">Biomicroscopía</label>
-								<input type="text" th:field="*{biomicroscopia}" class="form-control"
-									id="biomicroscopia" placeholder="Ingrese la biomicroscopía" required>
-							</div>
-
-							<div class="form-group">
-								<label for="recomentaciones">Recomendaciones</label>
-								<input type="text" th:field="*{recomentaciones}" class="form-control"
-									id="recomentaciones" placeholder="Ingrese las recomendaciones" required>
-							</div>
-
-							<div class="form-group">
-								<label for="proximaConsulta">Próxima Consulta</label>
-								<input type="text" th:field="*{proximaConsulta}" class="form-control"
-									id="proximaConsulta" placeholder="Ingrese la próxima consulta" required>
-							</div>
-
-							<div class="form-group">
-								<label for="diagnostico">Diagnóstico</label>
-								<input type="text" th:field="*{diagnostico}" class="form-control"
-									id="diagnostico" placeholder="Ingrese el diagnóstico" required>
+							<p class="card-description">Diagnóstico y seguimiento</p>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group row">
+										<label for="recomentaciones" class="col-sm-4 col-form-label">Recomendaciones</label>
+										<div class="col-sm-8">
+											<input type="text" th:field="*{recomentaciones}" class="form-control"
+												id="recomentaciones" placeholder="Ingrese las recomendaciones">
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group row">
+										<label for="diagnostico" class="col-sm-4 col-form-label">Diagnóstico</label>
+										<div class="col-sm-8">
+											<input type="text" th:field="*{diagnostico}" class="form-control" id="diagnostico"
+												placeholder="Ingrese el diagnóstico">
+										</div>
+									</div>
+								</div>
 							</div>
 
 							<input type="hidden" th:field="*{idExamen}">

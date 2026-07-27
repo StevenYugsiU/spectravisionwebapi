@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.uisrael.spectravisionwebapi.model.request.SeguimientoRequestDto;
 import com.uisrael.spectravisionwebapi.model.response.SeguimientoResponseDto;
+
 import com.uisrael.spectravisionwebapi.service.IEntregaService;
 import com.uisrael.spectravisionwebapi.service.ISeguimientoService;
 
@@ -44,7 +45,8 @@ public class SeguimientoController {
 	@GetMapping("/nuevo")
 	public String nuevoSeguimiento(Model model) {
 		model.addAttribute("seguimiento", new SeguimientoRequestDto());
-		model.addAttribute("listaentregas", servicioEntrega.listarEntregas());
+
+		model.addAttribute("listaEntregas", servicioEntrega.listarEntregas());
 		return "/seguimiento/formularioseguimiento";
 	}
 
@@ -66,7 +68,8 @@ public class SeguimientoController {
 		seguimiento.setEstado(encontrado.getEstado());
 
 		model.addAttribute("seguimiento", seguimiento);
-		model.addAttribute("listaentregas", servicioEntrega.listarEntregas());
+
+		model.addAttribute("listaEntregas", servicioEntrega.listarEntregas());
 		return "/seguimiento/formularioseguimiento";
 	}
 

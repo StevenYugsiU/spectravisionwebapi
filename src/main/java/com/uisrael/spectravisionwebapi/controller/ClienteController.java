@@ -10,12 +10,16 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.uisrael.spectravisionwebapi.model.request.ClienteRequestDto;
 import com.uisrael.spectravisionwebapi.model.response.ClienteResponseDto;
 import com.uisrael.spectravisionwebapi.model.response.HistoriaClinicaResponseDto;
 import com.uisrael.spectravisionwebapi.service.IClienteService;
 import com.uisrael.spectravisionwebapi.service.IHistoriaClinicaService;
+
+import tools.jackson.databind.ObjectMapper;
 
 @Controller
 @RequestMapping("/cliente")
@@ -74,9 +78,24 @@ public class ClienteController {
 	}
 
 	@PostMapping("/eliminar/{idCliente}")
-	public String eliminarCliente(@PathVariable int idCliente) {
-		servicioCliente.eliminarCliente(idCliente);
+	public String eliminarCliente(@PathVariable int idCliente, RedirectAttributes redirectAttributes) {
+		try {
+			servicioCliente.eliminarCliente(idCliente);
+		} catch (WebClientResponseException ex) {
+			redirectAttributes.addFlashAttribute("error", extraerMensajeError(ex));
+		}
 		return "redirect:/cliente";
+	}
+
+	private String extraerMensajeError(WebClientResponseException ex) {
+		try {
+			return new ObjectMapper()
+					.readTree(ex.getResponseBodyAsString())
+					.path("mensaje")
+					.asString("No se pudo eliminar el cliente.");
+		} catch (Exception e) {
+			return "No se pudo eliminar el cliente.";
+		}
 	}
 
 	@GetMapping("/{idCliente}/historiaclinica")

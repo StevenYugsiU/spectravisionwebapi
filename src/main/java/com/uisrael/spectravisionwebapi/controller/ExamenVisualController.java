@@ -3,6 +3,9 @@ package com.uisrael.spectravisionwebapi.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,9 +14,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.uisrael.spectravisionwebapi.model.request.ExamenVisualRequestDto;
 import com.uisrael.spectravisionwebapi.model.response.ExamenVisualResponseDto;
+import com.uisrael.spectravisionwebapi.model.response.HistoriaClinicaResponseDto;
+import com.uisrael.spectravisionwebapi.service.IExamenVisualPdfService;
 import com.uisrael.spectravisionwebapi.service.IExamenVisualService;
 import com.uisrael.spectravisionwebapi.service.IHistoriaClinicaService;
 
@@ -27,6 +33,9 @@ public class ExamenVisualController {
 	@Autowired
 	private IHistoriaClinicaService servicioHistoriaClinica;
 
+	@Autowired
+	private IExamenVisualPdfService servicioExamenVisualPdf;
+
 	@GetMapping
 	public String leerPagina(Model model) {
 		List<ExamenVisualResponseDto> listaExamenesVisuales = servicioExamenVisual.listarExamenesVisuales();
@@ -39,9 +48,13 @@ public class ExamenVisualController {
 		ExamenVisualRequestDto examenvisual = new ExamenVisualRequestDto();
 		if (idHistoria != null) {
 			examenvisual.setIdHistoria(idHistoria);
+
+			HistoriaClinicaResponseDto historia = servicioHistoriaClinica.buscarHistoriaClinicaPorId(idHistoria);
+			model.addAttribute("clienteSeleccionado", historia.getFkCliente());
 		}
 		model.addAttribute("examenvisual", examenvisual);
-		model.addAttribute("listahistorias", servicioHistoriaClinica.listarHistoriasClinicas());
+
+		model.addAttribute("listaHistorias", servicioHistoriaClinica.listarHistoriasClinicas());
 		return "/examenvisual/formularioexamenvisual";
 	}
 
@@ -78,7 +91,8 @@ public class ExamenVisualController {
 		examenvisual.setDiagnostico(encontrado.getDiagnostico());
 
 		model.addAttribute("examenvisual", examenvisual);
-		model.addAttribute("listahistorias", servicioHistoriaClinica.listarHistoriasClinicas());
+
+		model.addAttribute("listaHistorias", servicioHistoriaClinica.listarHistoriasClinicas());
 		return "/examenvisual/formularioexamenvisual";
 	}
 
@@ -93,6 +107,16 @@ public class ExamenVisualController {
 	public String eliminarExamenVisual(@PathVariable int idExamen) {
 		servicioExamenVisual.eliminarExamenVisual(idExamen);
 		return "redirect:/examenvisual";
+	}
+
+	@GetMapping("/{idExamen}/pdf")
+	@ResponseBody
+	public ResponseEntity<byte[]> descargarPdf(@PathVariable int idExamen) {
+		byte[] pdf = servicioExamenVisualPdf.generarPdf(idExamen);
+		return ResponseEntity.ok()
+				.header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=examen-visual-" + idExamen + ".pdf")
+				.contentType(MediaType.APPLICATION_PDF)
+				.body(pdf);
 	}
 
 }

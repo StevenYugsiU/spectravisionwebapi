@@ -19,8 +19,11 @@
 				<div class="card">
 					<div class="card-body">
 
-						<h4 class="card-title"
-							th:text="${seguimiento.idSeguimiento == 0} ? 'Nuevo Seguimiento' : 'Editar Seguimiento'">Nuevo Seguimiento</h4>
+						<div class="d-flex align-items-center mb-2">
+							<a href="javascript:history.back()" class="btn btn-dark btn-icon mr-2" title="Regresar"><i class="mdi mdi-arrow-left"></i></a>
+							<h4 class="card-title mb-0"
+								th:text="${seguimiento.idSeguimiento == 0} ? 'Nuevo Seguimiento' : 'Editar Seguimiento'">Nuevo Seguimiento</h4>
+						</div>
 						<p class="card-description"
 							th:text="${seguimiento.idSeguimiento == 0} ? 'Registro de un nuevo seguimiento' : 'Actualizar seguimiento'">Registro de un nuevo seguimiento</p>
 
@@ -30,10 +33,12 @@
 
 							<div class="form-group">
 								<label for="idEntrega">Entrega</label>
-								<select th:field="*{idEntrega}" class="form-control" id="idEntrega" required>
+
+								<select class="form-control" th:field="*{idEntrega}" id="idEntrega">
 									<option value="0">Seleccione una entrega</option>
-									<option th:each="e : ${listaentregas}" th:value="${e.idEntrega}"
-										th:text="'Entrega #' + ${e.idEntrega} + ' - ' + ${e.fkCliente.nombres} + ' ' + ${e.fkCliente.apellidos}"></option>
+									<option th:each="entrega : ${listaEntregas}"
+										th:value="${entrega.idEntrega}"
+										th:text="${entrega.fkCliente.nombres + ' ' + entrega.fkCliente.apellidos + ' - ' + #dates.format(entrega.fechaEntrega, 'dd/MM/yyyy')}"></option>
 								</select>
 							</div>
 

@@ -22,8 +22,9 @@
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th>Id</th>
-						<th>Cliente</th>
+
+						<th>Paciente</th>
+						<th>Cédula</th>
 						<th>Fecha Seguimiento</th>
 						<th>Observaciones</th>
 						<th>Estado</th>
@@ -32,8 +33,9 @@
 				</thead>
 				<tbody>
 					<tr th:each="seguimiento : ${listaseguimientos}">
-						<td th:text="${seguimiento.idSeguimiento}"></td>
-						<td th:text="${seguimiento.fkEntrega.fkCliente.nombres + ' ' + seguimiento.fkEntrega.fkCliente.apellidos}"></td>
+
+						<td class="buscable" th:text="${seguimiento.fkEntrega.fkCliente.nombres + ' ' + seguimiento.fkEntrega.fkCliente.apellidos}"></td>
+						<td class="buscable" th:text="${seguimiento.fkEntrega.fkCliente.cedula}"></td>
 						<td th:text="${#dates.format(seguimiento.fechaSeguimiento, 'dd/MM/yyyy')}"></td>
 						<td th:text="${seguimiento.observaciones}"></td>
 						<td><span class="badge-soft badge-soft-info" th:text="${seguimiento.estado}"></span></td>

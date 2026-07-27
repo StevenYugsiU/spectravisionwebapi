@@ -19,7 +19,10 @@
 				<div class="card">
 					<div class="card-body">
 
-						<h4 class="card-title" th:text="${entrega.idEntrega == 0} ? 'Nueva Entrega' : 'Editar Entrega'">Nueva Entrega</h4>
+						<div class="d-flex align-items-center mb-2">
+							<a href="javascript:history.back()" class="btn btn-dark btn-icon mr-2" title="Regresar"><i class="mdi mdi-arrow-left"></i></a>
+							<h4 class="card-title mb-0" th:text="${entrega.idEntrega == 0} ? 'Nueva Entrega' : 'Editar Entrega'">Nueva Entrega</h4>
+						</div>
 						<p class="card-description"
 							th:text="${entrega.idEntrega == 0} ? 'Registro de una nueva entrega' : 'Actualizar entrega'">Registro de una nueva entrega</p>
 
@@ -29,10 +32,12 @@
 
 							<div class="form-group">
 								<label for="idCliente">Cliente</label>
-								<select th:field="*{idCliente}" class="form-control" id="idCliente" required>
+
+								<select class="form-control" th:field="*{idCliente}" id="idCliente">
 									<option value="0">Seleccione un cliente</option>
-									<option th:each="c : ${listaclientes}" th:value="${c.idCliente}"
-										th:text="${c.nombres + ' ' + c.apellidos + ' (' + c.cedula + ')'}"></option>
+									<option th:each="cliente : ${listaClientes}"
+										th:value="${cliente.idCliente}"
+										th:text="${cliente.cedula + ' - ' + cliente.nombres + ' ' + cliente.apellidos}"></option>
 								</select>
 							</div>
 
@@ -50,7 +55,7 @@
 
 							<div class="form-group">
 								<label for="estado">Estado</label>
-								<select th:field="*{estado}" class="form-control" id="estado">
+								<select class="form-control" th:field="*{estado}" id="estado">
 									<option value="Pendiente">Pendiente</option>
 									<option value="Entregado">Entregado</option>
 								</select>

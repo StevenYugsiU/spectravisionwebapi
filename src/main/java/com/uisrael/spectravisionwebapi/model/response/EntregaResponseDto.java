@@ -8,7 +8,7 @@ import lombok.Data;
 public class EntregaResponseDto {
 
 	private int idEntrega;
-	private int idCliente;
+	private ClienteResponseDto fkCliente;
 	private Date fechaEntrega;
 	private String observaciones;
 	private String estado;

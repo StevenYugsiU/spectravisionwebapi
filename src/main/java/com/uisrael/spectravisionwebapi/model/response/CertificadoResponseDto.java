@@ -8,7 +8,7 @@ import lombok.Data;
 public class CertificadoResponseDto {
 
 	private int idCertificado;
-	private int idExamen;
+	private ExamenVisualResponseDto fkExamenVisual;
 	private Date fechaGeneracion;
 	private String observaciones;
 }

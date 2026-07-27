@@ -41,6 +41,25 @@ public class RolController {
 		return "redirect:/rol";
 	}
 
+	@GetMapping("/editar/{idRol}")
+	public String editarRol(@PathVariable int idRol, Model model) {
+		RolResponseDto encontrado = servicioRol.buscarRolPorId(idRol);
+
+		RolRequestDto rol = new RolRequestDto();
+		rol.setIdRol(encontrado.getIdRol());
+		rol.setNombre(encontrado.getNombre());
+		rol.setDescripcion(encontrado.getDescripcion());
+
+		model.addAttribute("rol", rol);
+		return "/rol/formulariorol";
+	}
+
+	@PostMapping("/actualizar/{idRol}")
+	public String actualizarRol(@PathVariable int idRol, @ModelAttribute RolRequestDto rol) {
+		servicioRol.actualizarRol(idRol, rol);
+		return "redirect:/rol";
+	}
+
 	@PostMapping("/eliminar/{idRol}")
 	public String eliminarRol(@PathVariable int idRol) {
 		servicioRol.eliminarRol(idRol);

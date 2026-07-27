@@ -9,6 +9,8 @@ public interface ISeguimientoService {
 
 	List<SeguimientoResponseDto> listarSeguimientos();
 
+	List<SeguimientoResponseDto> buscarAlertas(int dias);
+
 	SeguimientoResponseDto buscarSeguimientoPorId(int idSeguimiento);
 
 	void guardarSeguimiento(SeguimientoRequestDto nuevoSeguimiento);

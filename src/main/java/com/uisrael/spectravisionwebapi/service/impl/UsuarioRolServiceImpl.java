@@ -25,8 +25,20 @@ public class UsuarioRolServiceImpl implements IUsuarioRolService {
 	}
 
 	@Override
+	public UsuarioRolResponseDto buscarUsuarioRolPorId(int idUsuarioRol) {
+		return webclient.get().uri("/usuarioRol/{idUsuarioRol}", idUsuarioRol).retrieve()
+				.bodyToMono(UsuarioRolResponseDto.class).block();
+	}
+
+	@Override
 	public void guardarUsuarioRol(UsuarioRolRequestDto nuevoUsuarioRol) {
 		webclient.post().uri("/usuarioRol").bodyValue(nuevoUsuarioRol).retrieve()
+				.toBodilessEntity().block();
+	}
+
+	@Override
+	public void actualizarUsuarioRol(int idUsuarioRol, UsuarioRolRequestDto usuarioRol) {
+		webclient.put().uri("/usuarioRol/{idUsuarioRol}", idUsuarioRol).bodyValue(usuarioRol).retrieve()
 				.toBodilessEntity().block();
 	}
 

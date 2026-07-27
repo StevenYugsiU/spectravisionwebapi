@@ -23,18 +23,20 @@
 				<thead>
 					<tr>
 						<th>Id</th>
-						<th>Id Usuario</th>
-						<th>Id Rol</th>
+						<th>Usuario</th>
+						<th>Rol</th>
 						<th></th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="usuarioRol : ${listausuarioroles}">
 						<td th:text="${usuarioRol.idUsuarioRol}"></td>
-						<td th:text="${usuarioRol.idUsuario}"></td>
-						<td th:text="${usuarioRol.idRol}"></td>
+						<td th:text="${nombresUsuarios.get(usuarioRol.idUsuario)}"></td>
+						<td th:text="${nombresRoles.get(usuarioRol.idRol)}"></td>
 						<td class="actions-cell">
 							<div class="action-icons">
+								<a th:href="@{/usuariorol/editar/{id}(id=${usuarioRol.idUsuarioRol})}"
+									class="btn btn-primary btn-icon" title="Editar"><i class="mdi mdi-pencil"></i></a>
 								<form th:action="@{/usuariorol/eliminar/{id}(id=${usuarioRol.idUsuarioRol})}" method="post"
 									onsubmit="return confirm('¿Eliminar esta asignación?');">
 									<button type="submit" class="btn btn-danger btn-icon" title="Eliminar"><i class="mdi mdi-delete"></i></button>

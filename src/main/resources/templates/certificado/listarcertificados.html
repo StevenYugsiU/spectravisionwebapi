@@ -23,7 +23,7 @@
 				<thead>
 					<tr>
 						<th>Id</th>
-						<th>Id Examen</th>
+						<th>Cliente</th>
 						<th>Fecha Generación</th>
 						<th>Observaciones</th>
 						<th></th>
@@ -32,7 +32,7 @@
 				<tbody>
 					<tr th:each="certificado : ${listacertificados}">
 						<td th:text="${certificado.idCertificado}"></td>
-						<td th:text="${certificado.idExamen}"></td>
+						<td th:text="${certificado.fkExamenVisual.fkHistoriaClinica.fkCliente.nombres + ' ' + certificado.fkExamenVisual.fkHistoriaClinica.fkCliente.apellidos}"></td>
 						<td th:text="${#dates.format(certificado.fechaGeneracion, 'dd/MM/yyyy')}"></td>
 						<td th:text="${certificado.observaciones}"></td>
 						<td class="actions-cell">

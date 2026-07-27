@@ -23,7 +23,7 @@
 				<thead>
 					<tr>
 						<th>Id</th>
-						<th>Id Cliente</th>
+						<th>Cliente</th>
 						<th>Fecha Apertura</th>
 						<th>Antecedentes</th>
 						<th>Observaciones Generales</th>
@@ -34,7 +34,7 @@
 				<tbody>
 					<tr th:each="historia : ${listahistoriasclinicas}">
 						<td th:text="${historia.idHistoriaClinica}"></td>
-						<td th:text="${historia.idCliente}"></td>
+						<td th:text="${historia.fkCliente.nombres + ' ' + historia.fkCliente.apellidos}"></td>
 						<td th:text="${#dates.format(historia.fechaApertura, 'dd/MM/yyyy')}"></td>
 						<td th:text="${historia.antecedentes}"></td>
 						<td th:text="${historia.observacionesGenerales}"></td>

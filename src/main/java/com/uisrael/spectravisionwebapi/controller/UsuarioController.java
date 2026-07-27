@@ -41,6 +41,27 @@ public class UsuarioController {
 		return "redirect:/usuario";
 	}
 
+	@GetMapping("/editar/{idUsuario}")
+	public String editarUsuario(@PathVariable int idUsuario, Model model) {
+		UsuarioResponseDto encontrado = servicioUsuario.buscarUsuarioPorId(idUsuario);
+
+		UsuarioRequestDto usuario = new UsuarioRequestDto();
+		usuario.setIdUsuario(encontrado.getIdUsuario());
+		usuario.setNombres(encontrado.getNombres());
+		usuario.setApellidos(encontrado.getApellidos());
+		usuario.setUsuario(encontrado.getUsuario());
+		usuario.setEstado(encontrado.getEstado());
+
+		model.addAttribute("usuario", usuario);
+		return "/usuario/formulariousuario";
+	}
+
+	@PostMapping("/actualizar/{idUsuario}")
+	public String actualizarUsuario(@PathVariable int idUsuario, @ModelAttribute UsuarioRequestDto usuario) {
+		servicioUsuario.actualizarUsuario(idUsuario, usuario);
+		return "redirect:/usuario";
+	}
+
 	@PostMapping("/eliminar/{idUsuario}")
 	public String eliminarUsuario(@PathVariable int idUsuario) {
 		servicioUsuario.eliminarUsuario(idUsuario);

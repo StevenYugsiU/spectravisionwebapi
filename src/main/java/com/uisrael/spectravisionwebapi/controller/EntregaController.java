@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.uisrael.spectravisionwebapi.model.request.EntregaRequestDto;
 import com.uisrael.spectravisionwebapi.model.response.EntregaResponseDto;
+import com.uisrael.spectravisionwebapi.service.IClienteService;
 import com.uisrael.spectravisionwebapi.service.IEntregaService;
 
 @Controller
@@ -21,6 +22,9 @@ public class EntregaController {
 
 	@Autowired
 	private IEntregaService servicioEntrega;
+
+	@Autowired
+	private IClienteService servicioCliente;
 
 	@GetMapping
 	public String leerPagina(Model model) {
@@ -32,6 +36,7 @@ public class EntregaController {
 	@GetMapping("/nuevo")
 	public String nuevaEntrega(Model model) {
 		model.addAttribute("entrega", new EntregaRequestDto());
+		model.addAttribute("listaclientes", servicioCliente.listarClientes());
 		return "/entrega/formularioentrega";
 	}
 
@@ -47,12 +52,13 @@ public class EntregaController {
 
 		EntregaRequestDto entrega = new EntregaRequestDto();
 		entrega.setIdEntrega(encontrada.getIdEntrega());
-		entrega.setIdCliente(encontrada.getIdCliente());
+		entrega.setIdCliente(encontrada.getFkCliente().getIdCliente());
 		entrega.setFechaEntrega(encontrada.getFechaEntrega());
 		entrega.setObservaciones(encontrada.getObservaciones());
 		entrega.setEstado(encontrada.getEstado());
 
 		model.addAttribute("entrega", entrega);
+		model.addAttribute("listaclientes", servicioCliente.listarClientes());
 		return "/entrega/formularioentrega";
 	}
 

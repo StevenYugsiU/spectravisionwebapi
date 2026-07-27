@@ -7,7 +7,7 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Nuevo Rol</title>
+<title th:text="${rol.idRol == 0} ? 'Nuevo Rol' : 'Editar Rol'">Nuevo Rol</title>
 </head>
 
 <body>
@@ -19,25 +19,30 @@
 				<div class="card">
 					<div class="card-body">
 
-						<h4 class="card-title">Nuevo Rol</h4>
-						<p class="card-description">Registro de un nuevo rol</p>
+						<h4 class="card-title" th:text="${rol.idRol == 0} ? 'Nuevo Rol' : 'Editar Rol'">Nuevo Rol</h4>
+						<p class="card-description"
+							th:text="${rol.idRol == 0} ? 'Registro de un nuevo rol' : 'Actualizar rol'">Registro de un nuevo rol</p>
 
-						<form th:action="@{/rol/guardar}" th:object="${rol}"
-							method="post" class="forms-sample">
+						<form
+							th:action="${rol.idRol == 0} ? @{/rol/guardar} : @{/rol/actualizar/{id}(id=${rol.idRol})}"
+							th:object="${rol}" method="post" class="forms-sample">
 
 							<div class="form-group">
 								<label for="nombre">Nombre</label>
 								<input type="text" th:field="*{nombre}" class="form-control"
-									id="nombre" placeholder="Ingrese el nombre del rol">
+									id="nombre" placeholder="Ingrese el nombre del rol" required>
 							</div>
 
 							<div class="form-group">
 								<label for="descripcion">Descripción</label>
 								<input type="text" th:field="*{descripcion}" class="form-control"
-									id="descripcion" placeholder="Ingrese la descripción">
+									id="descripcion" placeholder="Ingrese la descripción" required>
 							</div>
 
-							<button type="submit" class="btn btn-primary mr-2">Crear</button>
+							<input type="hidden" th:field="*{idRol}">
+
+							<button type="submit" class="btn btn-primary mr-2"
+								th:text="${rol.idRol == 0} ? 'Crear' : 'Actualizar'">Crear</button>
 							<a th:href="@{/rol}" class="btn btn-dark">Cancelar</a>
 
 						</form>

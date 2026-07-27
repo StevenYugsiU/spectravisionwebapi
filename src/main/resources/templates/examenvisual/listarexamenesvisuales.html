@@ -23,7 +23,7 @@
 				<thead>
 					<tr>
 						<th>Id</th>
-						<th>Id Historia</th>
+						<th>Cliente</th>
 						<th>Fecha Examen</th>
 						<th>Motivo Consulta</th>
 						<th>Diagnóstico</th>
@@ -34,7 +34,7 @@
 				<tbody>
 					<tr th:each="examen : ${listaexamenesvisuales}">
 						<td th:text="${examen.idExamen}"></td>
-						<td th:text="${examen.idHistoria}"></td>
+						<td th:text="${examen.fkHistoriaClinica.fkCliente.nombres + ' ' + examen.fkHistoriaClinica.fkCliente.apellidos}"></td>
 						<td th:text="${#dates.format(examen.fechaExamen, 'dd/MM/yyyy')}"></td>
 						<td th:text="${examen.motivoConsulta}"></td>
 						<td th:text="${examen.diagnostico}"></td>

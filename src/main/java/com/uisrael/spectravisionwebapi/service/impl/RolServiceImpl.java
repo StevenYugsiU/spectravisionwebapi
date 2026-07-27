@@ -25,8 +25,20 @@ public class RolServiceImpl implements IRolService {
 	}
 
 	@Override
+	public RolResponseDto buscarRolPorId(int idRol) {
+		return webclient.get().uri("/rol/{idRol}", idRol).retrieve()
+				.bodyToMono(RolResponseDto.class).block();
+	}
+
+	@Override
 	public void guardarRol(RolRequestDto nuevoRol) {
 		webclient.post().uri("/rol").bodyValue(nuevoRol).retrieve()
+				.toBodilessEntity().block();
+	}
+
+	@Override
+	public void actualizarRol(int idRol, RolRequestDto rol) {
+		webclient.put().uri("/rol/{idRol}", idRol).bodyValue(rol).retrieve()
 				.toBodilessEntity().block();
 	}
 

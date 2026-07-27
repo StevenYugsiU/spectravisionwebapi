@@ -29,27 +29,32 @@
 							th:object="${seguimiento}" method="post" class="forms-sample">
 
 							<div class="form-group">
-								<label for="idEntrega">Id Entrega</label>
-								<input type="number" th:field="*{idEntrega}" class="form-control"
-									id="idEntrega" placeholder="Ingrese el id de la entrega">
+								<label for="idEntrega">Entrega</label>
+								<select th:field="*{idEntrega}" class="form-control" id="idEntrega" required>
+									<option value="0">Seleccione una entrega</option>
+									<option th:each="e : ${listaentregas}" th:value="${e.idEntrega}"
+										th:text="'Entrega #' + ${e.idEntrega} + ' - ' + ${e.fkCliente.nombres} + ' ' + ${e.fkCliente.apellidos}"></option>
+								</select>
 							</div>
 
 							<div class="form-group">
 								<label for="fechaSeguimiento">Fecha de Seguimiento</label>
 								<input type="date" th:field="*{fechaSeguimiento}"
-									class="form-control" id="fechaSeguimiento">
+									class="form-control" id="fechaSeguimiento" required>
 							</div>
 
 							<div class="form-group">
 								<label for="observaciones">Observaciones</label>
 								<input type="text" th:field="*{observaciones}" class="form-control"
-									id="observaciones" placeholder="Ingrese las observaciones">
+									id="observaciones" placeholder="Ingrese las observaciones" required>
 							</div>
 
 							<div class="form-group">
 								<label for="estado">Estado</label>
-								<input type="text" th:field="*{estado}" class="form-control"
-									id="estado" placeholder="Ej. PENDIENTE, REALIZADO">
+								<select th:field="*{estado}" class="form-control" id="estado">
+									<option value="Pendiente">Pendiente</option>
+									<option value="Realizado">Realizado</option>
+								</select>
 							</div>
 
 							<input type="hidden" th:field="*{idSeguimiento}">

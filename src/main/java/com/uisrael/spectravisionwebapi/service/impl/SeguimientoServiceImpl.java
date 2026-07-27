@@ -25,6 +25,13 @@ public class SeguimientoServiceImpl implements ISeguimientoService {
 	}
 
 	@Override
+	public List<SeguimientoResponseDto> buscarAlertas(int dias) {
+		return webclient.get().uri(uriBuilder -> uriBuilder.path("/seguimiento/alertas").queryParam("dias", dias).build())
+				.retrieve()
+				.bodyToFlux(SeguimientoResponseDto.class).collectList().block();
+	}
+
+	@Override
 	public SeguimientoResponseDto buscarSeguimientoPorId(int idSeguimiento) {
 		return webclient.get().uri("/seguimiento/{idSeguimiento}", idSeguimiento).retrieve()
 				.bodyToMono(SeguimientoResponseDto.class).block();

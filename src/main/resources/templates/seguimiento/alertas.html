@@ -7,7 +7,7 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Seguimientos</title>
+<title>Alertas de Seguimiento</title>
 </head>
 
 <body>
@@ -15,41 +15,43 @@
 	<div layout:fragment="cargarpaginas">
 
 		<div class="d-flex justify-content-between align-items-center mb-3">
-			<h4 class="card-title mb-0">Seguimientos</h4>
-			<a th:href="@{/seguimiento/nuevo}" class="btn btn-primary">+ Nuevo Seguimiento</a>
+			<h4 class="card-title mb-0">Alertas de Seguimiento Pendiente</h4>
+			<a th:href="@{/seguimiento}" class="btn btn-outline-dark">Ver todos los seguimientos</a>
 		</div>
+
+		<form th:action="@{/seguimiento/alertas}" method="get" class="form-inline mb-3">
+			<label for="dias" class="mr-2">Próximos</label>
+			<input type="number" name="dias" id="dias" class="form-control mr-2" style="width: 90px" th:value="${dias}" min="1">
+			<label class="mr-2">días</label>
+			<button type="submit" class="btn btn-outline-primary">Actualizar</button>
+		</form>
+
 		<div class="table-responsive">
 			<table class="table table-hover">
 				<thead>
 					<tr>
 						<th>Id</th>
 						<th>Cliente</th>
-						<th>Fecha Seguimiento</th>
+						<th>Fecha de Seguimiento</th>
 						<th>Observaciones</th>
 						<th>Estado</th>
 						<th></th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="seguimiento : ${listaseguimientos}">
+					<tr th:each="seguimiento : ${listaalertas}">
 						<td th:text="${seguimiento.idSeguimiento}"></td>
 						<td th:text="${seguimiento.fkEntrega.fkCliente.nombres + ' ' + seguimiento.fkEntrega.fkCliente.apellidos}"></td>
 						<td th:text="${#dates.format(seguimiento.fechaSeguimiento, 'dd/MM/yyyy')}"></td>
 						<td th:text="${seguimiento.observaciones}"></td>
-						<td><span class="badge-soft badge-soft-info" th:text="${seguimiento.estado}"></span></td>
+						<td th:text="${seguimiento.estado}"></td>
 						<td class="actions-cell">
-							<div class="action-icons">
-								<a th:href="@{/seguimiento/editar/{id}(id=${seguimiento.idSeguimiento})}"
-									class="btn btn-primary btn-icon" title="Editar"><i class="mdi mdi-pencil"></i></a>
-								<form th:action="@{/seguimiento/eliminar/{id}(id=${seguimiento.idSeguimiento})}" method="post"
-									onsubmit="return confirm('¿Eliminar este seguimiento?');">
-									<button type="submit" class="btn btn-danger btn-icon" title="Eliminar"><i class="mdi mdi-delete"></i></button>
-								</form>
-							</div>
+							<a th:href="@{/seguimiento/editar/{id}(id=${seguimiento.idSeguimiento})}"
+								class="btn btn-primary btn-icon" title="Editar"><i class="mdi mdi-pencil"></i></a>
 						</td>
 					</tr>
-					<tr th:if="${#lists.isEmpty(listaseguimientos)}">
-						<td colspan="6" class="text-center">No hay seguimientos registrados.</td>
+					<tr th:if="${#lists.isEmpty(listaalertas)}">
+						<td colspan="6" class="text-center">No hay seguimientos próximos a vencer.</td>
 					</tr>
 				</tbody>
 			</table>

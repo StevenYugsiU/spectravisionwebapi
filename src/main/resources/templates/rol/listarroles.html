@@ -35,6 +35,8 @@
 						<td th:text="${rol.descripcion}"></td>
 						<td class="actions-cell">
 							<div class="action-icons">
+								<a th:href="@{/rol/editar/{id}(id=${rol.idRol})}"
+									class="btn btn-primary btn-icon" title="Editar"><i class="mdi mdi-pencil"></i></a>
 								<form th:action="@{/rol/eliminar/{id}(id=${rol.idRol})}" method="post"
 									onsubmit="return confirm('¿Eliminar este rol?');">
 									<button type="submit" class="btn btn-danger btn-icon" title="Eliminar"><i class="mdi mdi-delete"></i></button>

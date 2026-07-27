@@ -19,6 +19,7 @@ import com.uisrael.spectravisionwebapi.model.request.CertificadoRequestDto;
 import com.uisrael.spectravisionwebapi.model.response.CertificadoResponseDto;
 import com.uisrael.spectravisionwebapi.service.ICertificadoPdfService;
 import com.uisrael.spectravisionwebapi.service.ICertificadoService;
+import com.uisrael.spectravisionwebapi.service.IExamenVisualService;
 
 @Controller
 @RequestMapping("/certificado")
@@ -30,6 +31,9 @@ public class CertificadoController {
 	@Autowired
 	private ICertificadoPdfService servicioCertificadoPdf;
 
+	@Autowired
+	private IExamenVisualService servicioExamenVisual;
+
 	@GetMapping
 	public String leerPagina(Model model) {
 		List<CertificadoResponseDto> listaCertificados = servicioCertificado.listarCertificados();
@@ -40,6 +44,7 @@ public class CertificadoController {
 	@GetMapping("/nuevo")
 	public String nuevoCertificado(Model model) {
 		model.addAttribute("certificado", new CertificadoRequestDto());
+		model.addAttribute("listaexamenes", servicioExamenVisual.listarExamenesVisuales());
 		return "/certificado/formulariocertificado";
 	}
 
@@ -55,11 +60,12 @@ public class CertificadoController {
 
 		CertificadoRequestDto certificado = new CertificadoRequestDto();
 		certificado.setIdCertificado(encontrado.getIdCertificado());
-		certificado.setIdExamen(encontrado.getIdExamen());
+		certificado.setIdExamen(encontrado.getFkExamenVisual().getIdExamen());
 		certificado.setFechaGeneracion(encontrado.getFechaGeneracion());
 		certificado.setObservaciones(encontrado.getObservaciones());
 
 		model.addAttribute("certificado", certificado);
+		model.addAttribute("listaexamenes", servicioExamenVisual.listarExamenesVisuales());
 		return "/certificado/formulariocertificado";
 	}
 

@@ -18,12 +18,20 @@
 			<h4 class="card-title mb-0">Citas</h4>
 			<a th:href="@{/cita/nuevo}" class="btn btn-primary">+ Nueva Cita</a>
 		</div>
+
+		<form th:action="@{/cita}" method="get" class="form-inline mb-3">
+			<label for="fecha" class="mr-2">Agenda del día</label>
+			<input type="date" name="fecha" id="fecha" class="form-control mr-2" th:value="${fechaFiltro}">
+			<button type="submit" class="btn btn-outline-primary mr-2">Filtrar</button>
+			<a th:href="@{/cita}" class="btn btn-outline-dark">Ver todas</a>
+		</form>
+
 		<div class="table-responsive">
 			<table class="table table-hover">
 				<thead>
 					<tr>
 						<th>Id</th>
-						<th>Id Cliente</th>
+						<th>Cliente</th>
 						<th>Fecha</th>
 						<th>Hora</th>
 						<th>Tipo Cita</th>
@@ -34,8 +42,8 @@
 				<tbody>
 					<tr th:each="cita : ${listacitas}">
 						<td th:text="${cita.idCita}"></td>
-						<td th:text="${cita.idCliente}"></td>
-						<td th:text="${#dates.format(cita.fecha, 'dd/MM/yyyy')}"></td>
+						<td th:text="${cita.fkCliente.nombres + ' ' + cita.fkCliente.apellidos}"></td>
+						<td th:text="${#temporals.format(cita.fecha, 'dd/MM/yyyy')}"></td>
 						<td th:text="${cita.hora}"></td>
 						<td th:text="${cita.tipoCita}"></td>
 						<td><span class="badge-soft badge-soft-info" th:text="${cita.estado}"></span></td>
@@ -43,6 +51,11 @@
 							<div class="action-icons">
 								<a th:href="@{/cita/editar/{id}(id=${cita.idCita})}"
 									class="btn btn-primary btn-icon" title="Editar"><i class="mdi mdi-pencil"></i></a>
+								<form th:if="${!#strings.equalsIgnoreCase(cita.estado, 'Cancelada')}"
+									th:action="@{/cita/cancelar/{id}(id=${cita.idCita})}" method="post"
+									onsubmit="return confirm('¿Cancelar esta cita?');">
+									<button type="submit" class="btn btn-warning btn-icon" title="Cancelar"><i class="mdi mdi-calendar-remove"></i></button>
+								</form>
 								<form th:action="@{/cita/eliminar/{id}(id=${cita.idCita})}" method="post"
 									onsubmit="return confirm('¿Eliminar esta cita?');">
 									<button type="submit" class="btn btn-danger btn-icon" title="Eliminar"><i class="mdi mdi-delete"></i></button>

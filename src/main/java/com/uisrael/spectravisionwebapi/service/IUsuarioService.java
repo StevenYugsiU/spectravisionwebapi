@@ -9,7 +9,11 @@ public interface IUsuarioService {
 
 	List<UsuarioResponseDto> listarUsuarios();
 
+	UsuarioResponseDto buscarUsuarioPorId(int idUsuario);
+
 	void guardarUsuario(UsuarioRequestDto nuevoUsuario);
+
+	void actualizarUsuario(int idUsuario, UsuarioRequestDto usuario);
 
 	void eliminarUsuario(int idUsuario);
 }

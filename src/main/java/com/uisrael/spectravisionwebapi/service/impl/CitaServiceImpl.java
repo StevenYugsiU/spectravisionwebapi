@@ -1,5 +1,6 @@
 package com.uisrael.spectravisionwebapi.service.impl;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -25,6 +26,12 @@ public class CitaServiceImpl implements ICitaService {
 	}
 
 	@Override
+	public List<CitaResponseDto> buscarCitasPorFecha(LocalDate fecha) {
+		return webclient.get().uri("/cita/fecha/{fecha}", fecha).retrieve()
+				.bodyToFlux(CitaResponseDto.class).collectList().block();
+	}
+
+	@Override
 	public CitaResponseDto buscarCitaPorId(int idCita) {
 		return webclient.get().uri("/cita/{idCita}", idCita).retrieve()
 				.bodyToMono(CitaResponseDto.class).block();
@@ -39,6 +46,12 @@ public class CitaServiceImpl implements ICitaService {
 	@Override
 	public void actualizarCita(int idCita, CitaRequestDto cita) {
 		webclient.put().uri("/cita/{idCita}", idCita).bodyValue(cita).retrieve()
+				.toBodilessEntity().block();
+	}
+
+	@Override
+	public void cancelarCita(int idCita) {
+		webclient.put().uri("/cita/{idCita}/cancelar", idCita).retrieve()
 				.toBodilessEntity().block();
 	}
 

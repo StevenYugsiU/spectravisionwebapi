@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.uisrael.spectravisionwebapi.model.request.HistoriaClinicaRequestDto;
 import com.uisrael.spectravisionwebapi.model.response.HistoriaClinicaResponseDto;
+import com.uisrael.spectravisionwebapi.service.IClienteService;
 import com.uisrael.spectravisionwebapi.service.IHistoriaClinicaService;
 
 @Controller
@@ -22,6 +23,9 @@ public class HistoriaClinicaController {
 
 	@Autowired
 	private IHistoriaClinicaService servicioHistoriaClinica;
+
+	@Autowired
+	private IClienteService servicioCliente;
 
 	@GetMapping
 	public String leerPagina(Model model) {
@@ -37,6 +41,7 @@ public class HistoriaClinicaController {
 			historiaclinica.setIdCliente(idCliente);
 		}
 		model.addAttribute("historiaclinica", historiaclinica);
+		model.addAttribute("listaclientes", servicioCliente.listarClientes());
 		return "/historiaclinica/formulariohistoriaclinica";
 	}
 
@@ -52,13 +57,14 @@ public class HistoriaClinicaController {
 
 		HistoriaClinicaRequestDto historiaclinica = new HistoriaClinicaRequestDto();
 		historiaclinica.setIdHistoriaClinica(encontrada.getIdHistoriaClinica());
-		historiaclinica.setIdCliente(encontrada.getIdCliente());
+		historiaclinica.setIdCliente(encontrada.getFkCliente().getIdCliente());
 		historiaclinica.setFechaApertura(encontrada.getFechaApertura());
 		historiaclinica.setAntecedentes(encontrada.getAntecedentes());
 		historiaclinica.setObservacionesGenerales(encontrada.getObservacionesGenerales());
 		historiaclinica.setEstado(encontrada.getEstado());
 
 		model.addAttribute("historiaclinica", historiaclinica);
+		model.addAttribute("listaclientes", servicioCliente.listarClientes());
 		return "/historiaclinica/formulariohistoriaclinica";
 	}
 

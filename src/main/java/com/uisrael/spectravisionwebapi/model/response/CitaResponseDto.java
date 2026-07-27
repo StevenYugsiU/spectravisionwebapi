@@ -1,7 +1,7 @@
 package com.uisrael.spectravisionwebapi.model.response;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
 
 import lombok.Data;
 
@@ -9,8 +9,8 @@ import lombok.Data;
 public class CitaResponseDto {
 
 	private int idCita;
-	private int idCliente;
-	private Date fecha;
+	private ClienteResponseDto fkCliente;
+	private LocalDate fecha;
 	private LocalTime hora;
 	private String tipoCita;
 	private String estado;

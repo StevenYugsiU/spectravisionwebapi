@@ -29,117 +29,120 @@
 							th:object="${examenvisual}" method="post" class="forms-sample">
 
 							<div class="form-group">
-								<label for="idHistoria">Id Historia Clínica</label>
-								<input type="number" th:field="*{idHistoria}" class="form-control"
-									id="idHistoria" placeholder="Ingrese el id de la historia clínica">
+								<label for="idHistoria">Historia Clínica</label>
+								<select th:field="*{idHistoria}" class="form-control" id="idHistoria" required>
+									<option value="0">Seleccione una historia clínica</option>
+									<option th:each="h : ${listahistorias}" th:value="${h.idHistoriaClinica}"
+										th:text="'Historia #' + ${h.idHistoriaClinica} + ' - ' + ${h.fkCliente.nombres} + ' ' + ${h.fkCliente.apellidos}"></option>
+								</select>
 							</div>
 
 							<div class="form-group">
 								<label for="fechaExamen">Fecha del Examen</label>
 								<input type="date" th:field="*{fechaExamen}"
-									class="form-control" id="fechaExamen">
+									class="form-control" id="fechaExamen" required>
 							</div>
 
 							<div class="form-group">
 								<label for="ultimoControlVisual">Último Control Visual</label>
 								<input type="text" th:field="*{ultimoControlVisual}" class="form-control"
-									id="ultimoControlVisual" placeholder="Ingrese el último control visual">
+									id="ultimoControlVisual" placeholder="Ingrese el último control visual" required>
 							</div>
 
 							<div class="form-group">
 								<label for="motivoConsulta">Motivo de Consulta</label>
 								<input type="text" th:field="*{motivoConsulta}" class="form-control"
-									id="motivoConsulta" placeholder="Ingrese el motivo de consulta">
+									id="motivoConsulta" placeholder="Ingrese el motivo de consulta" required>
 							</div>
 
 							<div class="form-group">
 								<label for="avOd">Agudeza Visual OD</label>
 								<input type="text" th:field="*{avOd}" class="form-control"
-									id="avOd" placeholder="Ingrese la agudeza visual OD">
+									id="avOd" placeholder="Ingrese la agudeza visual OD" required>
 							</div>
 
 							<div class="form-group">
 								<label for="avOi">Agudeza Visual OI</label>
 								<input type="text" th:field="*{avOi}" class="form-control"
-									id="avOi" placeholder="Ingrese la agudeza visual OI">
+									id="avOi" placeholder="Ingrese la agudeza visual OI" required>
 							</div>
 
 							<div class="form-group">
 								<label for="sphOd">Esfera OD</label>
 								<input type="text" th:field="*{sphOd}" class="form-control"
-									id="sphOd" placeholder="Ingrese la esfera OD">
+									id="sphOd" placeholder="Ingrese la esfera OD" required>
 							</div>
 
 							<div class="form-group">
 								<label for="cylOd">Cilindro OD</label>
 								<input type="text" th:field="*{cylOd}" class="form-control"
-									id="cylOd" placeholder="Ingrese el cilindro OD">
+									id="cylOd" placeholder="Ingrese el cilindro OD" required>
 							</div>
 
 							<div class="form-group">
 								<label for="ejeOd">Eje OD</label>
 								<input type="text" th:field="*{ejeOd}" class="form-control"
-									id="ejeOd" placeholder="Ingrese el eje OD">
+									id="ejeOd" placeholder="Ingrese el eje OD" required>
 							</div>
 
 							<div class="form-group">
 								<label for="sphOi">Esfera OI</label>
 								<input type="text" th:field="*{sphOi}" class="form-control"
-									id="sphOi" placeholder="Ingrese la esfera OI">
+									id="sphOi" placeholder="Ingrese la esfera OI" required>
 							</div>
 
 							<div class="form-group">
 								<label for="cylOi">Cilindro OI</label>
 								<input type="text" th:field="*{cylOi}" class="form-control"
-									id="cylOi" placeholder="Ingrese el cilindro OI">
+									id="cylOi" placeholder="Ingrese el cilindro OI" required>
 							</div>
 
 							<div class="form-group">
 								<label for="ejeOi">Eje OI</label>
 								<input type="text" th:field="*{ejeOi}" class="form-control"
-									id="ejeOi" placeholder="Ingrese el eje OI">
+									id="ejeOi" placeholder="Ingrese el eje OI" required>
 							</div>
 
 							<div class="form-group">
 								<label for="addValor">Adición</label>
 								<input type="text" th:field="*{addValor}" class="form-control"
-									id="addValor" placeholder="Ingrese el valor de adición">
+									id="addValor" placeholder="Ingrese el valor de adición" required>
 							</div>
 
 							<div class="form-group">
 								<label for="dnp">DNP</label>
 								<input type="text" th:field="*{dnp}" class="form-control"
-									id="dnp" placeholder="Ingrese el DNP">
+									id="dnp" placeholder="Ingrese el DNP" required>
 							</div>
 
 							<div class="form-group">
 								<label for="altura">Altura</label>
 								<input type="text" th:field="*{altura}" class="form-control"
-									id="altura" placeholder="Ingrese la altura">
+									id="altura" placeholder="Ingrese la altura" required>
 							</div>
 
 							<div class="form-group">
 								<label for="biomicroscopia">Biomicroscopía</label>
 								<input type="text" th:field="*{biomicroscopia}" class="form-control"
-									id="biomicroscopia" placeholder="Ingrese la biomicroscopía">
+									id="biomicroscopia" placeholder="Ingrese la biomicroscopía" required>
 							</div>
 
 							<div class="form-group">
 								<label for="recomentaciones">Recomendaciones</label>
 								<input type="text" th:field="*{recomentaciones}" class="form-control"
-									id="recomentaciones" placeholder="Ingrese las recomendaciones">
+									id="recomentaciones" placeholder="Ingrese las recomendaciones" required>
 							</div>
 
 							<div class="form-group">
 								<label for="proximaConsulta">Próxima Consulta</label>
 								<input type="text" th:field="*{proximaConsulta}" class="form-control"
-									id="proximaConsulta" placeholder="Ingrese la próxima consulta">
+									id="proximaConsulta" placeholder="Ingrese la próxima consulta" required>
 							</div>
 
 							<div class="form-group">
 								<label for="diagnostico">Diagnóstico</label>
 								<input type="text" th:field="*{diagnostico}" class="form-control"
-									id="diagnostico" placeholder="Ingrese el diagnóstico">
+									id="diagnostico" placeholder="Ingrese el diagnóstico" required>
 							</div>
 
 							<input type="hidden" th:field="*{idExamen}">

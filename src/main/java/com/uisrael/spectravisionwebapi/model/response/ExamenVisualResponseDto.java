@@ -8,7 +8,7 @@ import lombok.Data;
 public class ExamenVisualResponseDto {
 
 	private int idExamen;
-	private int idHistoria;
+	private HistoriaClinicaResponseDto fkHistoriaClinica;
 	private Date fechaExamen;
 	private String ultimoControlVisual;
 	private String motivoConsulta;

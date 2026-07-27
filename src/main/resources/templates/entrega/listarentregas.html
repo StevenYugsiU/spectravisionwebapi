@@ -23,7 +23,7 @@
 				<thead>
 					<tr>
 						<th>Id</th>
-						<th>Id Cliente</th>
+						<th>Cliente</th>
 						<th>Fecha Entrega</th>
 						<th>Observaciones</th>
 						<th>Estado</th>
@@ -33,7 +33,7 @@
 				<tbody>
 					<tr th:each="entrega : ${listaentregas}">
 						<td th:text="${entrega.idEntrega}"></td>
-						<td th:text="${entrega.idCliente}"></td>
+						<td th:text="${entrega.fkCliente.nombres + ' ' + entrega.fkCliente.apellidos}"></td>
 						<td th:text="${#dates.format(entrega.fechaEntrega, 'dd/MM/yyyy')}"></td>
 						<td th:text="${entrega.observaciones}"></td>
 						<td><span class="badge-soft badge-soft-info" th:text="${entrega.estado}"></span></td>

@@ -25,8 +25,20 @@ public class UsuarioServiceImpl implements IUsuarioService {
 	}
 
 	@Override
+	public UsuarioResponseDto buscarUsuarioPorId(int idUsuario) {
+		return webclient.get().uri("/usuario/{idUsuario}", idUsuario).retrieve()
+				.bodyToMono(UsuarioResponseDto.class).block();
+	}
+
+	@Override
 	public void guardarUsuario(UsuarioRequestDto nuevoUsuario) {
 		webclient.post().uri("/usuario").bodyValue(nuevoUsuario).retrieve()
+				.toBodilessEntity().block();
+	}
+
+	@Override
+	public void actualizarUsuario(int idUsuario, UsuarioRequestDto usuario) {
+		webclient.put().uri("/usuario/{idUsuario}", idUsuario).bodyValue(usuario).retrieve()
 				.toBodilessEntity().block();
 	}
 

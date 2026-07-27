@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.uisrael.spectravisionwebapi.model.request.ExamenVisualRequestDto;
 import com.uisrael.spectravisionwebapi.model.response.ExamenVisualResponseDto;
 import com.uisrael.spectravisionwebapi.service.IExamenVisualService;
+import com.uisrael.spectravisionwebapi.service.IHistoriaClinicaService;
 
 @Controller
 @RequestMapping("/examenvisual")
@@ -22,6 +23,9 @@ public class ExamenVisualController {
 
 	@Autowired
 	private IExamenVisualService servicioExamenVisual;
+
+	@Autowired
+	private IHistoriaClinicaService servicioHistoriaClinica;
 
 	@GetMapping
 	public String leerPagina(Model model) {
@@ -37,6 +41,7 @@ public class ExamenVisualController {
 			examenvisual.setIdHistoria(idHistoria);
 		}
 		model.addAttribute("examenvisual", examenvisual);
+		model.addAttribute("listahistorias", servicioHistoriaClinica.listarHistoriasClinicas());
 		return "/examenvisual/formularioexamenvisual";
 	}
 
@@ -52,7 +57,7 @@ public class ExamenVisualController {
 
 		ExamenVisualRequestDto examenvisual = new ExamenVisualRequestDto();
 		examenvisual.setIdExamen(encontrado.getIdExamen());
-		examenvisual.setIdHistoria(encontrado.getIdHistoria());
+		examenvisual.setIdHistoria(encontrado.getFkHistoriaClinica().getIdHistoriaClinica());
 		examenvisual.setFechaExamen(encontrado.getFechaExamen());
 		examenvisual.setUltimoControlVisual(encontrado.getUltimoControlVisual());
 		examenvisual.setMotivoConsulta(encontrado.getMotivoConsulta());
@@ -73,6 +78,7 @@ public class ExamenVisualController {
 		examenvisual.setDiagnostico(encontrado.getDiagnostico());
 
 		model.addAttribute("examenvisual", examenvisual);
+		model.addAttribute("listahistorias", servicioHistoriaClinica.listarHistoriasClinicas());
 		return "/examenvisual/formularioexamenvisual";
 	}
 

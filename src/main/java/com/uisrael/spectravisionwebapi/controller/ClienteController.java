@@ -15,11 +15,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.uisrael.spectravisionwebapi.model.request.ClienteRequestDto;
 import com.uisrael.spectravisionwebapi.model.response.ClienteResponseDto;
+import com.uisrael.spectravisionwebapi.model.response.ErrorResponseDto;
 import com.uisrael.spectravisionwebapi.model.response.HistoriaClinicaResponseDto;
 import com.uisrael.spectravisionwebapi.service.IClienteService;
 import com.uisrael.spectravisionwebapi.service.IHistoriaClinicaService;
-
-import tools.jackson.databind.ObjectMapper;
 
 @Controller
 @RequestMapping("/cliente")
@@ -34,7 +33,7 @@ public class ClienteController {
 	@GetMapping
 	public String leerPagina(Model model) {
 		List<ClienteResponseDto> listaClientes = servicioCliente.listarClientes();
-		model.addAttribute("listaclientes", listaClientes);
+		model.addAttribute("listaClientes", listaClientes);
 		return "/cliente/listarclientes";
 	}
 
@@ -89,13 +88,14 @@ public class ClienteController {
 
 	private String extraerMensajeError(WebClientResponseException ex) {
 		try {
-			return new ObjectMapper()
-					.readTree(ex.getResponseBodyAsString())
-					.path("mensaje")
-					.asString("No se pudo eliminar el cliente.");
+			ErrorResponseDto error = ex.getResponseBodyAs(ErrorResponseDto.class);
+			if (error != null && error.getMessage() != null) {
+				return error.getMessage();
+			}
 		} catch (Exception e) {
-			return "No se pudo eliminar el cliente.";
+			// Se ignora: se usa el mensaje genérico de abajo.
 		}
+		return "No se pudo eliminar el cliente.";
 	}
 
 	@GetMapping("/{idCliente}/historiaclinica")

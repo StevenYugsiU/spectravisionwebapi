@@ -32,7 +32,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="historia : ${listahistoriasclinicas}">
+					<tr th:each="historia : ${listaHistoriasClinicas}">
 						<td class="buscable" th:text="${historia.fkCliente.nombres + ' ' + historia.fkCliente.apellidos}"></td>
 						<td class="buscable" th:text="${historia.fkCliente.cedula}"></td>
 						<td th:text="${historia.antecedentes}"></td>
@@ -52,7 +52,7 @@
 							</div>
 						</td>
 					</tr>
-					<tr th:if="${#lists.isEmpty(listahistoriasclinicas)}">
+					<tr th:if="${#lists.isEmpty(listaHistoriasClinicas)}">
 						<td colspan="7" class="text-center">No hay historias clínicas registradas.</td>
 					</tr>
 				</tbody>

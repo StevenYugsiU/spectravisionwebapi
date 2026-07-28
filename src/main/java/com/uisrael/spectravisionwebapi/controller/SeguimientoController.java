@@ -31,13 +31,13 @@ public class SeguimientoController {
 	@GetMapping
 	public String leerPagina(Model model) {
 		List<SeguimientoResponseDto> listaSeguimientos = servicioSeguimiento.listarSeguimientos();
-		model.addAttribute("listaseguimientos", listaSeguimientos);
+		model.addAttribute("listaSeguimientos", listaSeguimientos);
 		return "/seguimiento/listarseguimientos";
 	}
 
 	@GetMapping("/alertas")
 	public String verAlertas(@RequestParam(defaultValue = "3") int dias, Model model) {
-		model.addAttribute("listaalertas", servicioSeguimiento.buscarAlertas(dias));
+		model.addAttribute("listaAlertas", servicioSeguimiento.buscarAlertas(dias));
 		model.addAttribute("dias", dias);
 		return "/seguimiento/alertas";
 	}

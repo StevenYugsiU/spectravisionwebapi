@@ -41,7 +41,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="cita : ${listacitas}">
+					<tr th:each="cita : ${listaCitas}">
 						<td class="buscable" th:text="${cita.fkCliente.nombres + ' ' + cita.fkCliente.apellidos}"></td>
 						<td class="buscable" th:text="${cita.fkCliente.cedula}"></td>
 						<td th:text="${#temporals.format(cita.fecha, 'dd/MM/yyyy')}"></td>
@@ -64,7 +64,7 @@
 							</div>
 						</td>
 					</tr>
-					<tr th:if="${#lists.isEmpty(listacitas)}">
+					<tr th:if="${#lists.isEmpty(listaCitas)}">
 						<td colspan="7" class="text-center">No hay citas registradas.</td>
 					</tr>
 				</tbody>

@@ -25,7 +25,7 @@ public class UsuarioController {
 	@GetMapping
 	public String leerPagina(Model model) {
 		List<UsuarioResponseDto> listaUsuarios = servicioUsuario.listarUsuarios();
-		model.addAttribute("listausuarios", listaUsuarios);
+		model.addAttribute("listaUsuarios", listaUsuarios);
 		return "/usuario/listarusuarios";
 	}
 

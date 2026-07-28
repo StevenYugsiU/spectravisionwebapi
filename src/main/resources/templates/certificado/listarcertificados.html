@@ -31,7 +31,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="certificado : ${listacertificados}">
+					<tr th:each="certificado : ${listaCertificados}">
 
 						<td class="buscable" th:text="${certificado.fkExamenVisual.fkHistoriaClinica.fkCliente.nombres + ' ' + certificado.fkExamenVisual.fkHistoriaClinica.fkCliente.apellidos}"></td>
 						<td class="buscable" th:text="${certificado.fkExamenVisual.fkHistoriaClinica.fkCliente.cedula}"></td>
@@ -50,7 +50,7 @@
 							</div>
 						</td>
 					</tr>
-					<tr th:if="${#lists.isEmpty(listacertificados)}">
+					<tr th:if="${#lists.isEmpty(listaCertificados)}">
 						<td colspan="5" class="text-center">No hay certificados registrados.</td>
 					</tr>
 				</tbody>

@@ -29,7 +29,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="rol : ${listaroles}">
+					<tr th:each="rol : ${listaRoles}">
 						<td th:text="${rol.idRol}"></td>
 						<td class="buscable" th:text="${rol.nombre}"></td>
 						<td th:text="${rol.descripcion}"></td>
@@ -44,7 +44,7 @@
 							</div>
 						</td>
 					</tr>
-					<tr th:if="${#lists.isEmpty(listaroles)}">
+					<tr th:if="${#lists.isEmpty(listaRoles)}">
 						<td colspan="4" class="text-center">No hay roles registrados.</td>
 					</tr>
 				</tbody>

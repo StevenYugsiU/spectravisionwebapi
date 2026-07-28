@@ -33,7 +33,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="examen : ${listaexamenesvisuales}">
+					<tr th:each="examen : ${listaExamenesVisuales}">
 
 						<td class="buscable" th:text="${examen.fkHistoriaClinica.fkCliente.nombres + ' ' + examen.fkHistoriaClinica.fkCliente.apellidos}"></td>
 						<td class="buscable" th:text="${examen.fkHistoriaClinica.fkCliente.cedula}"></td>
@@ -54,7 +54,7 @@
 							</div>
 						</td>
 					</tr>
-					<tr th:if="${#lists.isEmpty(listaexamenesvisuales)}">
+					<tr th:if="${#lists.isEmpty(listaExamenesVisuales)}">
 						<td colspan="7" class="text-center">No hay exámenes visuales registrados.</td>
 					</tr>
 				</tbody>

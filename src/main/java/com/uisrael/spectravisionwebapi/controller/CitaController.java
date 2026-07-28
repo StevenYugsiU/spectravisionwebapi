@@ -31,7 +31,7 @@ public class CitaController {
 
 	public String leerPagina(Model model) {
 		List<CitaResponseDto> listaCitas = servicioCita.listarCitas();
-		model.addAttribute("listacitas", listaCitas);
+		model.addAttribute("listaCitas", listaCitas);
 		return "/cita/listarcitas";
 	}
 

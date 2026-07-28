@@ -37,64 +37,9 @@
 			</div>
 
 			<ul class="nav">
-				<li class="nav-item profile">
-					<div class="profile-desc">
-						<div class="profile-pic">
-							<div class="count-indicator">
-								<img class="img-xs rounded-circle "
-									th:src="@{/assets/images/faces/face15.jpg}" alt=""> <span
-									class="count bg-success"></span>
-							</div>
-							<div class="profile-name">
-								<h5 class="mb-0 font-weight-normal">Henry Klein</h5>
-								<span>Gold Member</span>
-							</div>
-						</div>
-						<a href="#" id="profile-dropdown" data-toggle="dropdown"><i
-							class="mdi mdi-dots-vertical"></i></a>
-						<div
-							class="dropdown-menu dropdown-menu-right sidebar-dropdown preview-list"
-							aria-labelledby="profile-dropdown">
-							<a href="#" class="dropdown-item preview-item">
-								<div class="preview-thumbnail">
-									<div class="preview-icon bg-dark rounded-circle">
-										<i class="mdi mdi-settings text-primary"></i>
-									</div>
-								</div>
-								<div class="preview-item-content">
-									<p class="preview-subject ellipsis mb-1 text-small">Account
-										settings</p>
-								</div>
-							</a>
-							<div class="dropdown-divider"></div>
-							<a href="#" class="dropdown-item preview-item">
-								<div class="preview-thumbnail">
-									<div class="preview-icon bg-dark rounded-circle">
-										<i class="mdi mdi-onepassword  text-info"></i>
-									</div>
-								</div>
-								<div class="preview-item-content">
-									<p class="preview-subject ellipsis mb-1 text-small">Change
-										Password</p>
-								</div>
-							</a>
-							<div class="dropdown-divider"></div>
-							<a href="#" class="dropdown-item preview-item">
-								<div class="preview-thumbnail">
-									<div class="preview-icon bg-dark rounded-circle">
-										<i class="mdi mdi-calendar-today text-success"></i>
-									</div>
-								</div>
-								<div class="preview-item-content">
-									<p class="preview-subject ellipsis mb-1 text-small">To-do
-										list</p>
-								</div>
-							</a>
-						</div>
-					</div>
-				</li>
 
-				<li class="nav-item nav-category"><span class="nav-link">Navigation</span>
+
+				<li class="nav-item nav-category"><span class="nav-link">Menú de Navegación</span>
 				</li>
 
 				<li class="nav-item menu-items"><a class="nav-link"
@@ -107,7 +52,7 @@
 				<!-- Opcion menu clientes -->
 				<li class="nav-item menu-items"><a class="nav-link"
 					th:href="@{/cliente}"> <span class="menu-icon"> <i
-							class="mdi mdi-laptop"></i>
+							class="mdi mdi-account-supervisor"></i>
 					</span> <span class="menu-title">Clientes</span>
 				</a></li>
 
@@ -115,7 +60,7 @@
 				<!-- Opcion menu Historias Clinicas -->
 				<li class="nav-item menu-items"><a class="nav-link"
 					th:href="@{/historiaclinica}"> <span class="menu-icon">
-							<i class="mdi mdi-laptop"></i>
+							<i class="mdi mdi-note-multiple"></i>
 					</span> <span class="menu-title">Historias Clínicas</span>
 				</a></li>
 
@@ -123,7 +68,7 @@
 				<!-- Opcion menu Examenes Visuales -->
 				<li class="nav-item menu-items"><a class="nav-link"
 					th:href="@{/examenvisual}"> <span class="menu-icon"> <i
-							class="mdi mdi-laptop"></i>
+							class="mdi mdi-note-text"></i>
 					</span> <span class="menu-title">Examenes Visuales</span>
 				</a></li>
 
@@ -131,7 +76,7 @@
 				<!-- Opcion menu Citas -->
 				<li class="nav-item menu-items"><a class="nav-link"
 					th:href="@{/cita}"> <span class="menu-icon"> <i
-							class="mdi mdi-laptop"></i>
+							class="mdi mdi-calendar-month"></i>
 					</span> <span class="menu-title">Citas</span>
 				</a></li>
 
@@ -139,7 +84,7 @@
 				<!-- Opcion menu Certificados -->
 				<li class="nav-item menu-items"><a class="nav-link"
 					th:href="@{/certificado}"> <span class="menu-icon"> <i
-							class="mdi mdi-laptop"></i>
+							class="mdi mdi-content-paste"></i>
 					</span> <span class="menu-title">Certificados</span>
 				</a></li>
 
@@ -147,7 +92,7 @@
 				<!-- Opcion menu Entregas -->
 				<li class="nav-item menu-items"><a class="nav-link"
 					th:href="@{/entrega}"> <span class="menu-icon"> <i
-							class="mdi mdi-laptop"></i>
+							class="mdi mdi-glasses"></i>
 					</span> <span class="menu-title">Entregas</span>
 				</a></li>
 
@@ -155,7 +100,7 @@
 				<!-- Opcion menu Seguimientos -->
 				<li class="nav-item menu-items"><a class="nav-link"
 					th:href="@{/seguimiento}"> <span class="menu-icon"> <i
-							class="mdi mdi-laptop"></i>
+							class="mdi mdi-calendar-clock"></i>
 					</span> <span class="menu-title">Seguimientos</span>
 				</a></li>
 
@@ -171,7 +116,7 @@
 				<li class="nav-item menu-items"><a class="nav-link"
 					data-toggle="collapse" href="#menu-usuarios" aria-expanded="false"
 					aria-controls="menu-usuarios"> <span class="menu-icon">
-							<i class="mdi mdi-laptop"></i>
+							<i class="mdi mdi-clipboard-account-outline"></i>
 					</span> <span class="menu-title">Usuarios</span> <i class="menu-arrow"></i>
 				</a>
 					<div class="collapse" id="menu-usuarios">
@@ -184,7 +129,7 @@
 						</ul>
 					</div></li>
 
-				
+			</ul>
 		</nav>
 
 
@@ -218,51 +163,20 @@
 
 
 					<ul class="navbar-nav navbar-nav-right">
-						<!-- <li class="nav-item dropdown d-none d-lg-block"><a
-							class="nav-link btn btn-success create-new-button"
-							id="createbuttonDropdown" data-toggle="dropdown"
-							aria-expanded="false" href="#">+ Crear Nuevo</a>
-						</li> -->
-
-						<li class="nav-item dropdown border-left"><a
-							class="nav-link count-indicator dropdown-toggle"
-							id="notificationDropdown" href="#" data-toggle="dropdown"> <i
-								class="mdi mdi-bell"></i> <span class="count bg-danger"></span>
-						</a>
-							<div
-								class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
-								aria-labelledby="notificationDropdown">
-								<h6 class="p-3 mb-0">Notifications</h6>
-							</div></li>
-
-
 
 						<li class="nav-item dropdown"><a class="nav-link"
 							id="profileDropdown" href="#" data-toggle="dropdown">
 								<div class="navbar-profile">
-									<img class="img-xs rounded-circle"
-										th:src="@{/assets/images/faces/face15.jpg}" alt="">
+									<i class="mdi mdi-account-circle-outline" style="font-size: 35px; line-height: 1;"></i>
 									<p class="mb-0 d-none d-sm-block navbar-profile-name"
 										th:text="${session.nombreCompleto} ?: 'Invitado'">Usuario</p>
 									<i class="mdi mdi-menu-down d-none d-sm-block"></i>
 								</div>
 						</a>
-							<div
-								class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
+							<div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
 								aria-labelledby="profileDropdown">
-								<h6 class="p-3 mb-0">Profile</h6>
-								<div class="dropdown-divider"></div>
-								<a href="#" class="dropdown-item preview-item">
-									<div class="preview-thumbnail">
-										<div class="preview-icon bg-dark rounded-circle">
-											<i class="mdi mdi-settings text-success"></i>
-										</div>
-									</div>
-									<div class="preview-item-content">
-										<p class="preview-subject mb-1">Settings</p>
-									</div>
-								</a>
-								<div class="dropdown-divider"></div>
+		
+								
 								<a th:href="@{/logout}" class="dropdown-item preview-item">
 									<div class="preview-thumbnail">
 										<div class="preview-icon bg-dark rounded-circle">
@@ -275,7 +189,6 @@
 								</a>
 							</div></li>
 					</ul>
-
 
 
 				</div>

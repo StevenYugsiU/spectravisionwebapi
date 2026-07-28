@@ -36,7 +36,7 @@
 
 								<select th:field="*{idExamen}" class="form-control" id="idExamen" required>
 									<option value="0">Seleccione un examen visual</option>
-									<option th:each="e : ${listaexamenes}" th:value="${e.idExamen}"
+									<option th:each="e : ${listaExamenes}" th:value="${e.idExamen}"
 										th:text="'Examen #' + ${e.idExamen} + ' - ' + ${e.fkHistoriaClinica.fkCliente.nombres} + ' ' + ${e.fkHistoriaClinica.fkCliente.apellidos}"></option>
 
 								</select>

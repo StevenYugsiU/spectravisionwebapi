@@ -39,7 +39,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="seguimiento : ${listaalertas}">
+					<tr th:each="seguimiento : ${listaAlertas}">
 						<td th:text="${seguimiento.idSeguimiento}"></td>
 						<td th:text="${seguimiento.fkEntrega.fkCliente.nombres + ' ' + seguimiento.fkEntrega.fkCliente.apellidos}"></td>
 						<td th:text="${#dates.format(seguimiento.fechaSeguimiento, 'dd/MM/yyyy')}"></td>
@@ -50,7 +50,7 @@
 								class="btn btn-primary btn-icon" title="Editar"><i class="mdi mdi-pencil"></i></a>
 						</td>
 					</tr>
-					<tr th:if="${#lists.isEmpty(listaalertas)}">
+					<tr th:if="${#lists.isEmpty(listaAlertas)}">
 						<td colspan="6" class="text-center">No hay seguimientos próximos a vencer.</td>
 					</tr>
 				</tbody>

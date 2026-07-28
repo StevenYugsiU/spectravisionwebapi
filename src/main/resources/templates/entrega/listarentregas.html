@@ -32,7 +32,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="entrega : ${listaentregas}">
+					<tr th:each="entrega : ${listaEntregas}">
 
 						<td class="buscable" th:text="${entrega.fkCliente.nombres + ' ' + entrega.fkCliente.apellidos}"></td>
 						<td class="buscable" th:text="${entrega.fkCliente.cedula}"></td>
@@ -50,7 +50,7 @@
 							</div>
 						</td>
 					</tr>
-					<tr th:if="${#lists.isEmpty(listaentregas)}">
+					<tr th:if="${#lists.isEmpty(listaEntregas)}">
 						<td colspan="6" class="text-center">No hay entregas registradas.</td>
 					</tr>
 				</tbody>

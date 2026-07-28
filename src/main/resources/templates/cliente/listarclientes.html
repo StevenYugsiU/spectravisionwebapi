@@ -35,7 +35,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="cliente : ${listaclientes}">
+					<tr th:each="cliente : ${listaClientes}">
 						<td class="buscable" th:text="${cliente.nombres + ' ' + cliente.apellidos}"></td>
 						<td class="buscable" th:text="${cliente.cedula}"></td>
 						<td th:text="${cliente.edad}"></td>
@@ -67,7 +67,7 @@
 							</div>
 						</td>
 					</tr>
-					<tr th:if="${#lists.isEmpty(listaclientes)}">
+					<tr th:if="${#lists.isEmpty(listaClientes)}">
 						<td colspan="9" class="text-center">No hay clientes registrados.</td>
 					</tr>
 				</tbody>

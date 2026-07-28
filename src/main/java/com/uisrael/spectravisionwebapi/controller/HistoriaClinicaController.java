@@ -30,7 +30,7 @@ public class HistoriaClinicaController {
 	@GetMapping
 	public String leerPagina(Model model) {
 		List<HistoriaClinicaResponseDto> listaHistoriasClinicas = servicioHistoriaClinica.listarHistoriasClinicas();
-		model.addAttribute("listahistoriasclinicas", listaHistoriasClinicas);
+		model.addAttribute("listaHistoriasClinicas", listaHistoriasClinicas);
 		return "/historiaclinica/listarhistoriasclinicas";
 	}
 

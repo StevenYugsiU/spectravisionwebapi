@@ -25,7 +25,7 @@ public class RolController {
 	@GetMapping
 	public String leerPagina(Model model) {
 		List<RolResponseDto> listaRoles = servicioRol.listarRoles();
-		model.addAttribute("listaroles", listaRoles);
+		model.addAttribute("listaRoles", listaRoles);
 		return "/rol/listarroles";
 	}
 

@@ -37,7 +37,7 @@ public class UsuarioRolController {
 	@GetMapping
 	public String leerPagina(Model model) {
 		List<UsuarioRolResponseDto> listaUsuarioRoles = servicioUsuarioRol.listarUsuarioRoles();
-		model.addAttribute("listausuarioroles", listaUsuarioRoles);
+		model.addAttribute("listaUsuarioRoles", listaUsuarioRoles);
 
 		Map<Integer, String> nombresUsuarios = servicioUsuario.listarUsuarios().stream()
 				.collect(Collectors.toMap(UsuarioResponseDto::getIdUsuario,

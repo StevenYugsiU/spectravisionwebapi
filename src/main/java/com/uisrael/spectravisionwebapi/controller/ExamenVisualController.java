@@ -39,7 +39,7 @@ public class ExamenVisualController {
 	@GetMapping
 	public String leerPagina(Model model) {
 		List<ExamenVisualResponseDto> listaExamenesVisuales = servicioExamenVisual.listarExamenesVisuales();
-		model.addAttribute("listaexamenesvisuales", listaExamenesVisuales);
+		model.addAttribute("listaExamenesVisuales", listaExamenesVisuales);
 		return "/examenvisual/listarexamenesvisuales";
 	}
 

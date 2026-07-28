@@ -37,14 +37,14 @@ public class CertificadoController {
 	@GetMapping
 	public String leerPagina(Model model) {
 		List<CertificadoResponseDto> listaCertificados = servicioCertificado.listarCertificados();
-		model.addAttribute("listacertificados", listaCertificados);
+		model.addAttribute("listaCertificados", listaCertificados);
 		return "/certificado/listarcertificados";
 	}
 
 	@GetMapping("/nuevo")
 	public String nuevoCertificado(Model model) {
 		model.addAttribute("certificado", new CertificadoRequestDto());
-		model.addAttribute("listaexamenes", servicioExamenVisual.listarExamenesVisuales());
+		model.addAttribute("listaExamenes", servicioExamenVisual.listarExamenesVisuales());
 		return "/certificado/formulariocertificado";
 	}
 
@@ -65,7 +65,7 @@ public class CertificadoController {
 		certificado.setObservaciones(encontrado.getObservaciones());
 
 		model.addAttribute("certificado", certificado);
-		model.addAttribute("listaexamenes", servicioExamenVisual.listarExamenesVisuales());
+		model.addAttribute("listaExamenes", servicioExamenVisual.listarExamenesVisuales());
 		return "/certificado/formulariocertificado";
 	}
 

@@ -29,7 +29,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="usuarioRol : ${listausuarioroles}">
+					<tr th:each="usuarioRol : ${listaUsuarioRoles}">
 						<td th:text="${usuarioRol.idUsuarioRol}"></td>
 						<td th:text="${nombresUsuarios.get(usuarioRol.idUsuario)}"></td>
 						<td th:text="${nombresRoles.get(usuarioRol.idRol)}"></td>
@@ -44,7 +44,7 @@
 							</div>
 						</td>
 					</tr>
-					<tr th:if="${#lists.isEmpty(listausuarioroles)}">
+					<tr th:if="${#lists.isEmpty(listaUsuarioRoles)}">
 						<td colspan="4" class="text-center">No hay asignaciones de roles registradas.</td>
 					</tr>
 				</tbody>

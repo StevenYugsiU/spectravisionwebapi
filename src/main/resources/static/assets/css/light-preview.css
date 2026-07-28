@@ -84,6 +84,22 @@ a.nav-link {
 	color: #0090e7 !important;
 }
 
+.sidebar .nav .menu-items .menu-icon i {
+	color: #000000 !important;
+}
+
+.sidebar .nav:not(.sub-menu) > .nav-item:hover:not(.nav-category):not(.account-dropdown) > .nav-link {
+	background-color: #e9ecef !important;
+}
+
+.sidebar .nav .nav-item.active > .nav-link {
+	background-color: #e9ecef !important;
+}
+
+.sidebar .nav .nav-item.active > .nav-link .menu-title {
+	color: #2b2e33 !important;
+}
+
 .sidebar-brand-wrapper,
 .navbar-brand-wrapper {
 	background-color: #ffffff !important;

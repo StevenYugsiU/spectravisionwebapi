@@ -29,7 +29,7 @@ public class EntregaController {
 	@GetMapping
 	public String leerPagina(Model model) {
 		List<EntregaResponseDto> listaEntregas = servicioEntrega.listarEntregas();
-		model.addAttribute("listaentregas", listaEntregas);
+		model.addAttribute("listaEntregas", listaEntregas);
 		return "/entrega/listarentregas";
 	}
 

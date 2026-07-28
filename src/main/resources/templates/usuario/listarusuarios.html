@@ -31,7 +31,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="usuario : ${listausuarios}">
+					<tr th:each="usuario : ${listaUsuarios}">
 						<td th:text="${usuario.idUsuario}"></td>
 						<td class="buscable" th:text="${usuario.nombres}"></td>
 						<td class="buscable" th:text="${usuario.apellidos}"></td>
@@ -50,7 +50,7 @@
 							</div>
 						</td>
 					</tr>
-					<tr th:if="${#lists.isEmpty(listausuarios)}">
+					<tr th:if="${#lists.isEmpty(listaUsuarios)}">
 						<td colspan="6" class="text-center">No hay usuarios registrados.</td>
 					</tr>
 				</tbody>

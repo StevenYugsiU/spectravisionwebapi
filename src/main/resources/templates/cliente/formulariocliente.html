@@ -39,7 +39,7 @@
 										<label for="cedula" class="col-sm-3 col-form-label">Cédula</label>
 										<div class="col-sm-9">
 											<input type="text" th:field="*{cedula}" class="form-control"
-												id="cedula" placeholder="Ingrese la cédula">
+												id="cedula" placeholder="Ingrese la cédula" maxlength="10" inputmode="numeric" pattern="[0-9]{10}" title="La cédula debe tener 10 dígitos numéricos" oninput="this.value=this.value.replace(/[^0-9]/g,'')" required>
 										</div>
 									</div>
 								</div>
@@ -48,7 +48,7 @@
 										<label for="nombres" class="col-sm-3 col-form-label">Nombres</label>
 										<div class="col-sm-9">
 											<input type="text" th:field="*{nombres}" class="form-control"
-												id="nombres" placeholder="Ingrese los nombres">
+												id="nombres" placeholder="Ingrese los nombres" maxlength="50" required>
 										</div>
 									</div>
 								</div>
@@ -60,7 +60,7 @@
 										<label for="apellidos" class="col-sm-3 col-form-label">Apellidos</label>
 										<div class="col-sm-9">
 											<input type="text" th:field="*{apellidos}" class="form-control"
-												id="apellidos" placeholder="Ingrese los apellidos">
+												id="apellidos" placeholder="Ingrese los apellidos" maxlength="50" required>
 										</div>
 									</div>
 								</div>
@@ -81,7 +81,7 @@
 										<label for="edad" class="col-sm-3 col-form-label">Edad</label>
 										<div class="col-sm-9">
 											<input type="number" th:field="*{edad}" class="form-control"
-												id="edad" placeholder="Ingrese la edad">
+												id="edad" placeholder="Ingrese la edad" min="0" max="120" maxlength="3">
 										</div>
 									</div>
 								</div>
@@ -90,7 +90,7 @@
 										<label for="ocupacion" class="col-sm-3 col-form-label">Ocupación</label>
 										<div class="col-sm-9">
 											<input type="text" th:field="*{ocupacion}" class="form-control"
-												id="ocupacion" placeholder="Ingrese la ocupación">
+												id="ocupacion" placeholder="Ingrese la ocupación" maxlength="50">
 										</div>
 									</div>
 								</div>
@@ -102,7 +102,7 @@
 										<label for="celular" class="col-sm-3 col-form-label">Celular</label>
 										<div class="col-sm-9">
 											<input type="text" th:field="*{celular}" class="form-control"
-												id="celular" placeholder="Ingrese el celular">
+												id="celular" placeholder="Ingrese el celular" maxlength="10" inputmode="numeric" pattern="[0-9]{7,10}" title="Ingrese un número de teléfono válido (7 a 10 dígitos)" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
 										</div>
 									</div>
 								</div>
@@ -111,7 +111,7 @@
 										<label for="correo" class="col-sm-3 col-form-label">Correo</label>
 										<div class="col-sm-9">
 											<input type="email" th:field="*{correo}" class="form-control"
-												id="correo" placeholder="Ingrese el correo">
+												id="correo" placeholder="Ingrese el correo" maxlength="80">
 										</div>
 									</div>
 								</div>

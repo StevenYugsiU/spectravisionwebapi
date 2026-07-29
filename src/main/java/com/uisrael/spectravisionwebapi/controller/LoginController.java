@@ -38,8 +38,8 @@ public class LoginController {
 
 			return "redirect:/cliente";
 		} catch (WebClientResponseException ex) {
-			model.addAttribute("error", extraerMensaje(ex));
-			return "/login/login";
+			model.addAttribute("mensaje", extraerMensaje(ex));
+			return "/errores/errornegocio";
 		}
 	}
 

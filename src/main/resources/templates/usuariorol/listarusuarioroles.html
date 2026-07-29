@@ -22,7 +22,6 @@
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th>Id</th>
 						<th>Usuario</th>
 						<th>Rol</th>
 						<th></th>
@@ -30,7 +29,6 @@
 				</thead>
 				<tbody>
 					<tr th:each="usuarioRol : ${listaUsuarioRoles}">
-						<td th:text="${usuarioRol.idUsuarioRol}"></td>
 						<td th:text="${nombresUsuarios.get(usuarioRol.idUsuario)}"></td>
 						<td th:text="${nombresRoles.get(usuarioRol.idRol)}"></td>
 						<td class="actions-cell">
@@ -45,7 +43,7 @@
 						</td>
 					</tr>
 					<tr th:if="${#lists.isEmpty(listaUsuarioRoles)}">
-						<td colspan="4" class="text-center">No hay asignaciones de roles registradas.</td>
+						<td colspan="3" class="text-center">No hay asignaciones de roles registradas.</td>
 					</tr>
 				</tbody>
 			</table>

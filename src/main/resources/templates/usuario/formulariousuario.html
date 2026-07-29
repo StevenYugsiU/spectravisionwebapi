@@ -43,25 +43,25 @@
 							<div class="form-group">
 								<label for="nombres">Nombres</label> <input type="text"
 									th:field="*{nombres}" class="form-control" id="nombres"
-									placeholder="Ingrese los nombres" required>
+									placeholder="Ingrese los nombres" maxlength="50" required>
 							</div>
 
 							<div class="form-group">
 								<label for="apellidos">Apellidos</label> <input type="text"
 									th:field="*{apellidos}" class="form-control" id="apellidos"
-									placeholder="Ingrese los apellidos" required>
+									placeholder="Ingrese los apellidos" maxlength="50" required>
 							</div>
 
 							<div class="form-group">
 								<label for="usuario">Usuario</label> <input type="text"
 									th:field="*{usuario}" class="form-control" id="usuario"
-									placeholder="Ingrese el usuario" required>
+									placeholder="Ingrese el usuario" maxlength="30" required>
 							</div>
 
 							<div class="form-group">
 								<label for="contrasena">Contraseña</label> <input
 									type="password" th:field="*{contrasena}" class="form-control"
-									id="contrasena" placeholder="Ingrese la contraseña"> <small
+									id="contrasena" placeholder="Ingrese la contraseña" maxlength="50" minlength="6" title="La contraseña debe tener al menos 6 caracteres"> <small
 									th:if="${usuario.idUsuario != 0}" class="form-text text-muted">Dejar
 									en blanco para no cambiar la contraseña actual.</small>
 							</div>

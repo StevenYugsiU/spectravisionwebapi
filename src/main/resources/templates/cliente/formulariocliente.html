@@ -48,7 +48,7 @@
 										<label for="nombres" class="col-sm-3 col-form-label">Nombres</label>
 										<div class="col-sm-9">
 											<input type="text" th:field="*{nombres}" class="form-control"
-												id="nombres" placeholder="Ingrese los nombres" maxlength="50" required>
+												id="nombres" placeholder="Ingrese los nombres" maxlength="50" oninput="this.value=this.value.replace(/[^A-Za-zÀ-ÿ\s]/g,'')" required>
 										</div>
 									</div>
 								</div>
@@ -60,7 +60,7 @@
 										<label for="apellidos" class="col-sm-3 col-form-label">Apellidos</label>
 										<div class="col-sm-9">
 											<input type="text" th:field="*{apellidos}" class="form-control"
-												id="apellidos" placeholder="Ingrese los apellidos" maxlength="50" required>
+												id="apellidos" placeholder="Ingrese los apellidos" maxlength="50" oninput="this.value=this.value.replace(/[^A-Za-zÀ-ÿ\s]/g,'')" required>
 										</div>
 									</div>
 								</div>
@@ -69,7 +69,7 @@
 										<label for="fechaNacimiento" class="col-sm-3 col-form-label">Fecha de Nacimiento</label>
 										<div class="col-sm-9">
 											<input type="date" th:field="*{fechaNacimiento}"
-												class="form-control" id="fechaNacimiento">
+												class="form-control" id="fechaNacimiento" min="1900-01-01" max="2030-12-31" onkeydown="return false;" onkeypress="return false;" onkeyup="return false;" onpaste="return false;">
 										</div>
 									</div>
 								</div>
@@ -81,7 +81,7 @@
 										<label for="edad" class="col-sm-3 col-form-label">Edad</label>
 										<div class="col-sm-9">
 											<input type="number" th:field="*{edad}" class="form-control"
-												id="edad" placeholder="Ingrese la edad" min="0" max="120" maxlength="3">
+												id="edad" placeholder="Ingrese la edad" min="0" max="120" maxlength="3" oninput="if(this.value.length>3)this.value=this.value.slice(0,3)">
 										</div>
 									</div>
 								</div>
@@ -90,7 +90,7 @@
 										<label for="ocupacion" class="col-sm-3 col-form-label">Ocupación</label>
 										<div class="col-sm-9">
 											<input type="text" th:field="*{ocupacion}" class="form-control"
-												id="ocupacion" placeholder="Ingrese la ocupación" maxlength="50">
+												id="ocupacion" placeholder="Ingrese la ocupación" maxlength="50" oninput="this.value=this.value.replace(/[^A-Za-zÀ-ÿ\s]/g,'')">
 										</div>
 									</div>
 								</div>
@@ -123,7 +123,7 @@
 										<label for="fechaRegistro" class="col-sm-3 col-form-label">Fecha de Registro</label>
 										<div class="col-sm-9">
 											<input type="date" th:field="*{fechaRegistro}"
-												class="form-control" id="fechaRegistro">
+												class="form-control" id="fechaRegistro" min="2000-01-01" max="2030-12-31" onkeydown="return false;" onkeypress="return false;" onkeyup="return false;" onpaste="return false;">
 										</div>
 									</div>
 								</div>

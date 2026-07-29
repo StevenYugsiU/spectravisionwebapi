@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 
-import com.uisrael.spectravisionwebapi.model.response.ErrorResponseDto;
 import com.uisrael.spectravisionwebapi.model.response.LoginResponseDto;
 import com.uisrael.spectravisionwebapi.service.IAuthService;
 
@@ -38,8 +37,8 @@ public class LoginController {
 
 			return "redirect:/cliente";
 		} catch (WebClientResponseException ex) {
-			model.addAttribute("mensaje", extraerMensaje(ex));
-			return "/errores/errornegocio";
+			model.addAttribute("error", "Credenciales inválidas.");
+			return "/login/login";
 		}
 	}
 
@@ -47,17 +46,6 @@ public class LoginController {
 	public String cerrarSesion(HttpSession session) {
 		session.invalidate();
 		return "redirect:/login";
-	}
-
-	private String extraerMensaje(WebClientResponseException ex) {
-		try {
-			ErrorResponseDto error = ex.getResponseBodyAs(ErrorResponseDto.class);
-			if (error != null && error.getMessage() != null) {
-				return error.getMessage();
-			}
-		} catch (Exception ignorada) {
-		}
-		return "No se pudo iniciar sesion. Intente nuevamente.";
 	}
 
 }

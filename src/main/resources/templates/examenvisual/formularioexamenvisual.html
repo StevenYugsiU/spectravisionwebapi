@@ -89,7 +89,7 @@
 										<label for="motivoConsulta" class="col-sm-4 col-form-label">Motivo de Consulta</label>
 										<div class="col-sm-8">
 											<input type="text" th:field="*{motivoConsulta}" class="form-control"
-												id="motivoConsulta" placeholder="Ingrese el motivo de consulta">
+												id="motivoConsulta" placeholder="Ingrese el motivo de consulta" maxlength="150">
 										</div>
 									</div>
 								</div>
@@ -102,7 +102,7 @@
 										<label for="avOd" class="col-sm-4 col-form-label">Agudeza Visual OD</label>
 										<div class="col-sm-8">
 											<input type="text" th:field="*{avOd}" class="form-control" id="avOd"
-												placeholder="Ingrese la agudeza visual OD">
+												placeholder="Ingrese la agudeza visual OD" maxlength="6" oninput="this.value=this.value.replace(/[^0-9\/]/g,'')">
 										</div>
 									</div>
 								</div>
@@ -111,7 +111,7 @@
 										<label for="avOi" class="col-sm-4 col-form-label">Agudeza Visual OI</label>
 										<div class="col-sm-8">
 											<input type="text" th:field="*{avOi}" class="form-control" id="avOi"
-												placeholder="Ingrese la agudeza visual OI">
+												placeholder="Ingrese la agudeza visual OI" maxlength="6" oninput="this.value=this.value.replace(/[^0-9\/]/g,'')">
 										</div>
 									</div>
 								</div>
@@ -123,7 +123,7 @@
 										<label for="sphOd" class="col-sm-4 col-form-label">Esfera OD</label>
 										<div class="col-sm-8">
 											<input type="text" th:field="*{sphOd}" class="form-control" id="sphOd"
-												placeholder="Ingrese la esfera OD">
+												placeholder="Ingrese la esfera OD" maxlength="6" oninput="this.value=this.value.replace(/[^0-9.+\-]/g,'')">
 										</div>
 									</div>
 								</div>
@@ -132,7 +132,7 @@
 										<label for="sphOi" class="col-sm-4 col-form-label">Esfera OI</label>
 										<div class="col-sm-8">
 											<input type="text" th:field="*{sphOi}" class="form-control" id="sphOi"
-												placeholder="Ingrese la esfera OI">
+												placeholder="Ingrese la esfera OI" maxlength="6" oninput="this.value=this.value.replace(/[^0-9.+\-]/g,'')">
 										</div>
 									</div>
 								</div>
@@ -144,7 +144,7 @@
 										<label for="cylOd" class="col-sm-4 col-form-label">Cilindro OD</label>
 										<div class="col-sm-8">
 											<input type="text" th:field="*{cylOd}" class="form-control" id="cylOd"
-												placeholder="Ingrese el cilindro OD">
+												placeholder="Ingrese el cilindro OD" maxlength="6" oninput="this.value=this.value.replace(/[^0-9.+\-]/g,'')">
 										</div>
 									</div>
 								</div>
@@ -153,7 +153,7 @@
 										<label for="cylOi" class="col-sm-4 col-form-label">Cilindro OI</label>
 										<div class="col-sm-8">
 											<input type="text" th:field="*{cylOi}" class="form-control" id="cylOi"
-												placeholder="Ingrese el cilindro OI">
+												placeholder="Ingrese el cilindro OI" maxlength="6" oninput="this.value=this.value.replace(/[^0-9.+\-]/g,'')">
 										</div>
 									</div>
 								</div>
@@ -165,7 +165,7 @@
 										<label for="ejeOd" class="col-sm-4 col-form-label">Eje OD</label>
 										<div class="col-sm-8">
 											<input type="text" th:field="*{ejeOd}" class="form-control" id="ejeOd"
-												placeholder="Ingrese el eje OD">
+												placeholder="Ingrese el eje OD" maxlength="3" inputmode="numeric" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
 										</div>
 									</div>
 								</div>
@@ -174,7 +174,7 @@
 										<label for="ejeOi" class="col-sm-4 col-form-label">Eje OI</label>
 										<div class="col-sm-8">
 											<input type="text" th:field="*{ejeOi}" class="form-control" id="ejeOi"
-												placeholder="Ingrese el eje OI">
+												placeholder="Ingrese el eje OI" maxlength="3" inputmode="numeric" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
 										</div>
 									</div>
 								</div>
@@ -186,7 +186,7 @@
 										<label for="addValor" class="col-sm-4 col-form-label">Adición</label>
 										<div class="col-sm-8">
 											<input type="text" th:field="*{addValor}" class="form-control" id="addValor"
-												placeholder="Ingrese el valor de adición">
+												placeholder="Ingrese el valor de adición" maxlength="5" oninput="this.value=this.value.replace(/[^0-9.+\-]/g,'')">
 										</div>
 									</div>
 								</div>
@@ -195,7 +195,7 @@
 										<label for="dnp" class="col-sm-4 col-form-label">DNP</label>
 										<div class="col-sm-8">
 											<input type="text" th:field="*{dnp}" class="form-control" id="dnp"
-												placeholder="Ingrese el DNP">
+												placeholder="Ingrese el DNP" maxlength="6" oninput="this.value=this.value.replace(/[^0-9\/]/g,'')">
 										</div>
 									</div>
 								</div>
@@ -207,7 +207,7 @@
 										<label for="altura" class="col-sm-4 col-form-label">Altura</label>
 										<div class="col-sm-8">
 											<input type="text" th:field="*{altura}" class="form-control" id="altura"
-												placeholder="Ingrese la altura">
+												placeholder="Ingrese la altura" maxlength="5" oninput="this.value=this.value.replace(/[^0-9.]/g,'')">
 										</div>
 									</div>
 								</div>
@@ -216,7 +216,7 @@
 										<label for="biomicroscopia" class="col-sm-4 col-form-label">Biomicroscopía</label>
 										<div class="col-sm-8">
 											<input type="text" th:field="*{biomicroscopia}" class="form-control"
-												id="biomicroscopia" placeholder="Ingrese la biomicroscopía">
+												id="biomicroscopia" placeholder="Ingrese la biomicroscopía" maxlength="200">
 										</div>
 									</div>
 								</div>
@@ -229,7 +229,7 @@
 										<label for="recomentaciones" class="col-sm-4 col-form-label">Recomendaciones</label>
 										<div class="col-sm-8">
 											<input type="text" th:field="*{recomentaciones}" class="form-control"
-												id="recomentaciones" placeholder="Ingrese las recomendaciones">
+												id="recomentaciones" placeholder="Ingrese las recomendaciones" maxlength="200">
 										</div>
 									</div>
 								</div>
@@ -238,7 +238,7 @@
 										<label for="diagnostico" class="col-sm-4 col-form-label">Diagnóstico</label>
 										<div class="col-sm-8">
 											<input type="text" th:field="*{diagnostico}" class="form-control" id="diagnostico"
-												placeholder="Ingrese el diagnóstico">
+												placeholder="Ingrese el diagnóstico" maxlength="200">
 										</div>
 									</div>
 								</div>

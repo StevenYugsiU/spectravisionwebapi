@@ -14,7 +14,7 @@ public class GlobalWebExceptionHandler {
 	public ModelAndView manejarErrorBackend(WebClientResponseException ex) {
 		String mensaje = extraerMensaje(ex);
 
-		ModelAndView mav = new ModelAndView("error-negocio");
+		ModelAndView mav = new ModelAndView("errores/errornegocio");
 		mav.addObject("mensaje", mensaje);
 		return mav;
 	}

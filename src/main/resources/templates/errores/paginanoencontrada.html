@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8">
+
+	<meta name="viewport"
+		  content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<title>SpectraVision - Página no encontrada</title>
+
+	<link rel="stylesheet"
+		  th:href="@{/assets/vendors/mdi/css/materialdesignicons.min.css}">
+
+	<link rel="stylesheet"
+		  th:href="@{/assets/vendors/css/vendor.bundle.base.css}">
+
+	<link rel="stylesheet"
+		  th:href="@{/assets/css/style.css}">
+
+	<link rel="shortcut icon"
+		  th:href="@{/assets/images/favicon.png}">
+
+	<style>
+		html,
+		body {
+			width: 100%;
+			min-height: 100%;
+			margin: 0;
+		}
+
+		body {
+			background-color: #f4f5f7;
+			font-family: Arial, Helvetica, sans-serif;
+		}
+
+		.error-header {
+			width: 100%;
+			height: 82px;
+			background-color: #ffffff;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 0 35px;
+			border-bottom: 1px solid #e6e8ec;
+			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+			box-sizing: border-box;
+		}
+
+		.error-logo-container {
+			display: flex;
+			align-items: center;
+		}
+
+		.error-logo {
+			width: 135px;
+			max-height: 55px;
+			object-fit: contain;
+		}
+
+		.error-system-name {
+			color: #65728a;
+			font-size: 15px;
+			font-weight: 500;
+			margin: 0;
+		}
+
+		.error-main {
+			min-height: calc(100vh - 82px);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 40px 25px;
+			box-sizing: border-box;
+		}
+
+		.error-card {
+			width: 100%;
+			max-width: 950px;
+			background-color: #ffffff;
+			border: 1px solid #e1e5ea;
+			border-radius: 7px;
+			box-shadow: 0 5px 18px rgba(30, 42, 60, 0.09);
+			overflow: hidden;
+		}
+
+		.error-card-header {
+			height: 5px;
+			background-color: #0795df;
+		}
+
+		.error-card-body {
+			padding: 55px 60px;
+		}
+
+		.error-content {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.error-left {
+			width: 42%;
+			text-align: center;
+			padding-right: 45px;
+			box-sizing: border-box;
+		}
+
+		.error-icon-circle {
+			width: 72px;
+			height: 72px;
+			margin: 0 auto 15px;
+			border-radius: 50%;
+			background-color: rgba(7, 149, 223, 0.12);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.error-icon-circle i {
+			font-size: 40px;
+			color: #0795df;
+		}
+
+		.error-number {
+			margin: 0;
+			font-size: 105px;
+			line-height: 1;
+			font-weight: 700;
+			color: #0795df;
+			letter-spacing: 2px;
+		}
+
+		.error-code-text {
+			margin: 10px 0 0;
+			color: #8792a5;
+			font-size: 14px;
+			font-weight: 500;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+		}
+
+		.error-divider {
+			width: 1px;
+			height: 220px;
+			background-color: #e0e4e9;
+		}
+
+		.error-right {
+			width: 58%;
+			padding-left: 50px;
+			box-sizing: border-box;
+		}
+
+		.error-title {
+			margin: 0 0 14px;
+			color: #202938;
+			font-size: 31px;
+			font-weight: 700;
+		}
+
+		.error-description {
+			margin: 0 0 12px;
+			color: #718096;
+			font-size: 18px;
+			line-height: 1.6;
+		}
+
+		.error-suggestion {
+			margin: 0 0 28px;
+			color: #96a0b1;
+			font-size: 15px;
+			line-height: 1.5;
+		}
+
+		.error-buttons {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			flex-wrap: wrap;
+		}
+
+		.btn-error-primary {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			min-height: 42px;
+			padding: 10px 22px;
+			background-color: #0795df;
+			border: 1px solid #0795df;
+			border-radius: 4px;
+			color: #ffffff;
+			font-size: 15px;
+			font-weight: 500;
+			text-decoration: none;
+			transition: all 0.2s ease;
+		}
+
+		.btn-error-primary:hover {
+			background-color: #087fc0;
+			border-color: #087fc0;
+			color: #ffffff;
+			text-decoration: none;
+		}
+
+		.btn-error-secondary {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			min-height: 42px;
+			padding: 10px 22px;
+			background-color: #ffffff;
+			border: 1px solid #d8dde5;
+			border-radius: 4px;
+			color: #65728a;
+			font-size: 15px;
+			font-weight: 500;
+			text-decoration: none;
+			transition: all 0.2s ease;
+		}
+
+		.btn-error-secondary:hover {
+			background-color: #f5f6f8;
+			border-color: #cbd1da;
+			color: #343d4d;
+			text-decoration: none;
+		}
+
+		.btn-error-primary i,
+		.btn-error-secondary i {
+			font-size: 19px;
+			margin-right: 7px;
+		}
+
+		.error-card-footer {
+			padding: 16px 30px;
+			background-color: #fafbfc;
+			border-top: 1px solid #edf0f3;
+			text-align: center;
+		}
+
+		.error-card-footer p {
+			margin: 0;
+			color: #9aa3b2;
+			font-size: 13px;
+		}
+
+		@media (max-width: 767px) {
+
+			.error-header {
+				height: 72px;
+				padding: 0 20px;
+			}
+
+			.error-logo {
+				width: 120px;
+			}
+
+			.error-system-name {
+				display: none;
+			}
+
+			.error-main {
+				min-height: calc(100vh - 72px);
+				padding: 25px 15px;
+			}
+
+			.error-card-body {
+				padding: 35px 25px;
+			}
+
+			.error-content {
+				display: block;
+				text-align: center;
+			}
+
+			.error-left {
+				width: 100%;
+				padding-right: 0;
+			}
+
+			.error-number {
+				font-size: 85px;
+			}
+
+			.error-divider {
+				width: 100%;
+				height: 1px;
+				margin: 30px 0;
+			}
+
+			.error-right {
+				width: 100%;
+				padding-left: 0;
+			}
+
+			.error-title {
+				font-size: 26px;
+			}
+
+			.error-description {
+				font-size: 16px;
+			}
+
+			.error-buttons {
+				justify-content: center;
+			}
+		}
+
+		@media (max-width: 430px) {
+
+			.btn-error-primary,
+			.btn-error-secondary {
+				width: 100%;
+			}
+
+			.error-card-body {
+				padding: 30px 20px;
+			}
+		}
+	</style>
+</head>
+
+<body>
+
+	<header class="error-header">
+
+		<div class="error-logo-container">
+
+			<img class="error-logo"
+				 th:src="@{/assets/images/favicon.png}"
+				 src="/assets/images/favicon.png"
+				 alt="SpectraVision">
+
+		</div>
+
+		<p class="error-system-name">
+			Sistema de gestión visual
+		</p>
+
+	</header>
+
+	<main class="error-main">
+
+		<section class="error-card">
+
+			<div class="error-card-header"></div>
+
+			<div class="error-card-body">
+
+				<div class="error-content">
+
+					<div class="error-left">
+
+						<div class="error-icon-circle">
+							<i class="mdi mdi-alert-circle-outline"></i>
+						</div>
+
+						<h1 class="error-number">404</h1>
+
+						<p class="error-code-text">
+							Página no encontrada
+						</p>
+
+					</div>
+
+					<div class="error-divider"></div>
+
+					<div class="error-right">
+
+						<h2 class="error-title">
+							¡Lo sentimos!
+						</h2>
+
+						<p class="error-description">
+							La página que intentas consultar no existe o la
+							dirección ingresada no es válida.
+						</p>
+
+						<p class="error-suggestion">
+							Verifica la dirección o regresa al inicio para continuar
+							navegando en SpectraVision.
+						</p>
+
+						<div class="error-buttons">
+
+							<a class="btn-error-primary"
+							   th:href="@{/}"
+							   href="/">
+
+								<i class="mdi mdi-home"></i>
+								Volver al inicio
+
+							</a>
+
+							<a class="btn-error-secondary"
+							   href="javascript:history.back();">
+
+								<i class="mdi mdi-arrow-left"></i>
+								Regresar
+
+							</a>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+			<div class="error-card-footer">
+				<p>
+					SpectraVision · Centro de atención visual
+				</p>
+			</div>
+
+		</section>
+
+	</main>
+
+	<script th:src="@{/assets/vendors/js/vendor.bundle.base.js}"
+			src="/assets/vendors/js/vendor.bundle.base.js"></script>
+
+	<script th:src="@{/assets/js/off-canvas.js}"
+			src="/assets/js/off-canvas.js"></script>
+
+	<script th:src="@{/assets/js/hoverable-collapse.js}"
+			src="/assets/js/hoverable-collapse.js"></script>
+
+	<script th:src="@{/assets/js/misc.js}"
+			src="/assets/js/misc.js"></script>
+
+	<script th:src="@{/assets/js/settings.js}"
+			src="/assets/js/settings.js"></script>
+
+</body>
+
+</html>

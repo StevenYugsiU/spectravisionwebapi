@@ -37,7 +37,7 @@
 								<select th:field="*{idExamen}" class="form-control" id="idExamen" required>
 									<option value="0">Seleccione un examen visual</option>
 									<option th:each="e : ${listaExamenes}" th:value="${e.idExamen}"
-										th:text="'Examen #' + ${e.idExamen} + ' - ' + ${e.fkHistoriaClinica.fkCliente.nombres} + ' ' + ${e.fkHistoriaClinica.fkCliente.apellidos}"></option>
+										th:text="${e.fkHistoriaClinica.fkCliente.nombres} + ' ' + ${e.fkHistoriaClinica.fkCliente.apellidos} + ' - ' + ${#dates.format(e.fechaExamen, 'dd/MM/yyyy')}"></option>
 
 								</select>
 							</div>
@@ -51,7 +51,7 @@
 							<div class="form-group">
 								<label for="observaciones">Observaciones</label>
 								<input type="text" th:field="*{observaciones}" class="form-control"
-									id="observaciones" placeholder="Ingrese las observaciones" required>
+									id="observaciones" placeholder="Ingrese las observaciones" maxlength="200" required>
 							</div>
 
 							<input type="hidden" th:field="*{idCertificado}">

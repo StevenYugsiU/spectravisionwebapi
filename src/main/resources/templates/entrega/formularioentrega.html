@@ -33,8 +33,8 @@
 							<div class="form-group">
 								<label for="idCliente">Cliente</label>
 
-								<select class="form-control" th:field="*{idCliente}" id="idCliente" required>
-									<option value="">Seleccione un cliente</option>
+								<select class="form-control" th:field="*{idCliente}" id="idCliente" oninput="this.setCustomValidity(this.value=='0'?'Seleccione una opción válida.':'')" onchange="this.setCustomValidity(this.value=='0'?'Seleccione una opción válida.':'')" required>
+									<option value="0">Seleccione un cliente</option>
 									<option th:each="cliente : ${listaClientes}"
 										th:value="${cliente.idCliente}"
 										th:text="${cliente.cedula + ' - ' + cliente.nombres + ' ' + cliente.apellidos}"></option>

@@ -34,10 +34,10 @@
 							<div class="form-group">
 								<label for="idExamen">Examen Visual</label>
 
-								<select th:field="*{idExamen}" class="form-control" id="idExamen" required>
-									<option value="">Seleccione un examen visual</option>
+								<select th:field="*{idExamen}" class="form-control" id="idExamen" oninput="this.setCustomValidity(this.value=='0'?'Seleccione una opción válida.':'')" onchange="this.setCustomValidity(this.value=='0'?'Seleccione una opción válida.':'')" required>
+									<option value="0">Seleccione un examen visual</option>
 									<option th:each="e : ${listaExamenes}" th:value="${e.idExamen}"
-										th:text="${e.fkHistoriaClinica.fkCliente.nombres} + ' ' + ${e.fkHistoriaClinica.fkCliente.apellidos} + ' - ' + ${#dates.format(e.fechaExamen, 'dd/MM/yyyy')}"></option>
+										th:text="${e.fkHistoriaClinica.fkCliente.nombres + ' ' + e.fkHistoriaClinica.fkCliente.apellidos + (e.fechaExamen != null ? ' - ' + #dates.format(e.fechaExamen, 'dd/MM/yyyy') : '')}"></option>
 
 								</select>
 							</div>

@@ -52,9 +52,11 @@
 								<select th:field="*{idUsuario}"
 									class="form-control"
 									id="idUsuario"
+									oninput="this.setCustomValidity(this.value=='0'?'Seleccione una opción válida.':'')"
+									onchange="this.setCustomValidity(this.value=='0'?'Seleccione una opción válida.':'')"
 									required>
 
-									<option value="">Seleccione un usuario</option>
+									<option value="0">Seleccione un usuario</option>
 
 									<option
 										th:each="usuario : ${listaUsuarios}"
@@ -71,9 +73,11 @@
 								<select th:field="*{idRol}"
 									class="form-control"
 									id="idRol"
+									oninput="this.setCustomValidity(this.value=='0'?'Seleccione una opción válida.':'')"
+									onchange="this.setCustomValidity(this.value=='0'?'Seleccione una opción válida.':'')"
 									required>
 
-									<option value="">Seleccione un rol</option>
+									<option value="0">Seleccione un rol</option>
 
 									<option
 										th:each="rol : ${listaRoles}"

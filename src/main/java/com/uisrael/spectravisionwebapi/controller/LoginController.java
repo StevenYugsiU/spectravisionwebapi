@@ -11,6 +11,7 @@ import org.springframework.web.reactive.function.client.WebClientResponseExcepti
 import com.uisrael.spectravisionwebapi.model.response.LoginResponseDto;
 import com.uisrael.spectravisionwebapi.service.IAuthService;
 
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -20,7 +21,13 @@ public class LoginController {
 	private IAuthService servicioAuth;
 
 	@GetMapping("/login")
-	public String leerPagina() {
+	public String leerPagina(HttpSession session, HttpServletResponse response) {
+		response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+		response.setHeader("Pragma", "no-cache");
+
+		if (session.getAttribute("idUsuario") != null) {
+			return "redirect:/cliente";
+		}
 		return "/login/login";
 	}
 

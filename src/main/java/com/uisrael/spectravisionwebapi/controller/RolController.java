@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.uisrael.spectravisionwebapi.model.request.RolRequestDto;
 import com.uisrael.spectravisionwebapi.model.response.RolResponseDto;
@@ -61,7 +62,12 @@ public class RolController {
 	}
 
 	@PostMapping("/eliminar/{idRol}")
-	public String eliminarRol(@PathVariable int idRol) {
+	public String eliminarRol(@PathVariable int idRol, RedirectAttributes redirectAttributes) {
+		RolResponseDto rol = servicioRol.buscarRolPorId(idRol);
+		if (rol != null && "Administrador".equalsIgnoreCase(rol.getNombre())) {
+			redirectAttributes.addFlashAttribute("error", "El rol Administrador no se puede eliminar.");
+			return "redirect:/rol";
+		}
 		servicioRol.eliminarRol(idRol);
 		return "redirect:/rol";
 	}

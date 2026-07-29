@@ -33,8 +33,8 @@
 							<div class="form-group">
 								<label for="idCliente">Cliente</label>
 
-								<select class="form-control" th:field="*{idCliente}" id="idCliente">
-									<option value="0">Seleccione un cliente</option>
+								<select class="form-control" th:field="*{idCliente}" id="idCliente" required>
+									<option value="">Seleccione un cliente</option>
 									<option th:each="cliente : ${listaClientes}"
 										th:value="${cliente.idCliente}"
 										th:text="${cliente.cedula + ' - ' + cliente.nombres + ' ' + cliente.apellidos}"></option>
@@ -44,7 +44,7 @@
 							<div class="form-group">
 								<label for="fechaEntrega">Fecha de Entrega</label>
 								<input type="date" th:field="*{fechaEntrega}"
-									class="form-control" id="fechaEntrega" required>
+									class="form-control" id="fechaEntrega" min="2000-01-01" max="2030-12-31" onkeydown="return false;" onkeypress="return false;" onkeyup="return false;" onpaste="return false;" required>
 							</div>
 
 							<div class="form-group">

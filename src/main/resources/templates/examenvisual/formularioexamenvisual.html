@@ -45,8 +45,8 @@
 
 							<div class="form-group" th:if="${clienteSeleccionado == null}">
 								<label for="idHistoria">Paciente</label> <select
-									class="form-control" th:field="*{idHistoria}" id="idHistoria" required>
-									<option value="">Seleccione un paciente</option>
+									class="form-control" th:field="*{idHistoria}" id="idHistoria" oninput="this.setCustomValidity(this.value=='0'?'Seleccione una opción válida.':'')" onchange="this.setCustomValidity(this.value=='0'?'Seleccione una opción válida.':'')" required>
+									<option value="0">Seleccione un paciente</option>
 									<option th:each="historia : ${listaHistorias}"
 										th:value="${historia.idHistoriaClinica}"
 										th:text="${historia.fkCliente.nombres + ' ' + historia.fkCliente.apellidos}"></option>

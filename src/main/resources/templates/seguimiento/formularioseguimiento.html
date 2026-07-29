@@ -34,8 +34,8 @@
 							<div class="form-group">
 								<label for="idEntrega">Entrega</label>
 
-								<select class="form-control" th:field="*{idEntrega}" id="idEntrega" required>
-									<option value="">Seleccione una entrega</option>
+								<select class="form-control" th:field="*{idEntrega}" id="idEntrega" oninput="this.setCustomValidity(this.value=='0'?'Seleccione una opción válida.':'')" onchange="this.setCustomValidity(this.value=='0'?'Seleccione una opción válida.':'')" required>
+									<option value="0">Seleccione una entrega</option>
 									<option th:each="entrega : ${listaEntregas}"
 										th:value="${entrega.idEntrega}"
 										th:text="${entrega.fkCliente.nombres + ' ' + entrega.fkCliente.apellidos + ' - ' + #dates.format(entrega.fechaEntrega, 'dd/MM/yyyy')}"></option>

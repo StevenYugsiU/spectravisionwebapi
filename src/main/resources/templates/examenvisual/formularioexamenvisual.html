@@ -35,6 +35,7 @@
 							th:action="${examenvisual.idExamen == 0} ? @{/examenvisual/guardar} : @{/examenvisual/actualizar/{id}(id=${examenvisual.idExamen})}"
 							th:object="${examenvisual}" method="post" class="forms-sample">
 
+							<input type="hidden" name="fromHistoria" th:if="${fromHistoria != null and fromHistoria}" value="true">
 
 							<div class="form-group" th:if="${clienteSeleccionado != null}">
 								<label>Paciente</label>
@@ -248,7 +249,8 @@
 
 							<button type="submit" class="btn btn-primary mr-2"
 								th:text="${examenvisual.idExamen == 0} ? 'Crear' : 'Actualizar'">Crear</button>
-							<a th:href="@{/examenvisual}" class="btn btn-dark">Cancelar</a>
+							<a th:href="${fromHistoria != null and fromHistoria} ? @{/historiaclinica/detalle/{id}(id=*{idHistoria})} : @{/examenvisual}"
+								class="btn btn-dark">Cancelar</a>
 
 						</form>
 

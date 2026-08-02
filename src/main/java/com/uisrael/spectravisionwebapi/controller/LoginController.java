@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.uisrael.spectravisionwebapi.model.response.ErrorResponseDto;
 import com.uisrael.spectravisionwebapi.model.response.LoginResponseDto;
 import com.uisrael.spectravisionwebapi.service.IAuthService;
 
@@ -53,6 +55,64 @@ public class LoginController {
 	public String cerrarSesion(HttpSession session) {
 		session.invalidate();
 		return "redirect:/login";
+	}
+
+	@GetMapping("/olvide-contrasena")
+	public String leerPaginaOlvideContrasena() {
+		return "/login/olvide-contrasena";
+	}
+
+	@PostMapping("/olvide-contrasena")
+	public String procesarOlvideContrasena(@RequestParam String usuario, Model model) {
+		try {
+			servicioAuth.solicitarRecuperacion(usuario);
+		} catch (WebClientResponseException ex) {
+			// Se ignora el detalle: se muestra siempre el mismo mensaje generico
+			// para no revelar si el usuario existe o no.
+		}
+		model.addAttribute("mensaje",
+				"Si el usuario existe y tiene un correo registrado, se envió un enlace de recuperación.");
+		return "/login/olvide-contrasena";
+	}
+
+	@GetMapping("/restablecer-contrasena")
+	public String leerPaginaRestablecerContrasena(@RequestParam String token, Model model) {
+		model.addAttribute("token", token);
+		return "/login/restablecer-contrasena";
+	}
+
+	@PostMapping("/restablecer-contrasena")
+	public String procesarRestablecerContrasena(@RequestParam String token, @RequestParam String nuevaContrasena,
+			@RequestParam String confirmarContrasena, Model model, RedirectAttributes redirectAttributes) {
+
+		if (!nuevaContrasena.equals(confirmarContrasena)) {
+			model.addAttribute("token", token);
+			model.addAttribute("error", "Las contraseñas no coinciden.");
+			return "/login/restablecer-contrasena";
+		}
+
+		try {
+			servicioAuth.restablecerContrasena(token, nuevaContrasena);
+		} catch (WebClientResponseException ex) {
+			model.addAttribute("token", token);
+			model.addAttribute("error", extraerMensajeError(ex));
+			return "/login/restablecer-contrasena";
+		}
+
+		redirectAttributes.addFlashAttribute("mensaje", "Contraseña actualizada correctamente. Ya puedes ingresar.");
+		return "redirect:/login";
+	}
+
+	private String extraerMensajeError(WebClientResponseException ex) {
+		try {
+			ErrorResponseDto error = ex.getResponseBodyAs(ErrorResponseDto.class);
+			if (error != null && error.getMessage() != null) {
+				return error.getMessage();
+			}
+		} catch (Exception e) {
+			// Se ignora: se usa el mensaje generico de abajo.
+		}
+		return "No se pudo restablecer la contraseña. Intenta solicitar un nuevo enlace.";
 	}
 
 }

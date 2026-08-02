@@ -70,6 +70,15 @@ public class HistoriaClinicaController {
 		return "/historiaclinica/formulariohistoriaclinica";
 	}
 
+	@GetMapping("/detalle/{idHistoriaClinica}")
+	public String verDetalleHistoriaClinica(@PathVariable int idHistoriaClinica, Model model) {
+		HistoriaClinicaResponseDto historiaclinica = servicioHistoriaClinica.buscarHistoriaClinicaPorId(idHistoriaClinica);
+
+		model.addAttribute("historiaclinica", historiaclinica);
+		model.addAttribute("examenesVisuales", historiaclinica.getExamenesVisuales());
+		return "/historiaclinica/detallehistoriaclinica";
+	}
+
 	@PostMapping("/actualizar/{idHistoriaClinica}")
 	public String actualizarHistoriaClinica(@PathVariable int idHistoriaClinica,
 			@ModelAttribute HistoriaClinicaRequestDto historiaclinica) {

@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>SpectraVision - Login</title>
+<title>SpectraVision - Restablecer contraseña</title>
 <link rel="stylesheet"
 	th:href="@{/assets/vendors/mdi/css/materialdesignicons.min.css}">
 <link rel="stylesheet"
@@ -23,29 +23,23 @@
 					class="content-wrapper full-page-wrapper d-flex align-items-center auth login-bg">
 					<div class="card col-lg-4 mx-auto">
 						<div class="card-body px-5 py-5">
-							<h3 class="card-title text-left mb-3">Login</h3>
+							<h3 class="card-title text-left mb-3">Nueva contraseña</h3>
 							<div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
-							<div th:if="${mensaje}" class="alert alert-success" th:text="${mensaje}"></div>
-							<form th:action="@{/login}" method="post">
+							<form th:action="@{/restablecer-contrasena}" method="post">
+								<input type="hidden" name="token" th:value="${token}">
 								<div class="form-group">
-									<label>Usuario*</label>
-									<input type="text" name="usuario" class="form-control p_input" maxlength="30" required>
+									<label>Nueva contraseña*</label>
+									<input type="password" name="nuevaContrasena" class="form-control p_input" minlength="8" maxlength="50" required>
 								</div>
 								<div class="form-group">
-									<label>Contraseña*</label>
-									<input type="password" name="contrasena" class="form-control p_input" maxlength="50" required>
-								</div>
-								<div
-									class="form-group d-flex align-items-center justify-content-between">
-									<div class="form-check">
-										<label class="form-check-label"> <input type="checkbox"
-											class="form-check-input"> Recordarme
-										</label>
-									</div>
-									<a th:href="@{/olvide-contrasena}" class="forgot-pass">¿Olvidó su contraseña?</a>
+									<label>Confirmar contraseña*</label>
+									<input type="password" name="confirmarContrasena" class="form-control p_input" minlength="8" maxlength="50" required>
 								</div>
 								<div class="text-center">
-									<button type="submit" class="btn btn-primary btn-block enter-btn">Ingresar</button>
+									<button type="submit" class="btn btn-primary btn-block enter-btn">Guardar contraseña</button>
+								</div>
+								<div class="text-center mt-3">
+									<a th:href="@{/login}">Volver a iniciar sesión</a>
 								</div>
 							</form>
 						</div>
@@ -60,6 +54,5 @@
 	<script th:src="@{/assets/js/hoverable-collapse.js}"></script>
 	<script th:src="@{/assets/js/misc.js}"></script>
 	<script th:src="@{/assets/js/settings.js}"></script>
-	<script th:src="@{/assets/js/todolist.js}"></script>
 </body>
 </html>

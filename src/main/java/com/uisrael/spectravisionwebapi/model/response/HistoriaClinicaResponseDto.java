@@ -1,6 +1,7 @@
 package com.uisrael.spectravisionwebapi.model.response;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -13,4 +14,5 @@ public class HistoriaClinicaResponseDto {
 	private String antecedentes;
 	private String observacionesGenerales;
 	private Boolean estado;
+	private List<ExamenVisualResumenDto> examenesVisuales;
 }

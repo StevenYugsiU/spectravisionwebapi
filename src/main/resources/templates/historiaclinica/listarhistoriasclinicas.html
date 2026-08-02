@@ -43,6 +43,8 @@
 							th:text="${historia.estado} ? 'Activo' : 'Inactivo'"></span></td>
 						<td class="actions-cell">
 							<div class="action-icons">
+								<a th:href="@{/historiaclinica/detalle/{id}(id=${historia.idHistoriaClinica})}"
+									class="btn btn-icon" style="background-color:#00cccc;color:#212529;" title="Ver detalle"><i class="mdi mdi-eye"></i></a>
 								<a th:href="@{/historiaclinica/editar/{id}(id=${historia.idHistoriaClinica})}"
 									class="btn btn-primary btn-icon" title="Editar"><i class="mdi mdi-pencil"></i></a>
 								<form th:action="@{/historiaclinica/eliminar/{id}(id=${historia.idHistoriaClinica})}" method="post"

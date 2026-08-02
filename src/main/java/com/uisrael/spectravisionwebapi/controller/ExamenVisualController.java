@@ -44,7 +44,8 @@ public class ExamenVisualController {
 	}
 
 	@GetMapping("/nuevo")
-	public String nuevoExamenVisual(@RequestParam(required = false) Integer idHistoria, Model model) {
+	public String nuevoExamenVisual(@RequestParam(required = false) Integer idHistoria,
+			@RequestParam(required = false) Boolean fromHistoria, Model model) {
 		ExamenVisualRequestDto examenvisual = new ExamenVisualRequestDto();
 		if (idHistoria != null) {
 			examenvisual.setIdHistoria(idHistoria);
@@ -53,19 +54,25 @@ public class ExamenVisualController {
 			model.addAttribute("clienteSeleccionado", historia.getFkCliente());
 		}
 		model.addAttribute("examenvisual", examenvisual);
+		model.addAttribute("fromHistoria", fromHistoria);
 
 		model.addAttribute("listaHistorias", servicioHistoriaClinica.listarHistoriasClinicas());
 		return "/examenvisual/formularioexamenvisual";
 	}
 
 	@PostMapping("/guardar")
-	public String guardarExamenVisual(@ModelAttribute ExamenVisualRequestDto examenvisual) {
+	public String guardarExamenVisual(@ModelAttribute ExamenVisualRequestDto examenvisual,
+			@RequestParam(required = false) Boolean fromHistoria) {
 		servicioExamenVisual.guardarExamenVisual(examenvisual);
+		if (Boolean.TRUE.equals(fromHistoria)) {
+			return "redirect:/historiaclinica/detalle/" + examenvisual.getIdHistoria();
+		}
 		return "redirect:/examenvisual";
 	}
 
 	@GetMapping("/editar/{idExamen}")
-	public String editarExamenVisual(@PathVariable int idExamen, Model model) {
+	public String editarExamenVisual(@PathVariable int idExamen,
+			@RequestParam(required = false) Boolean fromHistoria, Model model) {
 		ExamenVisualResponseDto encontrado = servicioExamenVisual.buscarExamenVisualPorId(idExamen);
 
 		ExamenVisualRequestDto examenvisual = new ExamenVisualRequestDto();
@@ -91,6 +98,7 @@ public class ExamenVisualController {
 		examenvisual.setDiagnostico(encontrado.getDiagnostico());
 
 		model.addAttribute("examenvisual", examenvisual);
+		model.addAttribute("fromHistoria", fromHistoria);
 
 		model.addAttribute("listaHistorias", servicioHistoriaClinica.listarHistoriasClinicas());
 		return "/examenvisual/formularioexamenvisual";
@@ -98,8 +106,12 @@ public class ExamenVisualController {
 
 	@PostMapping("/actualizar/{idExamen}")
 	public String actualizarExamenVisual(@PathVariable int idExamen,
-			@ModelAttribute ExamenVisualRequestDto examenvisual) {
+			@ModelAttribute ExamenVisualRequestDto examenvisual,
+			@RequestParam(required = false) Boolean fromHistoria) {
 		servicioExamenVisual.actualizarExamenVisual(idExamen, examenvisual);
+		if (Boolean.TRUE.equals(fromHistoria)) {
+			return "redirect:/historiaclinica/detalle/" + examenvisual.getIdHistoria();
+		}
 		return "redirect:/examenvisual";
 	}
 

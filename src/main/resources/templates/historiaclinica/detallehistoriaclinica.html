@@ -1,0 +1,146 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="/layout/layout">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Detalle de Historia Clínica</title>
+</head>
+
+<body>
+
+	<div layout:fragment="cargarpaginas">
+
+		<div class="row">
+			<div class="col-md-10 offset-md-1 grid-margin stretch-card">
+				<div class="card">
+					<div class="card-body">
+
+						<div class="d-flex align-items-center mb-2">
+							<a href="javascript:history.back()" class="btn btn-dark btn-icon mr-2" title="Regresar"><i class="mdi mdi-arrow-left"></i></a>
+							<h4 class="card-title mb-0">Historia Clínica</h4>
+						</div>
+						<p class="card-description">Datos generales (solo lectura)</p>
+
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group row">
+									<label class="col-sm-4 col-form-label">Paciente</label>
+									<div class="col-sm-8">
+										<div class="form-control-plaintext"
+											th:text="${historiaclinica.fkCliente.nombres + ' ' + historiaclinica.fkCliente.apellidos}"></div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group row">
+									<label class="col-sm-4 col-form-label">Cédula</label>
+									<div class="col-sm-8">
+										<div class="form-control-plaintext" th:text="${historiaclinica.fkCliente.cedula}"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group row">
+									<label class="col-sm-4 col-form-label">Fecha de Apertura</label>
+									<div class="col-sm-8">
+										<div class="form-control-plaintext"
+											th:text="${#dates.format(historiaclinica.fechaApertura, 'dd/MM/yyyy')}"></div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group row">
+									<label class="col-sm-4 col-form-label">Estado</label>
+									<div class="col-sm-8">
+										<span class="badge-soft"
+											th:classappend="${historiaclinica.estado} ? 'badge-soft-success' : 'badge-soft-danger'"
+											th:text="${historiaclinica.estado} ? 'Activo' : 'Inactivo'"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<label class="col-sm-2 col-form-label">Antecedentes</label>
+							<div class="col-sm-10">
+								<div class="form-control-plaintext" th:text="${historiaclinica.antecedentes}"></div>
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<label class="col-sm-2 col-form-label">Observaciones Generales</label>
+							<div class="col-sm-10">
+								<div class="form-control-plaintext" th:text="${historiaclinica.observacionesGenerales}"></div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-10 offset-md-1 grid-margin stretch-card">
+				<div class="card">
+					<div class="card-body">
+
+						<div class="d-flex justify-content-between align-items-center mb-2">
+							<h4 class="card-title mb-0">Exámenes Visuales de esta Historia Clínica</h4>
+							<a th:href="@{/examenvisual/nuevo(idHistoria=${historiaclinica.idHistoriaClinica},fromHistoria=true)}"
+								class="btn btn-primary">+ Nuevo Examen Visual</a>
+						</div>
+
+						<div class="table-responsive">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>Fecha Examen</th>
+										<th>Motivo Consulta</th>
+										<th>Diagnóstico</th>
+										<th>Próxima Consulta</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="examen : ${examenesVisuales}">
+										<td th:text="${#dates.format(examen.fechaExamen, 'dd/MM/yyyy')}"></td>
+										<td th:text="${examen.motivoConsulta}"></td>
+										<td th:text="${examen.diagnostico}"></td>
+										<td th:text="${examen.proximaConsulta}"></td>
+										<td class="actions-cell">
+											<div class="action-icons">
+												<a th:href="@{/examenvisual/{id}/pdf(id=${examen.idExamen})}" target="_blank"
+													class="btn btn-icon" style="background-color:#ffab00;color:#212529;" title="Descargar PDF"><i class="mdi mdi-file-pdf-box"></i></a>
+												<a th:href="@{/examenvisual/editar/{id}(id=${examen.idExamen},fromHistoria=true)}"
+													class="btn btn-primary btn-icon" title="Editar"><i class="mdi mdi-pencil"></i></a>
+												<form th:action="@{/examenvisual/eliminar/{id}(id=${examen.idExamen})}" method="post"
+													onsubmit="return confirm('¿Eliminar este examen visual?');">
+													<button type="submit" class="btn btn-danger btn-icon" title="Eliminar"><i class="mdi mdi-delete"></i></button>
+												</form>
+											</div>
+										</td>
+									</tr>
+									<tr th:if="${#lists.isEmpty(examenesVisuales)}">
+										<td colspan="5" class="text-center">Esta historia clínica todavía no tiene exámenes visuales registrados.</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</body>
+
+</html>

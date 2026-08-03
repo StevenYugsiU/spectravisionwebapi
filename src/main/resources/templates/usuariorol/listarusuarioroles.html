@@ -36,7 +36,7 @@
 								<a th:href="@{/usuariorol/editar/{id}(id=${usuarioRol.idUsuarioRol})}"
 									class="btn btn-primary btn-icon" title="Editar"><i class="mdi mdi-pencil"></i></a>
 								<form th:action="@{/usuariorol/eliminar/{id}(id=${usuarioRol.idUsuarioRol})}" method="post"
-									onsubmit="return confirm('¿Eliminar esta asignación?');">
+									class="form-confirmar" data-mensaje="Eliminar esta asignación" data-confirmar="Si, eliminar">
 									<button type="submit" class="btn btn-danger btn-icon" title="Eliminar"><i class="mdi mdi-delete"></i></button>
 								</form>
 							</div>

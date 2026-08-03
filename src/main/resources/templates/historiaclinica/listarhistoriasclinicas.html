@@ -48,7 +48,7 @@
 								<a th:href="@{/historiaclinica/editar/{id}(id=${historia.idHistoriaClinica})}"
 									class="btn btn-primary btn-icon" title="Editar"><i class="mdi mdi-pencil"></i></a>
 								<form th:action="@{/historiaclinica/eliminar/{id}(id=${historia.idHistoriaClinica})}" method="post"
-									onsubmit="return confirm('¿Eliminar esta historia clínica?');">
+									class="form-confirmar" data-mensaje="Eliminar esta historia clínica" data-confirmar="Si, eliminar">
 									<button type="submit" class="btn btn-danger btn-icon" title="Eliminar"><i class="mdi mdi-delete"></i></button>
 								</form>
 							</div>

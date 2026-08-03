@@ -25,6 +25,7 @@
 						<th>Nombres</th>
 						<th>Apellidos</th>
 						<th>Usuario</th>
+						<th>Correo</th>
 						<th>Estado</th>
 						<th></th>
 					</tr>
@@ -34,6 +35,7 @@
 						<td class="buscable" th:text="${usuario.nombres}"></td>
 						<td class="buscable" th:text="${usuario.apellidos}"></td>
 						<td th:text="${usuario.usuario}"></td>
+						<td th:text="${usuario.correo}"></td>
 						<td><span class="badge-soft"
 							th:classappend="${usuario.estado} ? 'badge-soft-success' : 'badge-soft-danger'"
 							th:text="${usuario.estado} ? 'Activo' : 'Inactivo'"></span></td>
@@ -41,15 +43,19 @@
 							<div class="action-icons">
 								<a th:href="@{/usuario/editar/{id}(id=${usuario.idUsuario})}"
 									class="btn btn-primary btn-icon" title="Editar"><i class="mdi mdi-pencil"></i></a>
-								<form th:action="@{/usuario/eliminar/{id}(id=${usuario.idUsuario})}" method="post"
-									onsubmit="return confirm('¿Eliminar este usuario?');">
+								<button th:if="${idsAdministradores.contains(usuario.idUsuario)}"
+									type="button" class="btn btn-secondary btn-icon" disabled
+									title="El usuario administrador no se puede eliminar"><i class="mdi mdi-delete"></i></button>
+								<form th:unless="${idsAdministradores.contains(usuario.idUsuario)}"
+									th:action="@{/usuario/eliminar/{id}(id=${usuario.idUsuario})}" method="post"
+									class="form-confirmar" data-mensaje="Eliminar este usuario" data-confirmar="Si, eliminar">
 									<button type="submit" class="btn btn-danger btn-icon" title="Eliminar"><i class="mdi mdi-delete"></i></button>
 								</form>
 							</div>
 						</td>
 					</tr>
 					<tr th:if="${#lists.isEmpty(listaUsuarios)}">
-						<td colspan="5" class="text-center">No hay usuarios registrados.</td>
+						<td colspan="6" class="text-center">No hay usuarios registrados.</td>
 					</tr>
 				</tbody>
 			</table>

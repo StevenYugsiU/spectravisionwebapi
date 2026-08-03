@@ -242,6 +242,7 @@
 
 	<script th:src="@{/assets/vendors/js/vendor.bundle.base.js}"></script>
 	<script th:src="@{/assets/vendors/select2/select2.min.js}"></script>
+	<script th:src="@{/assets/vendors/sweetalert2/sweetalert2.all.min.js}"></script>
 	<script th:src="@{/assets/js/off-canvas.js}"></script>
 	<script th:src="@{/assets/js/hoverable-collapse.js}"></script>
 	<script th:src="@{/assets/js/misc.js}"></script>
@@ -249,6 +250,39 @@
 	<script th:src="@{/assets/js/todolist.js}"></script>
 	<script th:src="@{/assets/js/buscador-tabla.js}"></script>
 	<script th:src="@{/assets/js/select2.js}"></script>
+
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		var mensajeExitoGlobal = /*[[${mensaje}]]*/ null;
+		var mensajeErrorGlobal = /*[[${error}]]*/ null;
+		/*]]>*/
+
+		if (mensajeExitoGlobal) {
+			Swal.fire({ icon: 'success', title: '¡Listo!', text: mensajeExitoGlobal, timer: 2500, showConfirmButton: false });
+		}
+		if (mensajeErrorGlobal) {
+			Swal.fire({ icon: 'error', title: 'Error', text: mensajeErrorGlobal });
+		}
+
+		document.addEventListener('submit', function (evento) {
+			var form = evento.target;
+			if (!form.classList || !form.classList.contains('form-confirmar')) {
+				return;
+			}
+			evento.preventDefault();
+			Swal.fire({
+				icon: 'warning',
+				title: (form.dataset.mensaje || '¿Confirmar esta acción?') + '?',
+				showCancelButton: true,
+				confirmButtonText: form.dataset.confirmar || 'Sí',
+				cancelButtonText: 'No'
+			}).then(function (resultado) {
+				if (resultado.isConfirmed) {
+					form.submit();
+				}
+			});
+		});
+	</script>
 
 </body>
 </html>

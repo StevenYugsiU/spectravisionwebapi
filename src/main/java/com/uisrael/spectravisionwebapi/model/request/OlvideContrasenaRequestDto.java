@@ -6,4 +6,5 @@ import lombok.Data;
 public class OlvideContrasenaRequestDto {
 
 	private String usuario;
+	private String resetPasswordUrl;
 }

@@ -10,9 +10,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.uisrael.spectravisionwebapi.model.request.EntregaRequestDto;
 import com.uisrael.spectravisionwebapi.model.response.EntregaResponseDto;
+import com.uisrael.spectravisionwebapi.model.response.ErrorResponseDto;
 import com.uisrael.spectravisionwebapi.service.IClienteService;
 import com.uisrael.spectravisionwebapi.service.IEntregaService;
 
@@ -41,14 +44,26 @@ public class EntregaController {
 	}
 
 	@PostMapping("/guardar")
-	public String guardarEntrega(@ModelAttribute EntregaRequestDto entrega) {
-		servicioEntrega.guardarEntrega(entrega);
+	public String guardarEntrega(@ModelAttribute EntregaRequestDto entrega, RedirectAttributes redirectAttributes) {
+		try {
+			servicioEntrega.guardarEntrega(entrega);
+			redirectAttributes.addFlashAttribute("mensaje", "Entrega creada correctamente.");
+		} catch (WebClientResponseException ex) {
+			redirectAttributes.addFlashAttribute("error", extraerMensajeError(ex, "No se pudo crear la entrega."));
+		}
 		return "redirect:/entrega";
 	}
 
 	@GetMapping("/editar/{idEntrega}")
-	public String editarEntrega(@PathVariable int idEntrega, Model model) {
-		EntregaResponseDto encontrada = servicioEntrega.buscarEntregaPorId(idEntrega);
+	public String editarEntrega(@PathVariable int idEntrega, Model model, RedirectAttributes redirectAttributes) {
+		EntregaResponseDto encontrada;
+		try {
+			encontrada = servicioEntrega.buscarEntregaPorId(idEntrega);
+		} catch (WebClientResponseException ex) {
+			redirectAttributes.addFlashAttribute("error",
+					extraerMensajeError(ex, "No se encontró la entrega solicitada."));
+			return "redirect:/entrega";
+		}
 
 		EntregaRequestDto entrega = new EntregaRequestDto();
 		entrega.setIdEntrega(encontrada.getIdEntrega());
@@ -63,15 +78,37 @@ public class EntregaController {
 	}
 
 	@PostMapping("/actualizar/{idEntrega}")
-	public String actualizarEntrega(@PathVariable int idEntrega, @ModelAttribute EntregaRequestDto entrega) {
-		servicioEntrega.actualizarEntrega(idEntrega, entrega);
+	public String actualizarEntrega(@PathVariable int idEntrega, @ModelAttribute EntregaRequestDto entrega,
+			RedirectAttributes redirectAttributes) {
+		try {
+			servicioEntrega.actualizarEntrega(idEntrega, entrega);
+			redirectAttributes.addFlashAttribute("mensaje", "Entrega actualizada correctamente.");
+		} catch (WebClientResponseException ex) {
+			redirectAttributes.addFlashAttribute("error", extraerMensajeError(ex, "No se pudo actualizar la entrega."));
+		}
 		return "redirect:/entrega";
 	}
 
 	@PostMapping("/eliminar/{idEntrega}")
-	public String eliminarEntrega(@PathVariable int idEntrega) {
-		servicioEntrega.eliminarEntrega(idEntrega);
+	public String eliminarEntrega(@PathVariable int idEntrega, RedirectAttributes redirectAttributes) {
+		try {
+			servicioEntrega.eliminarEntrega(idEntrega);
+			redirectAttributes.addFlashAttribute("mensaje", "Entrega eliminada correctamente.");
+		} catch (WebClientResponseException ex) {
+			redirectAttributes.addFlashAttribute("error", extraerMensajeError(ex, "No se pudo eliminar la entrega."));
+		}
 		return "redirect:/entrega";
+	}
+
+	private String extraerMensajeError(WebClientResponseException ex, String mensajeGenerico) {
+		try {
+			ErrorResponseDto error = ex.getResponseBodyAs(ErrorResponseDto.class);
+			if (error != null && error.getMessage() != null) {
+				return error.getMessage();
+			}
+		} catch (Exception e) {
+		}
+		return mensajeGenerico;
 	}
 
 }

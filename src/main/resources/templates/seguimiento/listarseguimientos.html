@@ -44,7 +44,7 @@
 								<a th:href="@{/seguimiento/editar/{id}(id=${seguimiento.idSeguimiento})}"
 									class="btn btn-primary btn-icon" title="Editar"><i class="mdi mdi-pencil"></i></a>
 								<form th:action="@{/seguimiento/eliminar/{id}(id=${seguimiento.idSeguimiento})}" method="post"
-									onsubmit="return confirm('¿Eliminar este seguimiento?');">
+									class="form-confirmar" data-mensaje="Eliminar este seguimiento" data-confirmar="Si, eliminar">
 									<button type="submit" class="btn btn-danger btn-icon" title="Eliminar"><i class="mdi mdi-delete"></i></button>
 								</form>
 							</div>

@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.uisrael.spectravisionwebapi.model.request.UsuarioRolRequestDto;
+import com.uisrael.spectravisionwebapi.model.response.ErrorResponseDto;
 import com.uisrael.spectravisionwebapi.model.response.RolResponseDto;
 import com.uisrael.spectravisionwebapi.model.response.UsuarioResponseDto;
 import com.uisrael.spectravisionwebapi.model.response.UsuarioRolResponseDto;
@@ -59,14 +62,28 @@ public class UsuarioRolController {
 	}
 
 	@PostMapping("/guardar")
-	public String guardarUsuarioRol(@ModelAttribute UsuarioRolRequestDto usuariorol) {
-		servicioUsuarioRol.guardarUsuarioRol(usuariorol);
+	public String guardarUsuarioRol(@ModelAttribute UsuarioRolRequestDto usuariorol,
+			RedirectAttributes redirectAttributes) {
+		try {
+			servicioUsuarioRol.guardarUsuarioRol(usuariorol);
+			redirectAttributes.addFlashAttribute("mensaje", "Asignación creada correctamente.");
+		} catch (WebClientResponseException ex) {
+			redirectAttributes.addFlashAttribute("error", extraerMensajeError(ex, "No se pudo crear la asignación."));
+		}
 		return "redirect:/usuariorol";
 	}
 
 	@GetMapping("/editar/{idUsuarioRol}")
-	public String editarUsuarioRol(@PathVariable int idUsuarioRol, Model model) {
-		UsuarioRolResponseDto encontrado = servicioUsuarioRol.buscarUsuarioRolPorId(idUsuarioRol);
+	public String editarUsuarioRol(@PathVariable int idUsuarioRol, Model model,
+			RedirectAttributes redirectAttributes) {
+		UsuarioRolResponseDto encontrado;
+		try {
+			encontrado = servicioUsuarioRol.buscarUsuarioRolPorId(idUsuarioRol);
+		} catch (WebClientResponseException ex) {
+			redirectAttributes.addFlashAttribute("error",
+					extraerMensajeError(ex, "No se encontró la asignación solicitada."));
+			return "redirect:/usuariorol";
+		}
 
 		UsuarioRolRequestDto usuariorol = new UsuarioRolRequestDto();
 		usuariorol.setIdUsuarioRol(encontrado.getIdUsuarioRol());
@@ -81,15 +98,38 @@ public class UsuarioRolController {
 
 	@PostMapping("/actualizar/{idUsuarioRol}")
 	public String actualizarUsuarioRol(@PathVariable int idUsuarioRol,
-			@ModelAttribute UsuarioRolRequestDto usuariorol) {
-		servicioUsuarioRol.actualizarUsuarioRol(idUsuarioRol, usuariorol);
+			@ModelAttribute UsuarioRolRequestDto usuariorol, RedirectAttributes redirectAttributes) {
+		try {
+			servicioUsuarioRol.actualizarUsuarioRol(idUsuarioRol, usuariorol);
+			redirectAttributes.addFlashAttribute("mensaje", "Asignación actualizada correctamente.");
+		} catch (WebClientResponseException ex) {
+			redirectAttributes.addFlashAttribute("error",
+					extraerMensajeError(ex, "No se pudo actualizar la asignación."));
+		}
 		return "redirect:/usuariorol";
 	}
 
 	@PostMapping("/eliminar/{idUsuarioRol}")
-	public String eliminarUsuarioRol(@PathVariable int idUsuarioRol) {
-		servicioUsuarioRol.eliminarUsuarioRol(idUsuarioRol);
+	public String eliminarUsuarioRol(@PathVariable int idUsuarioRol, RedirectAttributes redirectAttributes) {
+		try {
+			servicioUsuarioRol.eliminarUsuarioRol(idUsuarioRol);
+			redirectAttributes.addFlashAttribute("mensaje", "Asignación eliminada correctamente.");
+		} catch (WebClientResponseException ex) {
+			redirectAttributes.addFlashAttribute("error",
+					extraerMensajeError(ex, "No se pudo eliminar la asignación."));
+		}
 		return "redirect:/usuariorol";
+	}
+
+	private String extraerMensajeError(WebClientResponseException ex, String mensajeGenerico) {
+		try {
+			ErrorResponseDto error = ex.getResponseBodyAs(ErrorResponseDto.class);
+			if (error != null && error.getMessage() != null) {
+				return error.getMessage();
+			}
+		} catch (Exception e) {
+		}
+		return mensajeGenerico;
 	}
 
 }

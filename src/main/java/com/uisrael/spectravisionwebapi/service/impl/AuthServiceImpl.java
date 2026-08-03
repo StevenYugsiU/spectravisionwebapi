@@ -29,9 +29,10 @@ public class AuthServiceImpl implements IAuthService {
 	}
 
 	@Override
-	public void solicitarRecuperacion(String usuario) {
+	public void solicitarRecuperacion(String usuario, String resetPasswordUrl) {
 		OlvideContrasenaRequestDto request = new OlvideContrasenaRequestDto();
 		request.setUsuario(usuario);
+		request.setResetPasswordUrl(resetPasswordUrl);
 
 		webclient.post().uri("/auth/olvide-contrasena").bodyValue(request).retrieve()
 				.toBodilessEntity().block();

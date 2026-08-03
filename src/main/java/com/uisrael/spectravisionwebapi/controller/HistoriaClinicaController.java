@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.uisrael.spectravisionwebapi.model.request.HistoriaClinicaRequestDto;
+import com.uisrael.spectravisionwebapi.model.response.ErrorResponseDto;
 import com.uisrael.spectravisionwebapi.model.response.HistoriaClinicaResponseDto;
 import com.uisrael.spectravisionwebapi.service.IClienteService;
 import com.uisrael.spectravisionwebapi.service.IHistoriaClinicaService;
@@ -47,14 +50,28 @@ public class HistoriaClinicaController {
 	}
 
 	@PostMapping("/guardar")
-	public String guardarHistoriaClinica(@ModelAttribute HistoriaClinicaRequestDto historiaclinica) {
-		servicioHistoriaClinica.guardarHistoriaClinica(historiaclinica);
+	public String guardarHistoriaClinica(@ModelAttribute HistoriaClinicaRequestDto historiaclinica,
+			RedirectAttributes redirectAttributes) {
+		try {
+			servicioHistoriaClinica.guardarHistoriaClinica(historiaclinica);
+			redirectAttributes.addFlashAttribute("mensaje", "Historia clínica creada correctamente.");
+		} catch (WebClientResponseException ex) {
+			redirectAttributes.addFlashAttribute("error", extraerMensajeError(ex, "No se pudo crear la historia clínica."));
+		}
 		return "redirect:/historiaclinica";
 	}
 
 	@GetMapping("/editar/{idHistoriaClinica}")
-	public String editarHistoriaClinica(@PathVariable int idHistoriaClinica, Model model) {
-		HistoriaClinicaResponseDto encontrada = servicioHistoriaClinica.buscarHistoriaClinicaPorId(idHistoriaClinica);
+	public String editarHistoriaClinica(@PathVariable int idHistoriaClinica, Model model,
+			RedirectAttributes redirectAttributes) {
+		HistoriaClinicaResponseDto encontrada;
+		try {
+			encontrada = servicioHistoriaClinica.buscarHistoriaClinicaPorId(idHistoriaClinica);
+		} catch (WebClientResponseException ex) {
+			redirectAttributes.addFlashAttribute("error",
+					extraerMensajeError(ex, "No se encontró la historia clínica solicitada."));
+			return "redirect:/historiaclinica";
+		}
 
 		HistoriaClinicaRequestDto historiaclinica = new HistoriaClinicaRequestDto();
 		historiaclinica.setIdHistoriaClinica(encontrada.getIdHistoriaClinica());
@@ -71,8 +88,16 @@ public class HistoriaClinicaController {
 	}
 
 	@GetMapping("/detalle/{idHistoriaClinica}")
-	public String verDetalleHistoriaClinica(@PathVariable int idHistoriaClinica, Model model) {
-		HistoriaClinicaResponseDto historiaclinica = servicioHistoriaClinica.buscarHistoriaClinicaPorId(idHistoriaClinica);
+	public String verDetalleHistoriaClinica(@PathVariable int idHistoriaClinica, Model model,
+			RedirectAttributes redirectAttributes) {
+		HistoriaClinicaResponseDto historiaclinica;
+		try {
+			historiaclinica = servicioHistoriaClinica.buscarHistoriaClinicaPorId(idHistoriaClinica);
+		} catch (WebClientResponseException ex) {
+			redirectAttributes.addFlashAttribute("error",
+					extraerMensajeError(ex, "No se encontró la historia clínica solicitada."));
+			return "redirect:/historiaclinica";
+		}
 
 		model.addAttribute("historiaclinica", historiaclinica);
 		model.addAttribute("examenesVisuales", historiaclinica.getExamenesVisuales());
@@ -81,15 +106,38 @@ public class HistoriaClinicaController {
 
 	@PostMapping("/actualizar/{idHistoriaClinica}")
 	public String actualizarHistoriaClinica(@PathVariable int idHistoriaClinica,
-			@ModelAttribute HistoriaClinicaRequestDto historiaclinica) {
-		servicioHistoriaClinica.actualizarHistoriaClinica(idHistoriaClinica, historiaclinica);
+			@ModelAttribute HistoriaClinicaRequestDto historiaclinica, RedirectAttributes redirectAttributes) {
+		try {
+			servicioHistoriaClinica.actualizarHistoriaClinica(idHistoriaClinica, historiaclinica);
+			redirectAttributes.addFlashAttribute("mensaje", "Historia clínica actualizada correctamente.");
+		} catch (WebClientResponseException ex) {
+			redirectAttributes.addFlashAttribute("error",
+					extraerMensajeError(ex, "No se pudo actualizar la historia clínica."));
+		}
 		return "redirect:/historiaclinica";
 	}
 
 	@PostMapping("/eliminar/{idHistoriaClinica}")
-	public String eliminarHistoriaClinica(@PathVariable int idHistoriaClinica) {
-		servicioHistoriaClinica.eliminarHistoriaClinica(idHistoriaClinica);
+	public String eliminarHistoriaClinica(@PathVariable int idHistoriaClinica, RedirectAttributes redirectAttributes) {
+		try {
+			servicioHistoriaClinica.eliminarHistoriaClinica(idHistoriaClinica);
+			redirectAttributes.addFlashAttribute("mensaje", "Historia clínica eliminada correctamente.");
+		} catch (WebClientResponseException ex) {
+			redirectAttributes.addFlashAttribute("error",
+					extraerMensajeError(ex, "No se pudo eliminar la historia clínica."));
+		}
 		return "redirect:/historiaclinica";
+	}
+
+	private String extraerMensajeError(WebClientResponseException ex, String mensajeGenerico) {
+		try {
+			ErrorResponseDto error = ex.getResponseBodyAs(ErrorResponseDto.class);
+			if (error != null && error.getMessage() != null) {
+				return error.getMessage();
+			}
+		} catch (Exception e) {
+		}
+		return mensajeGenerico;
 	}
 
 }

@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.uisrael.spectravisionwebapi.model.request.SeguimientoRequestDto;
+import com.uisrael.spectravisionwebapi.model.response.ErrorResponseDto;
 import com.uisrael.spectravisionwebapi.model.response.SeguimientoResponseDto;
 
 import com.uisrael.spectravisionwebapi.service.IEntregaService;
@@ -51,14 +54,28 @@ public class SeguimientoController {
 	}
 
 	@PostMapping("/guardar")
-	public String guardarSeguimiento(@ModelAttribute SeguimientoRequestDto seguimiento) {
-		servicioSeguimiento.guardarSeguimiento(seguimiento);
+	public String guardarSeguimiento(@ModelAttribute SeguimientoRequestDto seguimiento,
+			RedirectAttributes redirectAttributes) {
+		try {
+			servicioSeguimiento.guardarSeguimiento(seguimiento);
+			redirectAttributes.addFlashAttribute("mensaje", "Seguimiento creado correctamente.");
+		} catch (WebClientResponseException ex) {
+			redirectAttributes.addFlashAttribute("error", extraerMensajeError(ex, "No se pudo crear el seguimiento."));
+		}
 		return "redirect:/seguimiento";
 	}
 
 	@GetMapping("/editar/{idSeguimiento}")
-	public String editarSeguimiento(@PathVariable int idSeguimiento, Model model) {
-		SeguimientoResponseDto encontrado = servicioSeguimiento.buscarSeguimientoPorId(idSeguimiento);
+	public String editarSeguimiento(@PathVariable int idSeguimiento, Model model,
+			RedirectAttributes redirectAttributes) {
+		SeguimientoResponseDto encontrado;
+		try {
+			encontrado = servicioSeguimiento.buscarSeguimientoPorId(idSeguimiento);
+		} catch (WebClientResponseException ex) {
+			redirectAttributes.addFlashAttribute("error",
+					extraerMensajeError(ex, "No se encontró el seguimiento solicitado."));
+			return "redirect:/seguimiento";
+		}
 
 		SeguimientoRequestDto seguimiento = new SeguimientoRequestDto();
 		seguimiento.setIdSeguimiento(encontrado.getIdSeguimiento());
@@ -75,15 +92,38 @@ public class SeguimientoController {
 
 	@PostMapping("/actualizar/{idSeguimiento}")
 	public String actualizarSeguimiento(@PathVariable int idSeguimiento,
-			@ModelAttribute SeguimientoRequestDto seguimiento) {
-		servicioSeguimiento.actualizarSeguimiento(idSeguimiento, seguimiento);
+			@ModelAttribute SeguimientoRequestDto seguimiento, RedirectAttributes redirectAttributes) {
+		try {
+			servicioSeguimiento.actualizarSeguimiento(idSeguimiento, seguimiento);
+			redirectAttributes.addFlashAttribute("mensaje", "Seguimiento actualizado correctamente.");
+		} catch (WebClientResponseException ex) {
+			redirectAttributes.addFlashAttribute("error",
+					extraerMensajeError(ex, "No se pudo actualizar el seguimiento."));
+		}
 		return "redirect:/seguimiento";
 	}
 
 	@PostMapping("/eliminar/{idSeguimiento}")
-	public String eliminarSeguimiento(@PathVariable int idSeguimiento) {
-		servicioSeguimiento.eliminarSeguimiento(idSeguimiento);
+	public String eliminarSeguimiento(@PathVariable int idSeguimiento, RedirectAttributes redirectAttributes) {
+		try {
+			servicioSeguimiento.eliminarSeguimiento(idSeguimiento);
+			redirectAttributes.addFlashAttribute("mensaje", "Seguimiento eliminado correctamente.");
+		} catch (WebClientResponseException ex) {
+			redirectAttributes.addFlashAttribute("error",
+					extraerMensajeError(ex, "No se pudo eliminar el seguimiento."));
+		}
 		return "redirect:/seguimiento";
+	}
+
+	private String extraerMensajeError(WebClientResponseException ex, String mensajeGenerico) {
+		try {
+			ErrorResponseDto error = ex.getResponseBodyAs(ErrorResponseDto.class);
+			if (error != null && error.getMessage() != null) {
+				return error.getMessage();
+			}
+		} catch (Exception e) {
+		}
+		return mensajeGenerico;
 	}
 
 }

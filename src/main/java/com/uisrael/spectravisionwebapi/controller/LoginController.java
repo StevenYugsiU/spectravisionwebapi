@@ -8,11 +8,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.uisrael.spectravisionwebapi.model.response.ErrorResponseDto;
 import com.uisrael.spectravisionwebapi.model.response.LoginResponseDto;
 import com.uisrael.spectravisionwebapi.service.IAuthService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
@@ -59,26 +61,28 @@ public class LoginController {
 
 	@GetMapping("/olvide-contrasena")
 	public String leerPaginaOlvideContrasena() {
-		return "/login/olvide-contrasena";
+		return "/login/olvidecontrasena";
 	}
 
 	@PostMapping("/olvide-contrasena")
-	public String procesarOlvideContrasena(@RequestParam String usuario, Model model) {
+	public String procesarOlvideContrasena(@RequestParam String usuario, Model model, HttpServletRequest request) {
+		String resetPasswordUrl = ServletUriComponentsBuilder.fromContextPath(request)
+				.path("/restablecer-contrasena").toUriString();
 		try {
-			servicioAuth.solicitarRecuperacion(usuario);
+			servicioAuth.solicitarRecuperacion(usuario, resetPasswordUrl);
 		} catch (WebClientResponseException ex) {
 			// Se ignora el detalle: se muestra siempre el mismo mensaje generico
 			// para no revelar si el usuario existe o no.
 		}
 		model.addAttribute("mensaje",
 				"Si el usuario existe y tiene un correo registrado, se envió un enlace de recuperación.");
-		return "/login/olvide-contrasena";
+		return "/login/olvidecontrasena";
 	}
 
 	@GetMapping("/restablecer-contrasena")
 	public String leerPaginaRestablecerContrasena(@RequestParam String token, Model model) {
 		model.addAttribute("token", token);
-		return "/login/restablecer-contrasena";
+		return "/login/restablecercontrasena";
 	}
 
 	@PostMapping("/restablecer-contrasena")
@@ -88,7 +92,7 @@ public class LoginController {
 		if (!nuevaContrasena.equals(confirmarContrasena)) {
 			model.addAttribute("token", token);
 			model.addAttribute("error", "Las contraseñas no coinciden.");
-			return "/login/restablecer-contrasena";
+			return "/login/restablecercontrasena";
 		}
 
 		try {
@@ -96,7 +100,7 @@ public class LoginController {
 		} catch (WebClientResponseException ex) {
 			model.addAttribute("token", token);
 			model.addAttribute("error", extraerMensajeError(ex));
-			return "/login/restablecer-contrasena";
+			return "/login/restablecercontrasena";
 		}
 
 		redirectAttributes.addFlashAttribute("mensaje", "Contraseña actualizada correctamente. Ya puedes ingresar.");

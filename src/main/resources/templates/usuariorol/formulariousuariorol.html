@@ -44,7 +44,8 @@
 							th:action="${usuariorol.idUsuarioRol == 0} ? @{/usuariorol/guardar} : @{/usuariorol/actualizar/{id}(id=${usuariorol.idUsuarioRol})}"
 							th:object="${usuariorol}"
 							method="post"
-							class="forms-sample">
+							class="forms-sample"
+							onsubmit="return validarUsuarioRol()">
 
 							<div class="form-group">
 								<label for="idUsuario">Usuario</label>
@@ -52,8 +53,6 @@
 								<select th:field="*{idUsuario}"
 									class="form-control"
 									id="idUsuario"
-									oninput="this.setCustomValidity(this.value=='0'?'Seleccione una opción válida.':'')"
-									onchange="this.setCustomValidity(this.value=='0'?'Seleccione una opción válida.':'')"
 									required>
 
 									<option value="0">Seleccione un usuario</option>
@@ -73,8 +72,6 @@
 								<select th:field="*{idRol}"
 									class="form-control"
 									id="idRol"
-									oninput="this.setCustomValidity(this.value=='0'?'Seleccione una opción válida.':'')"
-									onchange="this.setCustomValidity(this.value=='0'?'Seleccione una opción válida.':'')"
 									required>
 
 									<option value="0">Seleccione un rol</option>
@@ -106,6 +103,22 @@
 				</div>
 			</div>
 		</div>
+
+		<script>
+			function validarUsuarioRol() {
+				var idUsuario = document.getElementById('idUsuario').value;
+				if (!idUsuario || idUsuario === '0') {
+					Swal.fire({ icon: 'warning', title: 'Atención', text: 'Debe seleccionar un usuario.' });
+					return false;
+				}
+				var idRol = document.getElementById('idRol').value;
+				if (!idRol || idRol === '0') {
+					Swal.fire({ icon: 'warning', title: 'Atención', text: 'Debe seleccionar un rol.' });
+					return false;
+				}
+				return true;
+			}
+		</script>
 
 	</div>
 

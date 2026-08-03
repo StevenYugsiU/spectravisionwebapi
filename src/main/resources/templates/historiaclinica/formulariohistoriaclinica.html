@@ -29,12 +29,12 @@
 
 						<form
 							th:action="${historiaclinica.idHistoriaClinica == 0} ? @{/historiaclinica/guardar} : @{/historiaclinica/actualizar/{id}(id=${historiaclinica.idHistoriaClinica})}"
-							th:object="${historiaclinica}" method="post" class="forms-sample">
+							th:object="${historiaclinica}" method="post" class="forms-sample" onsubmit="return validarHistoriaClinica()">
 
 							<div class="form-group">
 								<label for="idCliente">Cliente</label>
 
-								<select class="form-control" th:field="*{idCliente}" id="idCliente" oninput="this.setCustomValidity(this.value=='0'?'Seleccione una opción válida.':'')" onchange="this.setCustomValidity(this.value=='0'?'Seleccione una opción válida.':'')" required>
+								<select class="form-control" th:field="*{idCliente}" id="idCliente" required>
 									<option value="0">Seleccione un cliente</option>
 									<option th:each="cliente : ${listaClientes}"
 										th:value="${cliente.idCliente}"
@@ -45,7 +45,7 @@
 							<div class="form-group">
 								<label for="fechaApertura">Fecha de Apertura</label>
 								<input type="date" th:field="*{fechaApertura}"
-									class="form-control" id="fechaApertura" min="2000-01-01" max="2030-12-31" onkeydown="return false;" onkeypress="return false;" onkeyup="return false;" onpaste="return false;" required>
+									class="form-control" id="fechaApertura" th:min="${historiaclinica.idHistoriaClinica == 0} ? ${T(java.time.LocalDate).now()} : ${null}" max="2030-12-31" onkeydown="return false;" onkeypress="return false;" onkeyup="return false;" onpaste="return false;" required>
 							</div>
 
 							<div class="form-group">
@@ -78,6 +78,17 @@
 				</div>
 			</div>
 		</div>
+
+		<script>
+			function validarHistoriaClinica() {
+				var idCliente = document.getElementById('idCliente').value;
+				if (!idCliente || idCliente === '0') {
+					Swal.fire({ icon: 'warning', title: 'Atención', text: 'Debe seleccionar un cliente.' });
+					return false;
+				}
+				return true;
+			}
+		</script>
 
 	</div>
 

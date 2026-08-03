@@ -10,5 +10,6 @@ public class UsuarioRequestDto {
 	private String apellidos;
 	private String usuario;
 	private String contrasena;
+	private String correo;
 	private Boolean estado;
 }

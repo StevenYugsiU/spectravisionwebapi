@@ -48,7 +48,7 @@
 								<a th:href="@{/examenvisual/editar/{id}(id=${examen.idExamen})}"
 									class="btn btn-primary btn-icon" title="Editar"><i class="mdi mdi-pencil"></i></a>
 								<form th:action="@{/examenvisual/eliminar/{id}(id=${examen.idExamen})}" method="post"
-									onsubmit="return confirm('¿Eliminar este examen visual?');">
+									class="form-confirmar" data-mensaje="Eliminar este examen visual" data-confirmar="Si, eliminar">
 									<button type="submit" class="btn btn-danger btn-icon" title="Eliminar"><i class="mdi mdi-delete"></i></button>
 								</form>
 							</div>

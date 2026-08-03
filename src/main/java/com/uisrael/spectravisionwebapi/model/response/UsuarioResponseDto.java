@@ -9,5 +9,6 @@ public class UsuarioResponseDto {
 	private String nombres;
 	private String apellidos;
 	private String usuario;
+	private String correo;
 	private Boolean estado;
 }

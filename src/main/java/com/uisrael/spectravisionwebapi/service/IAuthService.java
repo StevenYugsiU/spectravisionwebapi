@@ -6,7 +6,7 @@ public interface IAuthService {
 
 	LoginResponseDto login(String usuario, String contrasena);
 
-	void solicitarRecuperacion(String usuario);
+	void solicitarRecuperacion(String usuario, String resetPasswordUrl);
 
 	void restablecerContrasena(String token, String nuevaContrasena);
 }

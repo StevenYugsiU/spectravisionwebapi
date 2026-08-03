@@ -14,8 +14,6 @@
 
 	<div layout:fragment="cargarpaginas">
 
-		<div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
-
 		<div class="d-flex justify-content-between align-items-center mb-3">
 			<h4 class="card-title mb-0">Roles</h4>
 			<a th:href="@{/rol/nuevo}" class="btn btn-primary">+ Nuevo Rol</a>
@@ -42,7 +40,7 @@
 									title="El rol Administrador no se puede eliminar"><i class="mdi mdi-delete"></i></button>
 								<form th:unless="${#strings.equalsIgnoreCase(rol.nombre, 'Administrador')}"
 									th:action="@{/rol/eliminar/{id}(id=${rol.idRol})}" method="post"
-									onsubmit="return confirm('¿Eliminar este rol?');">
+									class="form-confirmar" data-mensaje="Eliminar este rol" data-confirmar="Si, eliminar">
 									<button type="submit" class="btn btn-danger btn-icon" title="Eliminar"><i class="mdi mdi-delete"></i></button>
 								</form>
 							</div>

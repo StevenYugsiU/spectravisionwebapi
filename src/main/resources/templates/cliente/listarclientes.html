@@ -14,8 +14,6 @@
 
 	<div layout:fragment="cargarpaginas">
 
-		<div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
-
 		<div class="d-flex justify-content-between align-items-center mb-3">
 			<h4 class="card-title mb-0">Clientes</h4>
 			<a th:href="@{/cliente/nuevo}" class="btn btn-primary">+ Nuevo Cliente</a>
@@ -50,7 +48,7 @@
 								<a th:href="@{/cliente/editar/{id}(id=${cliente.idCliente})}"
 									class="btn btn-primary btn-icon" title="Editar datos"><i class="mdi mdi-pencil"></i></a>
 								<form th:action="@{/cliente/eliminar/{id}(id=${cliente.idCliente})}" method="post"
-									onsubmit="return confirm('¿Eliminar este cliente?');">
+									class="form-confirmar" data-mensaje="Eliminar este cliente" data-confirmar="Si, eliminar">
 									<button type="submit" class="btn btn-danger btn-icon" title="Eliminar"><i class="mdi mdi-delete"></i></button>
 								</form>
 								<div class="dropdown">

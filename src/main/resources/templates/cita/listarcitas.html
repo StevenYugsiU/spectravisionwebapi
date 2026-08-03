@@ -54,11 +54,11 @@
 									class="btn btn-primary btn-icon" title="Editar"><i class="mdi mdi-pencil"></i></a>
 								<form th:if="${!#strings.equalsIgnoreCase(cita.estado, 'Cancelada')}"
 									th:action="@{/cita/cancelar/{id}(id=${cita.idCita})}" method="post"
-									onsubmit="return confirm('¿Cancelar esta cita?');">
+									class="form-confirmar" data-mensaje="Cancelar esta cita" data-confirmar="Si, cancelar">
 									<button type="submit" class="btn btn-warning btn-icon" title="Cancelar"><i class="mdi mdi-calendar-remove"></i></button>
 								</form>
 								<form th:action="@{/cita/eliminar/{id}(id=${cita.idCita})}" method="post"
-									onsubmit="return confirm('¿Eliminar esta cita?');">
+									class="form-confirmar" data-mensaje="Eliminar esta cita" data-confirmar="Si, eliminar">
 									<button type="submit" class="btn btn-danger btn-icon" title="Eliminar"><i class="mdi mdi-delete"></i></button>
 								</form>
 							</div>

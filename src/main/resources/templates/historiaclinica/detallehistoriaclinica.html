@@ -120,8 +120,8 @@
 													class="btn btn-icon" style="background-color:#ffab00;color:#212529;" title="Descargar PDF"><i class="mdi mdi-file-pdf-box"></i></a>
 												<a th:href="@{/examenvisual/editar/{id}(id=${examen.idExamen},fromHistoria=true)}"
 													class="btn btn-primary btn-icon" title="Editar"><i class="mdi mdi-pencil"></i></a>
-												<form th:action="@{/examenvisual/eliminar/{id}(id=${examen.idExamen})}" method="post"
-													onsubmit="return confirm('¿Eliminar este examen visual?');">
+												<form th:action="@{/examenvisual/eliminar/{id}(id=${examen.idExamen},idHistoria=${historiaclinica.idHistoriaClinica})}" method="post"
+													class="form-confirmar" data-mensaje="Eliminar este examen visual" data-confirmar="Si, eliminar">
 													<button type="submit" class="btn btn-danger btn-icon" title="Eliminar"><i class="mdi mdi-delete"></i></button>
 												</form>
 											</div>

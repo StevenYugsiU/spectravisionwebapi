@@ -15,8 +15,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.uisrael.spectravisionwebapi.model.request.ExamenVisualRequestDto;
+import com.uisrael.spectravisionwebapi.model.response.ErrorResponseDto;
 import com.uisrael.spectravisionwebapi.model.response.ExamenVisualResponseDto;
 import com.uisrael.spectravisionwebapi.model.response.HistoriaClinicaResponseDto;
 import com.uisrael.spectravisionwebapi.service.IExamenVisualPdfService;
@@ -45,12 +48,20 @@ public class ExamenVisualController {
 
 	@GetMapping("/nuevo")
 	public String nuevoExamenVisual(@RequestParam(required = false) Integer idHistoria,
-			@RequestParam(required = false) Boolean fromHistoria, Model model) {
+			@RequestParam(required = false) Boolean fromHistoria, Model model,
+			RedirectAttributes redirectAttributes) {
 		ExamenVisualRequestDto examenvisual = new ExamenVisualRequestDto();
 		if (idHistoria != null) {
 			examenvisual.setIdHistoria(idHistoria);
 
-			HistoriaClinicaResponseDto historia = servicioHistoriaClinica.buscarHistoriaClinicaPorId(idHistoria);
+			HistoriaClinicaResponseDto historia;
+			try {
+				historia = servicioHistoriaClinica.buscarHistoriaClinicaPorId(idHistoria);
+			} catch (WebClientResponseException ex) {
+				redirectAttributes.addFlashAttribute("error",
+						extraerMensajeError(ex, "No se encontró la historia clínica solicitada."));
+				return "redirect:/historiaclinica";
+			}
 			model.addAttribute("clienteSeleccionado", historia.getFkCliente());
 		}
 		model.addAttribute("examenvisual", examenvisual);
@@ -62,18 +73,31 @@ public class ExamenVisualController {
 
 	@PostMapping("/guardar")
 	public String guardarExamenVisual(@ModelAttribute ExamenVisualRequestDto examenvisual,
-			@RequestParam(required = false) Boolean fromHistoria) {
-		servicioExamenVisual.guardarExamenVisual(examenvisual);
-		if (Boolean.TRUE.equals(fromHistoria)) {
-			return "redirect:/historiaclinica/detalle/" + examenvisual.getIdHistoria();
+			@RequestParam(required = false) Boolean fromHistoria, RedirectAttributes redirectAttributes) {
+		String destino = Boolean.TRUE.equals(fromHistoria)
+				? "redirect:/historiaclinica/detalle/" + examenvisual.getIdHistoria()
+				: "redirect:/examenvisual";
+		try {
+			servicioExamenVisual.guardarExamenVisual(examenvisual);
+			redirectAttributes.addFlashAttribute("mensaje", "Examen visual creado correctamente.");
+		} catch (WebClientResponseException ex) {
+			redirectAttributes.addFlashAttribute("error", extraerMensajeError(ex, "No se pudo crear el examen visual."));
 		}
-		return "redirect:/examenvisual";
+		return destino;
 	}
 
 	@GetMapping("/editar/{idExamen}")
 	public String editarExamenVisual(@PathVariable int idExamen,
-			@RequestParam(required = false) Boolean fromHistoria, Model model) {
-		ExamenVisualResponseDto encontrado = servicioExamenVisual.buscarExamenVisualPorId(idExamen);
+			@RequestParam(required = false) Boolean fromHistoria, Model model,
+			RedirectAttributes redirectAttributes) {
+		ExamenVisualResponseDto encontrado;
+		try {
+			encontrado = servicioExamenVisual.buscarExamenVisualPorId(idExamen);
+		} catch (WebClientResponseException ex) {
+			redirectAttributes.addFlashAttribute("error",
+					extraerMensajeError(ex, "No se encontró el examen visual solicitado."));
+			return "redirect:/examenvisual";
+		}
 
 		ExamenVisualRequestDto examenvisual = new ExamenVisualRequestDto();
 		examenvisual.setIdExamen(encontrado.getIdExamen());
@@ -107,18 +131,32 @@ public class ExamenVisualController {
 	@PostMapping("/actualizar/{idExamen}")
 	public String actualizarExamenVisual(@PathVariable int idExamen,
 			@ModelAttribute ExamenVisualRequestDto examenvisual,
-			@RequestParam(required = false) Boolean fromHistoria) {
-		servicioExamenVisual.actualizarExamenVisual(idExamen, examenvisual);
-		if (Boolean.TRUE.equals(fromHistoria)) {
-			return "redirect:/historiaclinica/detalle/" + examenvisual.getIdHistoria();
+			@RequestParam(required = false) Boolean fromHistoria, RedirectAttributes redirectAttributes) {
+		String destino = Boolean.TRUE.equals(fromHistoria)
+				? "redirect:/historiaclinica/detalle/" + examenvisual.getIdHistoria()
+				: "redirect:/examenvisual";
+		try {
+			servicioExamenVisual.actualizarExamenVisual(idExamen, examenvisual);
+			redirectAttributes.addFlashAttribute("mensaje", "Examen visual actualizado correctamente.");
+		} catch (WebClientResponseException ex) {
+			redirectAttributes.addFlashAttribute("error",
+					extraerMensajeError(ex, "No se pudo actualizar el examen visual."));
 		}
-		return "redirect:/examenvisual";
+		return destino;
 	}
 
 	@PostMapping("/eliminar/{idExamen}")
-	public String eliminarExamenVisual(@PathVariable int idExamen) {
-		servicioExamenVisual.eliminarExamenVisual(idExamen);
-		return "redirect:/examenvisual";
+	public String eliminarExamenVisual(@PathVariable int idExamen,
+			@RequestParam(required = false) Integer idHistoria, RedirectAttributes redirectAttributes) {
+		String destino = idHistoria != null ? "redirect:/historiaclinica/detalle/" + idHistoria
+				: "redirect:/examenvisual";
+		try {
+			servicioExamenVisual.eliminarExamenVisual(idExamen);
+			redirectAttributes.addFlashAttribute("mensaje", "Examen visual eliminado correctamente.");
+		} catch (WebClientResponseException ex) {
+			redirectAttributes.addFlashAttribute("error", extraerMensajeError(ex, "No se pudo eliminar el examen visual."));
+		}
+		return destino;
 	}
 
 	@GetMapping("/{idExamen}/pdf")
@@ -129,6 +167,17 @@ public class ExamenVisualController {
 				.header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=examen-visual-" + idExamen + ".pdf")
 				.contentType(MediaType.APPLICATION_PDF)
 				.body(pdf);
+	}
+
+	private String extraerMensajeError(WebClientResponseException ex, String mensajeGenerico) {
+		try {
+			ErrorResponseDto error = ex.getResponseBodyAs(ErrorResponseDto.class);
+			if (error != null && error.getMessage() != null) {
+				return error.getMessage();
+			}
+		} catch (Exception e) {
+		}
+		return mensajeGenerico;
 	}
 
 }

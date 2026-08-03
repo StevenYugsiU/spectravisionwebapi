@@ -14,9 +14,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.uisrael.spectravisionwebapi.model.request.CertificadoRequestDto;
 import com.uisrael.spectravisionwebapi.model.response.CertificadoResponseDto;
+import com.uisrael.spectravisionwebapi.model.response.ErrorResponseDto;
 import com.uisrael.spectravisionwebapi.service.ICertificadoPdfService;
 import com.uisrael.spectravisionwebapi.service.ICertificadoService;
 import com.uisrael.spectravisionwebapi.service.IExamenVisualService;
@@ -49,14 +52,28 @@ public class CertificadoController {
 	}
 
 	@PostMapping("/guardar")
-	public String guardarCertificado(@ModelAttribute CertificadoRequestDto certificado) {
-		servicioCertificado.guardarCertificado(certificado);
+	public String guardarCertificado(@ModelAttribute CertificadoRequestDto certificado,
+			RedirectAttributes redirectAttributes) {
+		try {
+			servicioCertificado.guardarCertificado(certificado);
+			redirectAttributes.addFlashAttribute("mensaje", "Certificado creado correctamente.");
+		} catch (WebClientResponseException ex) {
+			redirectAttributes.addFlashAttribute("error", extraerMensajeError(ex, "No se pudo crear el certificado."));
+		}
 		return "redirect:/certificado";
 	}
 
 	@GetMapping("/editar/{idCertificado}")
-	public String editarCertificado(@PathVariable int idCertificado, Model model) {
-		CertificadoResponseDto encontrado = servicioCertificado.buscarCertificadoPorId(idCertificado);
+	public String editarCertificado(@PathVariable int idCertificado, Model model,
+			RedirectAttributes redirectAttributes) {
+		CertificadoResponseDto encontrado;
+		try {
+			encontrado = servicioCertificado.buscarCertificadoPorId(idCertificado);
+		} catch (WebClientResponseException ex) {
+			redirectAttributes.addFlashAttribute("error",
+					extraerMensajeError(ex, "No se encontró el certificado solicitado."));
+			return "redirect:/certificado";
+		}
 
 		CertificadoRequestDto certificado = new CertificadoRequestDto();
 		certificado.setIdCertificado(encontrado.getIdCertificado());
@@ -71,14 +88,26 @@ public class CertificadoController {
 
 	@PostMapping("/actualizar/{idCertificado}")
 	public String actualizarCertificado(@PathVariable int idCertificado,
-			@ModelAttribute CertificadoRequestDto certificado) {
-		servicioCertificado.actualizarCertificado(idCertificado, certificado);
+			@ModelAttribute CertificadoRequestDto certificado, RedirectAttributes redirectAttributes) {
+		try {
+			servicioCertificado.actualizarCertificado(idCertificado, certificado);
+			redirectAttributes.addFlashAttribute("mensaje", "Certificado actualizado correctamente.");
+		} catch (WebClientResponseException ex) {
+			redirectAttributes.addFlashAttribute("error",
+					extraerMensajeError(ex, "No se pudo actualizar el certificado."));
+		}
 		return "redirect:/certificado";
 	}
 
 	@PostMapping("/eliminar/{idCertificado}")
-	public String eliminarCertificado(@PathVariable int idCertificado) {
-		servicioCertificado.eliminarCertificado(idCertificado);
+	public String eliminarCertificado(@PathVariable int idCertificado, RedirectAttributes redirectAttributes) {
+		try {
+			servicioCertificado.eliminarCertificado(idCertificado);
+			redirectAttributes.addFlashAttribute("mensaje", "Certificado eliminado correctamente.");
+		} catch (WebClientResponseException ex) {
+			redirectAttributes.addFlashAttribute("error",
+					extraerMensajeError(ex, "No se pudo eliminar el certificado."));
+		}
 		return "redirect:/certificado";
 	}
 
@@ -90,6 +119,17 @@ public class CertificadoController {
 				.header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=certificado-" + idCertificado + ".pdf")
 				.contentType(MediaType.APPLICATION_PDF)
 				.body(pdf);
+	}
+
+	private String extraerMensajeError(WebClientResponseException ex, String mensajeGenerico) {
+		try {
+			ErrorResponseDto error = ex.getResponseBodyAs(ErrorResponseDto.class);
+			if (error != null && error.getMessage() != null) {
+				return error.getMessage();
+			}
+		} catch (Exception e) {
+		}
+		return mensajeGenerico;
 	}
 
 }

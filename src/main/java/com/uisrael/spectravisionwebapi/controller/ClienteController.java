@@ -1,5 +1,6 @@
 package com.uisrael.spectravisionwebapi.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,19 +40,33 @@ public class ClienteController {
 
 	@GetMapping("/nuevo")
 	public String nuevoCliente(Model model) {
-		model.addAttribute("cliente", new ClienteRequestDto());
+		ClienteRequestDto cliente = new ClienteRequestDto();
+		cliente.setFechaRegistro(new Date());
+		model.addAttribute("cliente", cliente);
 		return "/cliente/formulariocliente";
 	}
 
 	@PostMapping("/guardar")
-	public String guardarCliente(@ModelAttribute ClienteRequestDto cliente) {
-		servicioCliente.guardarCliente(cliente);
+	public String guardarCliente(@ModelAttribute ClienteRequestDto cliente, RedirectAttributes redirectAttributes) {
+		try {
+			servicioCliente.guardarCliente(cliente);
+			redirectAttributes.addFlashAttribute("mensaje", "Cliente creado correctamente.");
+		} catch (WebClientResponseException ex) {
+			redirectAttributes.addFlashAttribute("error", extraerMensajeError(ex, "No se pudo crear el cliente."));
+		}
 		return "redirect:/cliente";
 	}
 
 	@GetMapping("/editar/{idCliente}")
-	public String editarCliente(@PathVariable int idCliente, Model model) {
-		ClienteResponseDto clienteEncontrado = servicioCliente.buscarClientePorId(idCliente);
+	public String editarCliente(@PathVariable int idCliente, Model model, RedirectAttributes redirectAttributes) {
+		ClienteResponseDto clienteEncontrado;
+		try {
+			clienteEncontrado = servicioCliente.buscarClientePorId(idCliente);
+		} catch (WebClientResponseException ex) {
+			redirectAttributes.addFlashAttribute("error",
+					extraerMensajeError(ex, "No se encontró el cliente solicitado."));
+			return "redirect:/cliente";
+		}
 
 		ClienteRequestDto cliente = new ClienteRequestDto();
 		cliente.setIdCliente(clienteEncontrado.getIdCliente());
@@ -71,8 +86,14 @@ public class ClienteController {
 	}
 
 	@PostMapping("/actualizar/{idCliente}")
-	public String actualizarCliente(@PathVariable int idCliente, @ModelAttribute ClienteRequestDto cliente) {
-		servicioCliente.actualizarCliente(idCliente, cliente);
+	public String actualizarCliente(@PathVariable int idCliente, @ModelAttribute ClienteRequestDto cliente,
+			RedirectAttributes redirectAttributes) {
+		try {
+			servicioCliente.actualizarCliente(idCliente, cliente);
+			redirectAttributes.addFlashAttribute("mensaje", "Cliente actualizado correctamente.");
+		} catch (WebClientResponseException ex) {
+			redirectAttributes.addFlashAttribute("error", extraerMensajeError(ex, "No se pudo actualizar el cliente."));
+		}
 		return "redirect:/cliente";
 	}
 
@@ -80,22 +101,22 @@ public class ClienteController {
 	public String eliminarCliente(@PathVariable int idCliente, RedirectAttributes redirectAttributes) {
 		try {
 			servicioCliente.eliminarCliente(idCliente);
+			redirectAttributes.addFlashAttribute("mensaje", "Cliente eliminado correctamente.");
 		} catch (WebClientResponseException ex) {
-			redirectAttributes.addFlashAttribute("error", extraerMensajeError(ex));
+			redirectAttributes.addFlashAttribute("error", extraerMensajeError(ex, "No se pudo eliminar el cliente."));
 		}
 		return "redirect:/cliente";
 	}
 
-	private String extraerMensajeError(WebClientResponseException ex) {
+	private String extraerMensajeError(WebClientResponseException ex, String mensajeGenerico) {
 		try {
 			ErrorResponseDto error = ex.getResponseBodyAs(ErrorResponseDto.class);
 			if (error != null && error.getMessage() != null) {
 				return error.getMessage();
 			}
 		} catch (Exception e) {
-			// Se ignora: se usa el mensaje genérico de abajo.
 		}
-		return "No se pudo eliminar el cliente.";
+		return mensajeGenerico;
 	}
 
 	@GetMapping("/{idCliente}/historiaclinica")

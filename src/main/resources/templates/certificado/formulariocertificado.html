@@ -29,12 +29,12 @@
 
 						<form
 							th:action="${certificado.idCertificado == 0} ? @{/certificado/guardar} : @{/certificado/actualizar/{id}(id=${certificado.idCertificado})}"
-							th:object="${certificado}" method="post" class="forms-sample">
+							th:object="${certificado}" method="post" class="forms-sample" onsubmit="return validarCertificado()">
 
 							<div class="form-group">
 								<label for="idExamen">Examen Visual</label>
 
-								<select th:field="*{idExamen}" class="form-control" id="idExamen" oninput="this.setCustomValidity(this.value=='0'?'Seleccione una opción válida.':'')" onchange="this.setCustomValidity(this.value=='0'?'Seleccione una opción válida.':'')" required>
+								<select th:field="*{idExamen}" class="form-control" id="idExamen" required>
 									<option value="0">Seleccione un examen visual</option>
 									<option th:each="e : ${listaExamenes}" th:value="${e.idExamen}"
 										th:text="${e.fkHistoriaClinica.fkCliente.nombres + ' ' + e.fkHistoriaClinica.fkCliente.apellidos + (e.fechaExamen != null ? ' - ' + #dates.format(e.fechaExamen, 'dd/MM/yyyy') : '')}"></option>
@@ -45,7 +45,7 @@
 							<div class="form-group">
 								<label for="fechaGeneracion">Fecha de Generación</label>
 								<input type="date" th:field="*{fechaGeneracion}"
-									class="form-control" id="fechaGeneracion" min="2000-01-01" max="2030-12-31" onkeydown="return false;" onkeypress="return false;" onkeyup="return false;" onpaste="return false;" required>
+									class="form-control" id="fechaGeneracion" th:min="${certificado.idCertificado == 0} ? ${T(java.time.LocalDate).now()} : ${null}" max="2030-12-31" onkeydown="return false;" onkeypress="return false;" onkeyup="return false;" onpaste="return false;" required>
 							</div>
 
 							<div class="form-group">
@@ -66,6 +66,17 @@
 				</div>
 			</div>
 		</div>
+
+		<script>
+			function validarCertificado() {
+				var idExamen = document.getElementById('idExamen').value;
+				if (!idExamen || idExamen === '0') {
+					Swal.fire({ icon: 'warning', title: 'Atención', text: 'Debe seleccionar un examen visual.' });
+					return false;
+				}
+				return true;
+			}
+		</script>
 
 	</div>
 

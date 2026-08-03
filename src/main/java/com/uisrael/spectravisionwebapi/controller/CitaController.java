@@ -11,9 +11,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.uisrael.spectravisionwebapi.model.request.CitaRequestDto;
 import com.uisrael.spectravisionwebapi.model.response.CitaResponseDto;
+import com.uisrael.spectravisionwebapi.model.response.ErrorResponseDto;
 import com.uisrael.spectravisionwebapi.service.ICitaService;
 import com.uisrael.spectravisionwebapi.service.IClienteService;
 
@@ -43,14 +46,25 @@ public class CitaController {
 	}
 
 	@PostMapping("/guardar")
-	public String guardarCita(@ModelAttribute CitaRequestDto cita) {
-		servicioCita.guardarCita(cita);
+	public String guardarCita(@ModelAttribute CitaRequestDto cita, RedirectAttributes redirectAttributes) {
+		try {
+			servicioCita.guardarCita(cita);
+			redirectAttributes.addFlashAttribute("mensaje", "Cita creada correctamente.");
+		} catch (WebClientResponseException ex) {
+			redirectAttributes.addFlashAttribute("error", extraerMensajeError(ex, "No se pudo crear la cita."));
+		}
 		return "redirect:/cita";
 	}
 
 	@GetMapping("/editar/{idCita}")
-	public String editarCita(@PathVariable int idCita, Model model) {
-		CitaResponseDto encontrada = servicioCita.buscarCitaPorId(idCita);
+	public String editarCita(@PathVariable int idCita, Model model, RedirectAttributes redirectAttributes) {
+		CitaResponseDto encontrada;
+		try {
+			encontrada = servicioCita.buscarCitaPorId(idCita);
+		} catch (WebClientResponseException ex) {
+			redirectAttributes.addFlashAttribute("error", extraerMensajeError(ex, "No se encontró la cita solicitada."));
+			return "redirect:/cita";
+		}
 
 		CitaRequestDto cita = new CitaRequestDto();
 		cita.setIdCita(encontrada.getIdCita());
@@ -66,21 +80,48 @@ public class CitaController {
 	}
 
 	@PostMapping("/actualizar/{idCita}")
-	public String actualizarCita(@PathVariable int idCita, @ModelAttribute CitaRequestDto cita) {
-		servicioCita.actualizarCita(idCita, cita);
+	public String actualizarCita(@PathVariable int idCita, @ModelAttribute CitaRequestDto cita,
+			RedirectAttributes redirectAttributes) {
+		try {
+			servicioCita.actualizarCita(idCita, cita);
+			redirectAttributes.addFlashAttribute("mensaje", "Cita actualizada correctamente.");
+		} catch (WebClientResponseException ex) {
+			redirectAttributes.addFlashAttribute("error", extraerMensajeError(ex, "No se pudo actualizar la cita."));
+		}
 		return "redirect:/cita";
 	}
 
 	@PostMapping("/cancelar/{idCita}")
-	public String cancelarCita(@PathVariable int idCita) {
-		servicioCita.cancelarCita(idCita);
+	public String cancelarCita(@PathVariable int idCita, RedirectAttributes redirectAttributes) {
+		try {
+			servicioCita.cancelarCita(idCita);
+			redirectAttributes.addFlashAttribute("mensaje", "Cita cancelada correctamente.");
+		} catch (WebClientResponseException ex) {
+			redirectAttributes.addFlashAttribute("error", extraerMensajeError(ex, "No se pudo cancelar la cita."));
+		}
 		return "redirect:/cita";
 	}
 
 	@PostMapping("/eliminar/{idCita}")
-	public String eliminarCita(@PathVariable int idCita) {
-		servicioCita.eliminarCita(idCita);
+	public String eliminarCita(@PathVariable int idCita, RedirectAttributes redirectAttributes) {
+		try {
+			servicioCita.eliminarCita(idCita);
+			redirectAttributes.addFlashAttribute("mensaje", "Cita eliminada correctamente.");
+		} catch (WebClientResponseException ex) {
+			redirectAttributes.addFlashAttribute("error", extraerMensajeError(ex, "No se pudo eliminar la cita."));
+		}
 		return "redirect:/cita";
+	}
+
+	private String extraerMensajeError(WebClientResponseException ex, String mensajeGenerico) {
+		try {
+			ErrorResponseDto error = ex.getResponseBodyAs(ErrorResponseDto.class);
+			if (error != null && error.getMessage() != null) {
+				return error.getMessage();
+			}
+		} catch (Exception e) {
+		}
+		return mensajeGenerico;
 	}
 
 }

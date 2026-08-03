@@ -89,8 +89,31 @@
 									<div class="form-group row">
 										<label for="ocupacion" class="col-sm-3 col-form-label">Ocupación</label>
 										<div class="col-sm-9">
-											<input type="text" th:field="*{ocupacion}" class="form-control"
-												id="ocupacion" placeholder="Ingrese la ocupación" maxlength="50" oninput="this.value=this.value.replace(/[^A-Za-zÀ-ÿ\s]/g,'')">
+											<select th:field="*{ocupacion}" class="form-control js-example-basic-single"
+											id="ocupacion" style="width:100%">
+												<option value="">Seleccione...</option>
+												<option th:if="${cliente.ocupacion != null and !cliente.ocupacion.isEmpty()}"
+													th:value="${cliente.ocupacion}" th:text="${cliente.ocupacion}"></option>
+												<option value="Estudiante">Estudiante</option>
+												<option value="Docente">Docente</option>
+												<option value="Ingeniero">Ingeniero</option>
+												<option value="Médico">Médico</option>
+												<option value="Enfermero/a">Enfermero/a</option>
+												<option value="Abogado/a">Abogado/a</option>
+												<option value="Contador/a">Contador/a</option>
+												<option value="Comerciante">Comerciante</option>
+												<option value="Empleado/a privado">Empleado/a privado</option>
+												<option value="Empleado/a público">Empleado/a público</option>
+												<option value="Ama de casa">Ama de casa</option>
+												<option value="Chofer">Chofer</option>
+												<option value="Agricultor/a">Agricultor/a</option>
+												<option value="Obrero/a">Obrero/a</option>
+												<option value="Jubilado/a">Jubilado/a</option>
+												<option value="Desempleado/a">Desempleado/a</option>
+												<option value="Policia">Policia</option>
+												<option value="Militar">Militar</option>
+												<option value="Otro">Otro</option>
+											</select>
 										</div>
 									</div>
 								</div>

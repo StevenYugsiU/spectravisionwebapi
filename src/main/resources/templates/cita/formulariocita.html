@@ -54,8 +54,20 @@
 
 							<div class="form-group">
 								<label for="tipoCita">Tipo de Cita</label>
-								<input type="text" th:field="*{tipoCita}" class="form-control"
-									id="tipoCita" placeholder="Ingrese el tipo de cita" maxlength="30" required>
+								<select th:field="*{tipoCita}" class="form-control js-example-basic-single"
+									id="tipoCita" style="width:100%" required>
+									<option value="">Seleccione...</option>
+									<option th:if="${cita.tipoCita != null and !cita.tipoCita.isEmpty()}"
+										th:value="${cita.tipoCita}" th:text="${cita.tipoCita}"></option>
+									<option value="Consulta inicial">Consulta inicial</option>
+									<option value="Control">Control</option>
+									<option value="Revisión">Revisión</option>
+									<option value="Examen visual">Examen visual</option>
+									<option value="Entrega de lentes">Entrega de lentes</option>
+									<option value="Seguimiento">Seguimiento</option>
+									<option value="Urgencia">Urgencia</option>
+									<option value="Otro">Otro</option>
+								</select>
 							</div>
 
 							<div class="form-group">

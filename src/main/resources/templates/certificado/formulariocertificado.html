@@ -34,7 +34,8 @@
 							<div class="form-group">
 								<label for="idExamen">Examen Visual</label>
 
-								<select th:field="*{idExamen}" class="form-control" id="idExamen" required>
+								<select th:field="*{idExamen}" class="form-control js-example-basic-single"
+								id="idExamen" style="width:100%" required>
 									<option value="0">Seleccione un examen visual</option>
 									<option th:each="e : ${listaExamenes}" th:value="${e.idExamen}"
 										th:text="${e.fkHistoriaClinica.fkCliente.nombres + ' ' + e.fkHistoriaClinica.fkCliente.apellidos + (e.fechaExamen != null ? ' - ' + #dates.format(e.fechaExamen, 'dd/MM/yyyy') : '')}"></option>

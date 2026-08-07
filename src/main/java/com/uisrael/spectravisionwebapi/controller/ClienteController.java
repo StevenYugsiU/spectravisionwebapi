@@ -47,13 +47,19 @@ public class ClienteController {
 	}
 
 	@PostMapping("/guardar")
-	public String guardarCliente(@ModelAttribute ClienteRequestDto cliente, RedirectAttributes redirectAttributes) {
+	public String guardarCliente(@ModelAttribute ClienteRequestDto cliente, Model model,
+			RedirectAttributes redirectAttributes) {
+		if (cliente.getEdad() == null) {
+			cliente.setEdad(0);
+		}
 		try {
 			servicioCliente.guardarCliente(cliente);
-			redirectAttributes.addFlashAttribute("mensaje", "Cliente creado correctamente.");
 		} catch (WebClientResponseException ex) {
-			redirectAttributes.addFlashAttribute("error", extraerMensajeError(ex, "No se pudo crear el cliente."));
+			model.addAttribute("error", extraerMensajeError(ex, "No se pudo crear el cliente."));
+			model.addAttribute("cliente", cliente);
+			return "/cliente/formulariocliente";
 		}
+		redirectAttributes.addFlashAttribute("mensaje", "Cliente creado correctamente.");
 		return "redirect:/cliente";
 	}
 
@@ -87,13 +93,18 @@ public class ClienteController {
 
 	@PostMapping("/actualizar/{idCliente}")
 	public String actualizarCliente(@PathVariable int idCliente, @ModelAttribute ClienteRequestDto cliente,
-			RedirectAttributes redirectAttributes) {
+			Model model, RedirectAttributes redirectAttributes) {
+		if (cliente.getEdad() == null) {
+			cliente.setEdad(0);
+		}
 		try {
 			servicioCliente.actualizarCliente(idCliente, cliente);
-			redirectAttributes.addFlashAttribute("mensaje", "Cliente actualizado correctamente.");
 		} catch (WebClientResponseException ex) {
-			redirectAttributes.addFlashAttribute("error", extraerMensajeError(ex, "No se pudo actualizar el cliente."));
+			model.addAttribute("error", extraerMensajeError(ex, "No se pudo actualizar el cliente."));
+			model.addAttribute("cliente", cliente);
+			return "/cliente/formulariocliente";
 		}
+		redirectAttributes.addFlashAttribute("mensaje", "Cliente actualizado correctamente.");
 		return "redirect:/cliente";
 	}
 

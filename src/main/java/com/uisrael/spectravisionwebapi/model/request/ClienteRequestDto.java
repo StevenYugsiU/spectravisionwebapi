@@ -15,7 +15,7 @@ public class ClienteRequestDto {
 	private String apellidos;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date fechaNacimiento;
-	private int edad;
+	private Integer edad;
 	private String ocupacion;
 	private String celular;
 	private String correo;

@@ -46,7 +46,8 @@
 
 							<div class="form-group" th:if="${clienteSeleccionado == null}">
 								<label for="idHistoria">Paciente</label> <select
-									class="form-control" th:field="*{idHistoria}" id="idHistoria" required>
+									class="form-control js-example-basic-single" th:field="*{idHistoria}"
+									id="idHistoria" style="width:100%" required>
 									<option value="0">Seleccione un paciente</option>
 									<option th:each="historia : ${listaHistorias}"
 										th:value="${historia.idHistoriaClinica}"

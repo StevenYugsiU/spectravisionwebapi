@@ -34,7 +34,8 @@
 							<div class="form-group">
 								<label for="idEntrega">Entrega</label>
 
-								<select class="form-control" th:field="*{idEntrega}" id="idEntrega" required>
+								<select class="form-control js-example-basic-single" th:field="*{idEntrega}"
+								id="idEntrega" style="width:100%" required>
 									<option value="0">Seleccione una entrega</option>
 									<option th:each="entrega : ${listaEntregas}"
 										th:value="${entrega.idEntrega}"
